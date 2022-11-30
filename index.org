@@ -1,0 +1,28 @@
+#+TITLE: QMC Hands-on Summer Workshop
+#+AUTHOR: Claudia Filippi, Anthony Scemama
+#+LANGUAGE:  en
+#+HTML_LINK_HOME: index.html
+#+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
+
+* Presentations
+
+    - [[./Presentations/lectures_filippi_1.pdf][Basic VMC and DMC]]
+    - [[./Presentations/multidet.pdf][Multi-determinant wave functions]]
+
+* Hands-on
+
+    1. [[./01-Intro_qp.org][Introduction to Quantum Package]]
+    2. [[./02-Champ.org][Introduction to CHAMP]]
+    3. [[./03-JobScripts.org][Job script examples]]
+    4. [[./04-QP_CHAMP.org][Ground state QMC calculations]]
+    5. [[./05-ExcitedStates.org][Excited state calculations]]
+
+#+begin_note
+    This web site is available here:
+
+    https://trex-coe.github.io/school-slovakia-2022/
+
+#+end_note
+
+    To go back to the main page, you ca click on the [[./inder.org][HOME]] button at
+    the top right of the web pages.

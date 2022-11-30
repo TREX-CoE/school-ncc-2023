@@ -1,0 +1,522 @@
+#+TITLE: Quantum Package and Champ
+#+AUTHOR: Anthony Scemama, Claudia Filippi
+#+LANGUAGE:  en
+#+HTML_LINK_HOME: index.html
+#+HTML_LINK_UP: 03-JobScripts.org
+#+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
+
+@@html: <img src="./images/QP.png" width="100px" /> @@ $\longrightarrow$
+@@html: <img src="./images/TREXIO.png" width="100px" /> @@ $\longrightarrow$
+@@html: <img src="./images/Champ.png" height="80px" /> @@
+
+* Introduction
+
+  We will first use Quantum Package (QP) to generate two single-determinant
+  wave functions for the water molecule. A first one with Hartree-Fock
+  orbitals, and a second one with PBE Kohn-Sham orbitals.
+  Then, we will export these wave functions into the [[https://github.com/trex-coe/trexio][TREXIO]] format,
+  which is a general format for storing arbitrary wave functions.
+
+  In a second step, we will use CHAMP to run a VMC calculation with
+  both wave functions. We will then optimize a Jastrow factor and run
+  DMC calculations.
+
+* Basis set, Pseudo-potential
+
+ For QMC calculations, we need to use pseudopotentials optimized specifically for
+ QMC, and basis sets optimized to be used with these
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] (BFD) ones except
+ for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
+
+ QP can read basis sets and pseudopotentials from files in GAMESS
+ format, if the files exist in the current directory. Otherwise, it
+ will try to look into its own database of basis sets and
+ pseudopotentials.
+
+** Geometry
+
+  Create a file called =h2o.xyz=: with the geometry of the water molecule:
+
+  #+begin_src text
+3
+Water
+O       0.                     0.   0.
+H      -0.756950272703377558   0.  -0.585882234512562827
+H       0.756950272703377558   0.  -0.585882234512562827
+  #+end_src
+
+** BFD Pseudopotential
+
+   Store the pseudopotential parameters in a file named =PSEUDO=:
+  #+begin_src text :tangle PSEUDO
+H GEN 0 0
+3
+ 1.000000000000 1 25.000000000000
+25.000000000000 3 10.821821902641
+-8.228005709676 2  9.368618758833
+
+O GEN 2 1
+3
+6.00000000 1 9.29793903
+55.78763416 3 8.86492204
+-38.81978498 2 8.62925665
+1
+38.41914135 2 8.71924452
+
+  #+end_src
+
+** Double-Zeta basis set
+
+   Store the basis set parameters in a file named =BASIS=:
+  #+begin_src text :tangle BASIS
+HYDROGEN
+s 3
+1 6.46417546   0.063649375945
+2 1.13891461   0.339233210576
+3 0.28003249   0.702654522063
+s 1
+1 0.05908405   1.00000000
+p 1
+1 0.51368060   1.00000000
+
+OXYGEN
+s 9
+1 0.125346     0.055741
+2 0.268022     0.304848
+3 0.573098     0.453752
+4 1.225429     0.295926
+5 2.620277     0.019567
+6 5.602818     -0.128627
+7 11.980245     0.012024
+8 25.616801     0.000407
+9 54.775216     -0.000076
+s 1
+1 0.258551     1.000000
+p 9
+1 0.083598     0.044958
+2 0.167017     0.150175
+3 0.333673     0.255999
+4 0.666627     0.281879
+5 1.331816     0.242835
+6 2.660761     0.161134
+7 5.315785     0.082308
+8 10.620108     0.039899
+9 21.217318     0.004679
+p 1
+1 0.267865     1.000000
+d 1
+1 1.232753     1.000000
+
+  #+end_src
+
+* Hartree-Fock calculation
+
+  Create the EZFIO directory with the geometry, basis and
+  pseudopotential parameters:
+
+#+begin_src bash
+qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
+#+end_src
+
+  Run the Hartree-Fock calculation
+
+#+begin_src bash
+qp run scf | tee h2o_hf.out
+#+end_src
+
+  Export the wave function into TREXIO format
+
+#+begin_src bash
+qp set trexio trexio_file h2o_hf.trexio
+qp run export_trexio
+#+end_src
+
+* DFT calculation
+
+  Create the EZFIO directory with the geometry, basis and
+  pseudopotential parameters:
+
+#+begin_src bash
+qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_dft
+#+end_src
+
+  Specify that you want to use the PBE functional.
+
+#+begin_src  bash
+qp set dft_keywords exchange_functional pbe
+qp set dft_keywords correlation_functional pbe
+#+end_src
+
+  The default DFT grid is very fine. We can specify we want a coarser
+  grid to accelerate the calculations:
+
+#+begin_src  bash
+qp set becke_numerical_grid grid_type_sgn 1
+#+end_src
+
+  Run the Kohn-Sham calculation
+
+#+begin_src bash
+qp run ks_scf | tee h2o_dft.out
+#+end_src
+
+  Export the wave function into TREXIO format
+
+#+begin_src bash
+qp set trexio trexio_file h2o_dft.trexio
+qp run export_trexio
+#+end_src
+
+* QMC runs
+
+** Check that the QMC setup is OK
+
+ First, we can compute with QP the energies of the single-determinant
+ wave functions with the 2 different sets of MOs.
+
+ #+begin_src bash
+qp set_file h2o_hf
+qp run print_energy
+
+qp set_file h2o_dft
+qp run print_energy
+ #+end_src
+
+ These commands return the energy of the wavefunction contained in the
+ EZFIO database. These values will be useful for checking that the QMC
+ setup is OK. You should obtain the energies:
+
+ | HF MOs  | -16.9503842 |
+ | DFT MOs | -16.9465884 |
+
+ We will now convert the TREXIO files into input files suitable for
+ CHAMP:
+
+ #+begin_important
+ You need the ~resultsFile~ and ~trexio~ Python packages. They can be
+ installed with pip as described in [[./03-JobScripts.org][section 3]].
+ #+end_important
+
+ Create a new directory named =H2O_HF= and copy the TREXIO file
+ =h2o_hf.trexio= into it. Go inside this directory and run
+
+ #+begin_src bash
+python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
+                       --motype  "Canonical" \
+                       --backend "HDF5" \
+                       --basis_prefix "BFD-cc-pVDZ" \
+                       --lcao \
+                       --geom \
+                       --basis \
+                       --ecp \
+                       --det
+ #+end_src
+
+ Many files were created. Now, create a directory named =pool=, and
+ move some files into the pool:
+
+ #+begin_src bash
+mkdir pool
+mv *.xyz *bfinfo BFD-* ECP* pool
+ #+end_src
+
+ You can now create an input file for CHAMP =vmc_h2o_hf.inp= :
+
+ #+begin_example
+%module general
+    title           'H2O HF calculation'
+    pool            './pool/'
+    pseudopot       ECP
+    basis           BFD-cc-pVDZ
+    mode            'vmc_one_mpi1'
+%endmodule
+
+
+load molecule        $pool/champ_v2_h2o_hf_geom.xyz
+load basis_num_info  $pool/champ_v2_h2o_hf_with_g.bfinfo
+
+load orbitals        champ_v2_h2o_hf_orbitals.lcao
+load determinants    champ_v2_h2o_hf_determinants.det
+load jastrow         jastrow.start
+
+%module electrons
+    nup           4
+    nelec         8
+%endmodule
+
+
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      20000
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
+ #+end_example
+
+ Create the file for the Jastrow factor as follows, and save it as =jastrow.start=:
+
+ #+begin_example
+jastrow_parameter   1
+  0  0  0           norda,nordb,nordc
+   0.60000000   0.00000000     scalek,a21
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
+ (c(iparmj),iparmj=1,nparmc)
+ (c(iparmj),iparmj=1,nparmc)
+end
+ #+end_example
+
+ This files implies that there is no Jastrow factor ($\exp(J)=1$).
+
+ Create the submission script as presented in [[./03-JobScripts.org][section 3]], and submit
+ the job. You should obtain the Hartree-Fock energy.
+
+ Now reproduce the same steps for the TREXIO file containing the DFT
+ orbitals in directory =H2O_DFT=.
+
+ The energies obtained with VMC without the Jastrow factor should be
+ the same as those computed by QP at the beginning of this section.
+
+** Introduce and optimize a Jastrow factor
+
+ The Jastrow factor depends on the electronic ($\mathbf{r}$) and
+  nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
+
+ \[
+ J = f_{en} + f_{ee} + f_{een}
+ \]
+
+ Electron-nucleus and electron-electron: $R={1-e^{-\kappa r} \over \kappa}$
+
+ \[
+ f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
+ \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
+ \]
+
+ \[
+ f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
+ \]
+
+ Electron-electron-nucleus: $R=\exp\left(-\kappa r \right)$
+
+ \[
+ f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
+ \]
+
+ where $m={p-k-l \over 2}$
+
+ - Typically $N^a_{\rm ord}=N^b_{\rm ord}=5$. If $f_{een}$ is included, $N^c_{\rm ord}=5$.
+ - Dependence among $\{c_n\}$
+       $\rightarrow$ $f_{een}$ does not contribute to cusp-conditions
+ - $f_{en}$ and $f_{een}$: different $\{a_n\}$ and $\{c_n\}$ for different atom types
+
+*** Add a simple e-e and e-n Jastrow factor
+  - $N^a_{\rm ord}=5$
+
+    Since we are using pseudopotentials (no e-n cusps), we always leave
+    $a_1=a_2=0$ and add $a_3 (r_{i\alpha}^2), \ldots, a_6 (r_{i\alpha}^5)$
+    equal to zero, which we then optimize. We do so for each
+    atom type.
+
+  - $N^b_{\rm ord}=5$
+
+    We set $b_1=0.5$ (for up-down e-e cusp condition), and add
+    $b_3$ ($r_{ij}^2$), $\ldots$, $b_6$ ($r_{ij}^5$) equal to zero,
+    which we then optimize. $b_1$ is modified to 0.25 for up-up and
+    down-down electrons.
+
+    The following file is your starting Jastrow factor =jastrow.start=:
+
+    #+begin_example
+jastrow_parameter   1
+  5  5  0           norda,nordb,nordc
+   0.60000000         scalek
+   0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n O
+   0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n H
+   0.50000000   1. 0. 0. 0. 0. (b(iparmj),iparmj=1,nparmb) ! e-e
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n O
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n H
+end
+ #+end_example
+
+*** Optimize the Jastrow factor
+
+  Create the file =jastrow.der=:
+
+  #+begin_example
+jasderiv
+4 4 5 0 0 0 0 nparma,nparmb,nparmc,nparmf
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n O
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n H
+2 3 4 5 6 (iwjasb(iparm),iparm=1,nparmb) ! e-e
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+end
+  #+end_example
+
+  where you are telling CHAMP to optimize $a_i, 3\le i \le 6$ for e-n of O and
+  H (4 parameters for both O and H), and $b_i, 2 \le i \le 6$ (5 parameters in total).
+
+  Now, specify the name of the info of the derivatives of the Jastrow
+  in the input file, below the line where the =jastrow.start= file is
+  specified. You also need to add a block with different options for the
+  optimizer as follows.
+
+  #+begin_example
+load jastrow         jastrow.start
+load jastrow_der     jastrow.der
+
+%module optwf
+    ioptwf        1
+    ioptci        0
+    ioptjas       1
+    ioptorb       0
+
+    method        'sr_n'
+    nopt_iter     20
+    nblk_max      4000
+
+    ncore         0
+    nextorb       100
+
+    sr_tau        0.05
+    sr_eps        0.001
+    sr_adiag      0.01
+%endmodule
+  #+end_example
+
+
+  Optimization doesn't require a long QMC simulation in the first SR steps.
+  You can reduce the number of blocks in =blocking_vmc= to 100, and the code
+  will slowly increase the number of blocks to ~nblk_max~ in the ~optwf~ module.
+
+  #+begin_example
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      100
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
+  #+end_example
+
+   If you ~grep 'total E' output~, you will see the optimization progressing and
+   generating new Jastrow factors in =jastrow_optimal.1.iterX=.
+
+   If you ~grep nblk output~ you will see that the code automatically increases the
+   maximum number of blocks.
+
+** Diffusion Monte Carlo
+
+   Let us start to run a DMC simulation with the HF orbitals and the optimal
+   Jastrow factor you have just generated.
+
+   Create a new directory and copy the wave function TREXIO info and the
+   optimal Jastrow factor (for simplicity, pick the last one).
+
+   First, generate an input file as before where you read the wave function
+   files (careful to load the new Jastrow factor) and perform a short VMC
+   calculation to generate the walkers for DMC.
+
+   To shorten the VMC run, you can choose a small ~vmc_nblk~ in the main input
+   file and modify ~vmc_nconf_new~ to be the number of walkers per core you wish.
+   Here, we use the same values as for the starting iterations of the Jastrow factor
+   optimization:
+
+   #+begin_example
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      200
+    vmc_nblkeq    1
+    vmc_nconf_new 100
+%endmodule
+   #+end_example
+
+    This will generate 100 walkers per core (~vmc_nconf_new~) by writing
+    the coordinates of a walker every $20 \times 200 / 100$ steps. Since
+    the correlation time is less than 2 step in VMC, your walkers will be
+    decorrelated.
+
+    A bunch of =mc_configs_newX= files will appear in your directory, each
+    containing 100 walkers.
+
+   #+begin_src bash
+cat mc_configs_new* >> mc_configs
+rm mc_configs_new*
+   #+end_src
+
+    =mc_configs= contains now all walkers.
+
+    Generate a DMC input
+
+  #+begin_example
+%module blocking_dmc
+    dmc_nstep     60
+    dmc_nblk      40
+    dmc_nblkeq    1
+    dmc_nconf     100
+%endmodule
+
+%module dmc
+    tau           0.05
+    etrial      -17.240
+    icasula      -1
+%endmodule
+  #+end_example
+
+  You also need to change the ~mode~ keyword in the input file:
+
+  #+begin_example
+    mode            'dmc_one_mpi1'
+  #+end_example
+
+   within the  general module.
+
+   Some debug files are being created, that you can just erase.
+
+  #+begin_src bash
+rm problem*
+rm mc_configs_new*
+  #+end_src
+
+  To look at the energy, you can do
+
+  #+begin_src bash
+grep '( 100) =' dmc*out
+  #+end_src
+
+  In the last column, you have the correlation time.
+#+begin_warning
+  Make sure that you have chosen ~dmc_nstep~ about two times larger.
+#+end_warning
+
+  Also perform another calculation with a smaller time step.
+
+#+begin_warning
+   Make sure that you increase ~dmc_nstep~  by as much as you have decreased $\tau$.
+#+end_warning
+
+#+begin_note
+  You do not need to regenerate the file =mc_configs= containing the walkers.
+#+end_note
+
+  Repeat the optimization and DMC calculation with the DFT orbitals. Compare the
+  VMC and DMC energies.
+
+** Optimal one-determinant Jastrow-Slater wave function
+
+ Finally, starting from the DFT orbitals and the optimal two-body Jastrow optimize the
+ full wave function (Jastrow and orbitals).
+
+ To this aim, set ~ioptorb~ to ~1~ in the ~optwf~ module.
+
+ #+begin_example
+    ioptorb     1
+ #+end_example
+
+* More examples to play with
+
+  Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
+  [[https://github.com/TREX-CoE/school-slovakia-2022/tree/master/docs/examples][Examples]]
+
+

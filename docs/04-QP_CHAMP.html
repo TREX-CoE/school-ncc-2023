@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-06-20 Mon 23:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quantum Package and Champ</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Anthony Scemama, Claudia Filippi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script type="text/javascript" src="org-html-themes/src/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="03-JobScripts.org"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Quantum Package and Champ</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgbaa8259">1. Introduction</a></li>
+<li><a href="#org5b36690">2. Basis set, Pseudo-potential</a>
+<ul>
+<li><a href="#orge8a4360">2.1. Geometry</a></li>
+<li><a href="#orgbe29954">2.2. BFD Pseudopotential</a></li>
+<li><a href="#orgbcf7ca9">2.3. Double-Zeta basis set</a></li>
+</ul>
+</li>
+<li><a href="#orge3729b2">3. Hartree-Fock calculation</a></li>
+<li><a href="#org618e0ab">4. DFT calculation</a></li>
+<li><a href="#org69585ae">5. QMC runs</a>
+<ul>
+<li><a href="#orge6d3fd3">5.1. Check that the QMC setup is OK</a></li>
+<li><a href="#orgb698988">5.2. Introduce and optimize a Jastrow factor</a>
+<ul>
+<li><a href="#org6d74fe9">5.2.1. Add a simple e-e and e-n Jastrow factor</a></li>
+<li><a href="#org2a88250">5.2.2. Optimize the Jastrow factor</a></li>
+</ul>
+</li>
+<li><a href="#org38530f2">5.3. Diffusion Monte Carlo</a></li>
+<li><a href="#org3abe1b8">5.4. Optimal one-determinant Jastrow-Slater wave function</a></li>
+</ul>
+</li>
+<li><a href="#orgcd416c7">6. More examples to play with</a></li>
+</ul>
+</div>
+</div>
+<p>
+ <img src="./images/QP.png" width="100px" />  \(\longrightarrow\)
+ <img src="./images/TREXIO.png" width="100px" />  \(\longrightarrow\)
+ <img src="./images/Champ.png" height="80px" /> 
+</p>
+
+<div id="outline-container-orgbaa8259" class="outline-2">
+<h2 id="orgbaa8259"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We will first use Quantum Package (QP) to generate two single-determinant
+wave functions for the water molecule. A first one with Hartree-Fock
+orbitals, and a second one with PBE Kohn-Sham orbitals.
+Then, we will export these wave functions into the <a href="https://github.com/trex-coe/trexio">TREXIO</a> format,
+which is a general format for storing arbitrary wave functions.
+</p>
+
+<p>
+In a second step, we will use CHAMP to run a VMC calculation with
+both wave functions. We will then optimize a Jastrow factor and run
+DMC calculations.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5b36690" class="outline-2">
+<h2 id="org5b36690"><span class="section-number-2">2</span> Basis set, Pseudo-potential</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+For QMC calculations, we need to use pseudopotentials optimized specifically for
+QMC, and basis sets optimized to be used with these
+pseudopotentials. Here, we use the <a href="http://burkatzki.com/pseudos/index.2.html">Burkatzki-Filippi-Dolg</a> (BFD) ones except
+for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
+</p>
+
+<p>
+QP can read basis sets and pseudopotentials from files in GAMESS
+format, if the files exist in the current directory. Otherwise, it
+will try to look into its own database of basis sets and
+pseudopotentials.
+</p>
+</div>
+
+<div id="outline-container-orge8a4360" class="outline-3">
+<h3 id="orge8a4360"><span class="section-number-3">2.1</span> Geometry</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Create a file called <code>h2o.xyz</code>: with the geometry of the water molecule:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">3
+Water
+O       0.                     0.   0.
+H      -0.756950272703377558   0.  -0.585882234512562827
+H       0.756950272703377558   0.  -0.585882234512562827
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbe29954" class="outline-3">
+<h3 id="orgbe29954"><span class="section-number-3">2.2</span> BFD Pseudopotential</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Store the pseudopotential parameters in a file named <code>PSEUDO</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">H GEN 0 0
+3
+ 1.000000000000 1 25.000000000000
+25.000000000000 3 10.821821902641
+-8.228005709676 2  9.368618758833
+
+O GEN 2 1
+3
+6.00000000 1 9.29793903
+55.78763416 3 8.86492204
+-38.81978498 2 8.62925665
+1
+38.41914135 2 8.71924452
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbcf7ca9" class="outline-3">
+<h3 id="orgbcf7ca9"><span class="section-number-3">2.3</span> Double-Zeta basis set</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Store the basis set parameters in a file named <code>BASIS</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">HYDROGEN
+s 3
+1 6.46417546   0.063649375945
+2 1.13891461   0.339233210576
+3 0.28003249   0.702654522063
+s 1
+1 0.05908405   1.00000000
+p 1
+1 0.51368060   1.00000000
+
+OXYGEN
+s 9
+1 0.125346     0.055741
+2 0.268022     0.304848
+3 0.573098     0.453752
+4 1.225429     0.295926
+5 2.620277     0.019567
+6 5.602818     -0.128627
+7 11.980245     0.012024
+8 25.616801     0.000407
+9 54.775216     -0.000076
+s 1
+1 0.258551     1.000000
+p 9
+1 0.083598     0.044958
+2 0.167017     0.150175
+3 0.333673     0.255999
+4 0.666627     0.281879
+5 1.331816     0.242835
+6 2.660761     0.161134
+7 5.315785     0.082308
+8 10.620108     0.039899
+9 21.217318     0.004679
+p 1
+1 0.267865     1.000000
+d 1
+1 1.232753     1.000000
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge3729b2" class="outline-2">
+<h2 id="orge3729b2"><span class="section-number-2">3</span> Hartree-Fock calculation</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Create the EZFIO directory with the geometry, basis and
+pseudopotential parameters:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
+</pre>
+</div>
+
+<p>
+Run the Hartree-Fock calculation
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp run scf | tee h2o_hf.out
+</pre>
+</div>
+
+<p>
+Export the wave function into TREXIO format
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set trexio trexio_file h2o_hf.trexio
+qp run export_trexio
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org618e0ab" class="outline-2">
+<h2 id="org618e0ab"><span class="section-number-2">4</span> DFT calculation</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Create the EZFIO directory with the geometry, basis and
+pseudopotential parameters:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_dft
+</pre>
+</div>
+
+<p>
+Specify that you want to use the PBE functional.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set dft_keywords exchange_functional pbe
+qp set dft_keywords correlation_functional pbe
+</pre>
+</div>
+
+<p>
+The default DFT grid is very fine. We can specify we want a coarser
+grid to accelerate the calculations:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set becke_numerical_grid grid_type_sgn 1
+</pre>
+</div>
+
+<p>
+Run the Kohn-Sham calculation
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp run ks_scf | tee h2o_dft.out
+</pre>
+</div>
+
+<p>
+Export the wave function into TREXIO format
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set trexio trexio_file h2o_dft.trexio
+qp run export_trexio
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org69585ae" class="outline-2">
+<h2 id="org69585ae"><span class="section-number-2">5</span> QMC runs</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orge6d3fd3" class="outline-3">
+<h3 id="orge6d3fd3"><span class="section-number-3">5.1</span> Check that the QMC setup is OK</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+First, we can compute with QP the energies of the single-determinant
+wave functions with the 2 different sets of MOs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file h2o_hf
+qp run print_energy
+
+qp set_file h2o_dft
+qp run print_energy
+</pre>
+</div>
+
+<p>
+These commands return the energy of the wavefunction contained in the
+EZFIO database. These values will be useful for checking that the QMC
+setup is OK. You should obtain the energies:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">HF MOs</td>
+<td class="org-right">-16.9503842</td>
+</tr>
+
+<tr>
+<td class="org-left">DFT MOs</td>
+<td class="org-right">-16.9465884</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+We will now convert the TREXIO files into input files suitable for
+CHAMP:
+</p>
+
+<div class="important" id="org135b36e">
+<p>
+You need the <code>resultsFile</code> and <code>trexio</code> Python packages. They can be
+installed with pip as described in <a href="./03-JobScripts.html">section 3</a>.
+</p>
+
+</div>
+
+<p>
+Create a new directory named <code>H2O_HF</code> and copy the TREXIO file
+<code>h2o_hf.trexio</code> into it. Go inside this directory and run
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex <span style="color: #8b2252;">"h2o_hf.trexio"</span> <span style="color: #8b2252;">\</span>
+                       --motype  <span style="color: #8b2252;">"Canonical"</span> <span style="color: #8b2252;">\</span>
+                       --backend <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
+                       --basis_prefix <span style="color: #8b2252;">"BFD-cc-pVDZ"</span> <span style="color: #8b2252;">\</span>
+                       --lcao <span style="color: #8b2252;">\</span>
+                       --geom <span style="color: #8b2252;">\</span>
+                       --basis <span style="color: #8b2252;">\</span>
+                       --ecp <span style="color: #8b2252;">\</span>
+                       --det
+</pre>
+</div>
+
+<p>
+Many files were created. Now, create a directory named <code>pool</code>, and
+move some files into the pool:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">mkdir pool
+mv *.xyz *bfinfo BFD-* ECP* pool
+</pre>
+</div>
+
+<p>
+You can now create an input file for CHAMP <code>vmc_h2o_hf.inp</code> :
+</p>
+
+<pre class="example" id="org91b0c96">
+%module general
+    title           'H2O HF calculation'
+    pool            './pool/'
+    pseudopot       ECP
+    basis           BFD-cc-pVDZ
+    mode            'vmc_one_mpi1'
+%endmodule
+
+
+load molecule        $pool/champ_v2_h2o_hf_geom.xyz
+load basis_num_info  $pool/champ_v2_h2o_hf_with_g.bfinfo
+
+load orbitals        champ_v2_h2o_hf_orbitals.lcao
+load determinants    champ_v2_h2o_hf_determinants.det
+load jastrow         jastrow.start
+
+%module electrons
+    nup           4
+    nelec         8
+%endmodule
+
+
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      20000
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
+</pre>
+
+<p>
+Create the file for the Jastrow factor as follows, and save it as <code>jastrow.start</code>:
+</p>
+
+<pre class="example" id="org5944871">
+jastrow_parameter   1
+  0  0  0           norda,nordb,nordc
+   0.60000000   0.00000000     scalek,a21
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
+ (c(iparmj),iparmj=1,nparmc)
+ (c(iparmj),iparmj=1,nparmc)
+end
+</pre>
+
+<p>
+This files implies that there is no Jastrow factor (\(\exp(J)=1\)).
+</p>
+
+<p>
+Create the submission script as presented in <a href="./03-JobScripts.html">section 3</a>, and submit
+the job. You should obtain the Hartree-Fock energy.
+</p>
+
+<p>
+Now reproduce the same steps for the TREXIO file containing the DFT
+orbitals in directory <code>H2O_DFT</code>.
+</p>
+
+<p>
+The energies obtained with VMC without the Jastrow factor should be
+the same as those computed by QP at the beginning of this section.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb698988" class="outline-3">
+<h3 id="orgb698988"><span class="section-number-3">5.2</span> Introduce and optimize a Jastrow factor</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The Jastrow factor depends on the electronic (\(\mathbf{r}\)) and
+ nuclear (\(\mathbf{R}\)) coordinates. Its defined as \(\exp(J(\mathbf{r},\mathbf{R}))\), where
+</p>
+
+<p>
+\[
+ J = f_{en} + f_{ee} + f_{een}
+ \]
+</p>
+
+<p>
+Electron-nucleus and electron-electron: \(R={1-e^{-\kappa r} \over \kappa}\)
+</p>
+
+<p>
+\[
+ f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
+ \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
+ \]
+</p>
+
+<p>
+\[
+ f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
+ \]
+</p>
+
+<p>
+Electron-electron-nucleus: \(R=\exp\left(-\kappa r \right)\)
+</p>
+
+<p>
+\[
+ f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
+ \]
+</p>
+
+<p>
+where \(m={p-k-l \over 2}\)
+</p>
+
+<ul class="org-ul">
+<li>Typically \(N^a_{\rm ord}=N^b_{\rm ord}=5\). If \(f_{een}\) is included, \(N^c_{\rm ord}=5\).</li>
+<li>Dependence among \(\{c_n\}\)
+\(\rightarrow\) \(f_{een}\) does not contribute to cusp-conditions</li>
+<li>\(f_{en}\) and \(f_{een}\): different \(\{a_n\}\) and \(\{c_n\}\) for different atom types</li>
+</ul>
+</div>
+
+<div id="outline-container-org6d74fe9" class="outline-4">
+<h4 id="org6d74fe9"><span class="section-number-4">5.2.1</span> Add a simple e-e and e-n Jastrow factor</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<ul class="org-ul">
+<li><p>
+\(N^a_{\rm ord}=5\)
+</p>
+
+<p>
+Since we are using pseudopotentials (no e-n cusps), we always leave
+\(a_1=a_2=0\) and add \(a_3 (r_{i\alpha}^2), \ldots, a_6 (r_{i\alpha}^5)\)
+equal to zero, which we then optimize. We do so for each
+atom type.
+</p></li>
+
+<li><p>
+\(N^b_{\rm ord}=5\)
+</p>
+
+<p>
+We set \(b_1=0.5\) (for up-down e-e cusp condition), and add
+\(b_3\) (\(r_{ij}^2\)), \(\ldots\), \(b_6\) (\(r_{ij}^5\)) equal to zero,
+which we then optimize. \(b_1\) is modified to 0.25 for up-up and
+down-down electrons.
+</p>
+
+<p>
+The following file is your starting Jastrow factor <code>jastrow.start</code>:
+</p>
+
+<pre class="example" id="org7b895d7">
+jastrow_parameter   1
+  5  5  0           norda,nordb,nordc
+   0.60000000         scalek
+   0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n O
+   0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n H
+   0.50000000   1. 0. 0. 0. 0. (b(iparmj),iparmj=1,nparmb) ! e-e
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n O
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n H
+end
+</pre></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2a88250" class="outline-4">
+<h4 id="org2a88250"><span class="section-number-4">5.2.2</span> Optimize the Jastrow factor</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+Create the file <code>jastrow.der</code>:
+</p>
+
+<pre class="example" id="orgab3ba1e">
+jasderiv
+4 4 5 0 0 0 0 nparma,nparmb,nparmc,nparmf
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n O
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n H
+2 3 4 5 6 (iwjasb(iparm),iparm=1,nparmb) ! e-e
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+end
+</pre>
+
+<p>
+where you are telling CHAMP to optimize \(a_i, 3\le i \le 6\) for e-n of O and
+H (4 parameters for both O and H), and \(b_i, 2 \le i \le 6\) (5 parameters in total).
+</p>
+
+<p>
+Now, specify the name of the info of the derivatives of the Jastrow
+in the input file, below the line where the <code>jastrow.start</code> file is
+specified. You also need to add a block with different options for the
+optimizer as follows.
+</p>
+
+<pre class="example" id="orgf96fb35">
+load jastrow         jastrow.start
+load jastrow_der     jastrow.der
+
+%module optwf
+    ioptwf        1
+    ioptci        0
+    ioptjas       1
+    ioptorb       0
+
+    method        'sr_n'
+    nopt_iter     20
+    nblk_max      4000
+
+    ncore         0
+    nextorb       100
+
+    sr_tau        0.05
+    sr_eps        0.001
+    sr_adiag      0.01
+%endmodule
+</pre>
+
+
+<p>
+Optimization doesn't require a long QMC simulation in the first SR steps.
+You can reduce the number of blocks in <code>blocking_vmc</code> to 100, and the code
+will slowly increase the number of blocks to <code>nblk_max</code> in the <code>optwf</code> module.
+</p>
+
+<pre class="example" id="org47a7d19">
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      100
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
+</pre>
+
+<p>
+If you <code>grep 'total E' output</code>, you will see the optimization progressing and
+generating new Jastrow factors in <code>jastrow_optimal.1.iterX</code>.
+</p>
+
+<p>
+If you <code>grep nblk output</code> you will see that the code automatically increases the
+maximum number of blocks.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org38530f2" class="outline-3">
+<h3 id="org38530f2"><span class="section-number-3">5.3</span> Diffusion Monte Carlo</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Let us start to run a DMC simulation with the HF orbitals and the optimal
+Jastrow factor you have just generated.
+</p>
+
+<p>
+Create a new directory and copy the wave function TREXIO info and the
+optimal Jastrow factor (for simplicity, pick the last one).
+</p>
+
+<p>
+First, generate an input file as before where you read the wave function
+files (careful to load the new Jastrow factor) and perform a short VMC
+calculation to generate the walkers for DMC.
+</p>
+
+<p>
+To shorten the VMC run, you can choose a small <code>vmc_nblk</code> in the main input
+file and modify <code>vmc_nconf_new</code> to be the number of walkers per core you wish.
+Here, we use the same values as for the starting iterations of the Jastrow factor
+optimization:
+</p>
+
+<pre class="example" id="orgfea93b3">
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      200
+    vmc_nblkeq    1
+    vmc_nconf_new 100
+%endmodule
+</pre>
+
+<p>
+This will generate 100 walkers per core (<code>vmc_nconf_new</code>) by writing
+the coordinates of a walker every \(20 \times 200 / 100\) steps. Since
+the correlation time is less than 2 step in VMC, your walkers will be
+decorrelated.
+</p>
+
+<p>
+A bunch of <code>mc_configs_newX</code> files will appear in your directory, each
+containing 100 walkers.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">cat mc_configs_new* &gt;&gt; mc_configs
+rm mc_configs_new*
+</pre>
+</div>
+
+<p>
+<code>mc_configs</code> contains now all walkers.
+</p>
+
+<p>
+Generate a DMC input
+</p>
+
+<pre class="example" id="orga571720">
+%module blocking_dmc
+    dmc_nstep     60
+    dmc_nblk      40
+    dmc_nblkeq    1
+    dmc_nconf     100
+%endmodule
+
+%module dmc
+    tau           0.05
+    etrial      -17.240
+    icasula      -1
+%endmodule
+</pre>
+
+<p>
+You also need to change the <code>mode</code> keyword in the input file:
+</p>
+
+<pre class="example" id="orge54a3e7">
+mode            'dmc_one_mpi1'
+</pre>
+
+<p>
+within the  general module.
+</p>
+
+<p>
+Some debug files are being created, that you can just erase.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">rm problem*
+rm mc_configs_new*
+</pre>
+</div>
+
+<p>
+To look at the energy, you can do
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">grep <span style="color: #8b2252;">'( 100) ='</span> dmc*out
+</pre>
+</div>
+
+<p>
+In the last column, you have the correlation time.
+</p>
+<div class="warning" id="org7ea31d7">
+<p>
+Make sure that you have chosen <code>dmc_nstep</code> about two times larger.
+</p>
+
+</div>
+
+<p>
+Also perform another calculation with a smaller time step.
+</p>
+
+<div class="warning" id="org82b9c4b">
+<p>
+Make sure that you increase <code>dmc_nstep</code>  by as much as you have decreased \(\tau\).
+</p>
+
+</div>
+
+<div class="note" id="org948756e">
+<p>
+You do not need to regenerate the file <code>mc_configs</code> containing the walkers.
+</p>
+
+</div>
+
+<p>
+Repeat the optimization and DMC calculation with the DFT orbitals. Compare the
+VMC and DMC energies.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3abe1b8" class="outline-3">
+<h3 id="org3abe1b8"><span class="section-number-3">5.4</span> Optimal one-determinant Jastrow-Slater wave function</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Finally, starting from the DFT orbitals and the optimal two-body Jastrow optimize the
+full wave function (Jastrow and orbitals).
+</p>
+
+<p>
+To this aim, set <code>ioptorb</code> to <code>1</code> in the <code>optwf</code> module.
+</p>
+
+<pre class="example" id="orga91a018">
+ioptorb     1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcd416c7" class="outline-2">
+<h2 id="orgcd416c7"><span class="section-number-2">6</span> More examples to play with</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
+<a href="https://github.com/TREX-CoE/school-slovakia-2022/tree/master/docs/examples">Examples</a>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Anthony Scemama, Claudia Filippi</p>
+<p class="date">Created: 2022-06-20 Mon 23:33</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

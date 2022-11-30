@@ -1,0 +1,100 @@
+#+TITLE: Submitting job scripts
+#+AUTHOR: Anthony Scemama
+#+LANGUAGE:  en
+#+HTML_LINK_HOME: index.html
+#+HTML_LINK_UP: 02-Champ.html
+#+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
+
+* Environment
+
+  #+begin_important
+  Some environment variables should be set for the codes to run
+  properly. To set up the environment, you should source the
+  =~scemama/environment.sh= file in your shell when you log in:
+
+  #+begin_src bash
+source ~scemama/environment.sh
+  #+end_src
+
+  #+end_important
+
+  This file contains the following commands:
+
+#+begin_src bash
+module load openblas                        # QP was compiled with OpenBlas
+source ~scemama/qp2/quantum_package.rc      # QP environment
+source ~filippi/intel/oneapi/setvars.sh     # Intel libraries for CHAMP
+#+end_src
+
+  #+begin_important
+ It is important also that you install the following Python packages
+
+ #+begin_src bash
+pip install trexio
+pip install resultsFile
+ #+end_src
+
+  #+end_important
+ 
+* Example of a QP job script
+
+  QP uses one process, and all possible threads on the node. You
+  should request an exclusive node with one process:
+
+#+begin_src bash :tangle job_qp.sh
+#!/bin/bash
+#SBATCH -N 1 -n 1  --exclusive
+#SBATCH --account=reserved
+#SBATCH --partition=reserved
+
+source ~scemama/environment.sh
+
+qp set_file COH2
+qp run fci > COH2.fci.out
+
+#+end_src
+
+#+begin_important
+  When you work with SLURM, you should use =sbatch= to submit your scripts:
+#+begin_src bash
+  sbatch job.sh
+#+end_src bash
+
+#+end_important
+
+* Example of a CHAMP job script
+
+  CHAMP is parallelized with MPI, and doesn't use multi-threading. You
+  should request a single node, with 16 processes (as there are 16
+  cores per node).
+
+** Variational Monte Carlo run
+
+ #+begin_src bash
+#!/bin/bash
+#SBATCH -N 1 -n 16
+#SBATCH --account=reserved
+#SBATCH --partition=reserved
+
+source ~scemama/environment.sh
+
+INPUT=vmc_h2o_hf.inp
+
+OUTPUT=${INPUT%.inp}.out
+mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
+ #+end_src
+
+** Diffusion Monte Carlo run
+
+ #+begin_src bash
+#!/bin/bash
+#SBATCH -N 1 -n 16
+
+source ~scemama/environment.sh
+
+INPUT=dmc_h2o_hf.inp
+
+OUTPUT=${INPUT%.inp}.out
+mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
+ #+end_src
+
