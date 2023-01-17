@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 23:33 -->
+<!-- 2023-01-17 Tue 14:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Submitting job scripts</title>
+<title>Introduction to Quantum Package</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Anthony Scemama" />
 <style type="text/css">
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -200,181 +200,351 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="02-Champ.html"> UP </a>
+ <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Submitting job scripts</h1>
+<h1 class="title">Introduction to Quantum Package</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0879f7c">1. Environment</a></li>
-<li><a href="#orgf58b74a">2. Example of a QP job script</a></li>
-<li><a href="#org2db79d0">3. Example of a CHAMP job script</a>
+<li><a href="#org4428f3d">1. Environment</a>
 <ul>
-<li><a href="#orgdf679c7">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#org114f4c8">3.2. Diffusion Monte Carlo run</a></li>
+<li><a href="#org3192ab0">1.1. Special indications for running on LUMI</a></li>
 </ul>
 </li>
+<li><a href="#org1f53e07">2. The EZFIO database</a></li>
+<li><a href="#org9977089">3. qp commands</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0879f7c" class="outline-2">
-<h2 id="org0879f7c"><span class="section-number-2">1</span> Environment</h2>
+<div class="figure">
+<p><img src="./images/QP.png" alt="QP.png" width="100px" />
+</p>
+</div>
+
+<div id="outline-container-org4428f3d" class="outline-2">
+<h2 id="org4428f3d"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
-<div class="important" id="org9d6a2d2">
 <p>
-Some environment variables should be set for the codes to run
-properly. To set up the environment, you should source the
-<code>~scemama/environment.sh</code> file in your shell when you log in:
+<a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
+easily quantum chemistry programs. It was initially designed for code
+developers, but it is relatively simple to use.
+</p>
+
+<div class="important">
+<p>
+Before doing anything with quantum package, the environment needs to
+be set up
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">source</span> ~scemama/environment.sh
+<pre class="src src-bash">source $<span style="color: #a0522d;">QP_ROOT</span>/quantum_package.rc
+</pre>
+</div>
+
+<p>
+where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
+</p>
+
+</div>
+
+<div class="tip">
+<p>
+An alternative, when using QP interactively is to run the QP shell:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
 </pre>
 </div>
 
 </div>
+</div>
 
+
+<div id="outline-container-org3192ab0" class="outline-3">
+<h3 id="org3192ab0"><span class="section-number-3">1.1</span> Special indications for running on LUMI</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-This file contains the following commands:
+You will need to run the code compiled in my home directory:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">module load openblas                        # <span style="color: #b22222;">QP was compiled with OpenBlas</span>
-<span style="color: #483d8b;">source</span> ~scemama/qp2/quantum_package.rc      # <span style="color: #b22222;">QP environment</span>
-<span style="color: #483d8b;">source</span> ~filippi/intel/oneapi/setvars.sh     # <span style="color: #b22222;">Intel libraries for CHAMP</span>
+<pre class="src src-bash">source /users/scemamaa/qp2/quantum_package.rc
 </pre>
 </div>
 
-<div class="important" id="org3cc7403">
 <p>
-It is important also that you install the following Python packages
+On the login nodes of LUMI, it is impossible to run the code
+interactively, as you would do on your laptop. To run interactively,
+you need to request an interactive job. Here is a command to request
+a compute node for one hour:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">pip install trexio
-pip install resultsFile
+<pre class="src src-bash">salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
 </pre>
 </div>
 
+<p>
+Then, instead of using the <code>qp_run</code> command as you would do on your
+laptop, you will need to run <code>qp_srun</code> instead.
+</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf58b74a" class="outline-2">
-<h2 id="orgf58b74a"><span class="section-number-2">2</span> Example of a QP job script</h2>
+
+<div id="outline-container-org1f53e07" class="outline-2">
+<h2 id="org1f53e07"><span class="section-number-2">2</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-QP uses one process, and all possible threads on the node. You
-should request an exclusive node with one process:
+QP stores input and output data in a database, called the <i>EZFIO directory</i>.
+To interact with the database, QP provides multiple shell functions,
+scripts and programs.
+</p>
+
+<p>
+Let us take an example to show how to use QP. First, we need to
+create a file with a geometry in <i>xyz</i> or <i>z-matrix</i> format. Let us
+take the water molecule, and write the coordinates in the file
+<code>h2o.xyz</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 1  --exclusive</span>
-#<span style="color: #b22222;">SBATCH --account=reserved</span>
-#<span style="color: #b22222;">SBATCH --partition=reserved</span>
-
-<span style="color: #483d8b;">source</span> ~scemama/environment.sh
-
-qp set_file COH2
-qp run fci &gt; COH2.fci.out
-
+<pre class="src src-text">3
+Water
+O       0.                     0.   0.
+H      -0.756950272703377558   0.  -0.585882234512562827
+H       0.756950272703377558   0.  -0.585882234512562827
 </pre>
 </div>
 
-<div class="important" id="org3f2f64c">
 <p>
-  When you work with SLURM, you should use <code>sbatch</code> to submit your scripts:
-#+begin<sub>src</sub> bash
-  sbatch job.sh
-#+end<sub>src</sub> bash
+We can now create an EZFIO database containing the geometry and the
+basis set parameters for the cc-pVDZ basis set:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio --basis=cc-pvdz h2o.xyz
+</pre>
+</div>
+
+<p>
+A directory named <code>h2o.ezfio</code> has been created, and is selected
+as the currently used EZFIO directory in the current shell.
+To switch to another EZFIO database, use
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file other.ezfio
+</pre>
+</div>
+
+<div class="note">
+<p>
+When running interactively with <code>qpsh</code>, the current EZFIO database
+is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code> in green
+before the command line. If you change directory, <code>|h2o.ezfio&gt;</code>
+will become red, meaning that the EZFIO database in inaccessible.
 </p>
 
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2db79d0" class="outline-2">
-<h2 id="org2db79d0"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+
+<div id="outline-container-org9977089" class="outline-2">
+<h2 id="org9977089"><span class="section-number-2">3</span> qp commands</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-CHAMP is parallelized with MPI, and doesn't use multi-threading. You
-should request a single node, with 16 processes (as there are 16
-cores per node).
+To get the documentation of the <code>qp</code> command, you can use
 </p>
-</div>
-
-<div id="outline-container-orgdf679c7" class="outline-3">
-<h3 id="orgdf679c7"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
-<div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 16</span>
-#<span style="color: #b22222;">SBATCH --account=reserved</span>
-#<span style="color: #b22222;">SBATCH --partition=reserved</span>
-
-<span style="color: #483d8b;">source</span> ~scemama/environment.sh
-
-<span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
-
-<span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+<pre class="src src-bash">qp --help
 </pre>
 </div>
-</div>
+
+<div class="tip">
+<p>
+Note: all QP commands come with a <code>--help</code> option for documentation.
+</p>
+
 </div>
 
-<div id="outline-container-org114f4c8" class="outline-3">
-<h3 id="org114f4c8"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
-<div class="outline-text-3" id="text-3-2">
+<p>
+To run a Hartree-Fock calculation, we will run the <code>scf</code> program of
+QP. To run a QP program, normally we use <code>qp run</code>. On LUMI, after
+allocating an interactive session you can use <code>qp_srun</code>.
+</p>
+
 <div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 16</span>
-
-<span style="color: #483d8b;">source</span> ~scemama/environment.sh
-
-<span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
-
-<span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+<pre class="src src-bash">qp_srun scf h2o.ezfio | tee h2o.scf.out
 </pre>
 </div>
+
+<div class="tip">
+<p>
+Here, we have copied the standard output into the file
+<code>h2o.scf.out</code> using the <code>tee</code> Linux command.
+</p>
+
+</div>
+
+<p>
+The Hartree-Fock orbitals are now stored inside the EZFIO
+database. If you run again the <code>scf</code> code, you will notice that the
+SCF will converge in a single iteration because it takes the MOs
+stored inside the database as an initial guess.
+</p>
+
+<p>
+Now that we have a set of Hartree-Fock orbitals, we can run a
+singles doubles configuration interaction (CISD) calculation. But
+we don't want to include the single- and double-excitations from
+the \(1s\) orbitals. For that, we need to run
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_frozen_core
+</pre>
+</div>
+
+<p>
+The output of this command shows that orbital 1 is labelled as
+<code>Core</code> and orbitals 2-24 are labelled as <code>Active</code>.
+We can now run the CISD calculation using
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp_srun cisd h2o.ezfio | tee h2o.cisd.out
+</pre>
+</div>
+
+<p>
+To modify the input parameters of the programs, you can use the
+interactive command <code>qp edit</code>. This will open a temporary file
+filled-in with data coming from the EZFIO database. When the file
+is saved and the editor is exited, the data is saved back into the EZFIO.
+</p>
+
+<div class="tip">
+<p>
+You can change the text editor used by <code>qp_edit</code> by setting the
+<code>$EDITOR</code> environment variable. For example:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">EDITOR</span>=emacs
+</pre>
+</div>
+
+</div>
+
+<p>
+Alternatively, all the input parameters can be inspected in the
+shell using <code>qp get</code>, for example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp get determinants n_det_max
+</pre>
+</div>
+
+<p>
+The parameters can be set in the shell using <code>qp set</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set determinants n_det_max 2000
+</pre>
+</div>
+
+<div class="tip">
+<p>
+You can use Tab-completion with the <code>qp</code> command, which makes
+the shell interaction more user-friendly.
+</p>
+
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-20 Mon 23:33</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-01-17 Tue 14:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
