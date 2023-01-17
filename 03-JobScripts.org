@@ -5,96 +5,115 @@
 #+HTML_LINK_UP: 02-Champ.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
-* Environment
-
   #+begin_important
-  Some environment variables should be set for the codes to run
-  properly. To set up the environment, you should source the
-  =~scemama/environment.sh= file in your shell when you log in:
+To run Quantum Package (QP) and CHAMP codes properly, some environment
+variables should be set. To set up the environment, you should source the
+=/users/scemamaa/environment.sh= file in your shell when you log in:
 
   #+begin_src bash
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
   #+end_src
-
   #+end_important
+
 
   This file contains the following commands:
 
 #+begin_src bash
-module load openblas                        # QP was compiled with OpenBlas
-source ~scemama/qp2/quantum_package.rc      # QP environment
-source ~filippi/intel/oneapi/setvars.sh     # Intel libraries for CHAMP
+export SPACK_USER_PREFIX=$HOME/spack
+module load spack/22.08                         # Some modules below were installed with Spack
+module swap PrgEnv-cray/8.3.3 PrgEnv-gnu/8.3.3  # QP was compiled with the GNU compiler
+module load openblas/0.3.17-gcc-omp-xi          # OpenBLAS is used for linear algebra
+module load hdf5/1.12.2-gcc-4k                  # HDF5 (serial) is required for TREXIO
+module load python/3.9.12-gcc-6c                # Use Python3
+source /users/scemamaa/qp2/quantum_package.rc   # source QP environment
 #+end_src
 
   #+begin_important
- It is important also that you install the following Python packages
+It is also important to install the following Python packages:
 
  #+begin_src bash
-pip install trexio
-pip install resultsFile
+pip3 install trexio
+pip3 install resultsFile
  #+end_src
 
   #+end_important
- 
+
+When working with SLURM, you should use =sbatch= to submit your QP and CHAMP job
+scripts. For example, to submit a QP job script named =job_qp.sh=, you would use
+the command:
+
+#+begin_src bash 
+sbatch job_qp.sh
+#+end_src
+
+
 * Example of a QP job script
 
-  QP uses one process, and all possible threads on the node. You
-  should request an exclusive node with one process:
+An example of a QP job script would be:
 
 #+begin_src bash :tangle job_qp.sh
 #!/bin/bash
-#SBATCH -N 1 -n 1  --exclusive
-#SBATCH --account=reserved
-#SBATCH --partition=reserved
+#SBATCH --account=project_465000321
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=64
+#SBATCH --mem=200G
+#SBATCH --partition=small
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 qp set_file COH2
 qp run fci > COH2.fci.out
 
 #+end_src
 
-#+begin_important
-  When you work with SLURM, you should use =sbatch= to submit your scripts:
-#+begin_src bash
-  sbatch job.sh
-#+end_src bash
-
-#+end_important
+  Note that QP uses one process, and all possible threads on the node.
 
 * Example of a CHAMP job script
 
-  CHAMP is parallelized with MPI, and doesn't use multi-threading. You
-  should request a single node, with 16 processes (as there are 16
-  cores per node).
+  For CHAMP, you should request a single node with a certain number of
+  processes (as there are a certain number of cores per node) and set the number
+  of tasks and cpus-per-task accordingly.
 
-** Variational Monte Carlo run
+
+An example of a CHAMP Variational Monte Carlo job script would be:
 
  #+begin_src bash
 #!/bin/bash
-#SBATCH -N 1 -n 16
-#SBATCH --account=reserved
-#SBATCH --partition=reserved
+#SBATCH --account=project_465000321
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=200G
+#SBATCH --partition=small
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 INPUT=vmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
+srun ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
  #+end_src
 
-** Diffusion Monte Carlo run
+An example of a CHAMP Diffusion Monte Carlo job script would be:
 
  #+begin_src bash
 #!/bin/bash
-#SBATCH -N 1 -n 16
+#SBATCH --account=project_465000321
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=200G
+#SBATCH --partition=small
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 INPUT=dmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
+srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
  #+end_src
 
