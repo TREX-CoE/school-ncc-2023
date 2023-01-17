@@ -5,20 +5,21 @@
 #+HTML_LINK_UP: index.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
-
 #+ATTR_HTML: :width 100px
 #+ATTR_LATEX: :width 100px
   [[./images/QP.png]]
 
+* Overview
+
+  [[https://quantumpackage.github.io/qp2][Quantum Package (QP)]] Quantum
+  Package (QP) is an open-source environment for developing quantum chemistry
+  programs. It was designed for code developers, but it is relatively simple to
+  use.
+
 * Environment
 
-  [[https://quantumpackage.github.io/qp2][Quantum Package (QP)]] is an open-source environment for developing
-  easily quantum chemistry programs. It was initially designed for code
-  developers, but it is relatively simple to use.
-
-  #+begin_important
-  Before doing anything with quantum package, the environment needs to
-  be set up
+  Before using Quantum Package, the environment must be set up. This can be
+  done by running the following command:
 
   #+begin_src bash
 source $QP_ROOT/quantum_package.rc
@@ -29,7 +30,8 @@ source $QP_ROOT/quantum_package.rc
   #+end_important
 
   #+begin_tip
-  An alternative, when using QP interactively is to run the QP shell:
+  If you are using QP interactively, an alternative is to run the QP shell:
+
 
   #+begin_src bash
 $QP_ROOT/bin/qpsh
@@ -37,38 +39,34 @@ $QP_ROOT/bin/qpsh
 
   #+end_tip
 
-  
-** Special indications for running on LUMI
 
-  You will need to run the code compiled in my home directory:
-  
+* Running on LUMI
+
+  To run Quantum Package on LUMI, you will need to use the version of the code that is compiled in my home directory:
+
   #+begin_src bash
 source /users/scemamaa/qp2/quantum_package.rc
   #+end_src
 
-  On the login nodes of LUMI, it is impossible to run the code
-  interactively, as you would do on your laptop. To run interactively,
-  you need to request an interactive job. Here is a command to request
-  a compute node for one hour:
+  Note that it is not possible to run the code interactively on the login nodes of LUMI. To run interactively, you will need to request an interactive job. Here is an example command to request a compute node for one hour:
 
   #+begin_src bash
 salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
   #+end_src
-  
-  Then, instead of using the ~qp_run~ command as you would do on your
-  laptop, you will need to run ~qp_srun~ instead.
 
-  
+  Once you have an interactive job, instead of using the command ~qp_run~
+  you will need to run ~qp_srun~ to run the QP programs.
+
+
 * The EZFIO database
 
-  QP stores input and output data in a database, called the /EZFIO directory/.
+  Quantum Package (QP) stores input and output data in a database called the /EZFIO directory/.
   To interact with the database, QP provides multiple shell functions,
   scripts and programs.
 
-  Let us take an example to show how to use QP. First, we need to
-  create a file with a geometry in /xyz/ or /z-matrix/ format. Let us
-  take the water molecule, and write the coordinates in the file
-  =h2o.xyz=:
+  As an example, let's consider a water molecule. First, we need to create a
+  file with the geometry in either XYZ or Z-matrix format. For this example, we
+  will use the coordinates in the file =h2o.xyz=:
 
    #+begin_src text :tangle h2o.xyz
 3
@@ -78,61 +76,58 @@ H      -0.756950272703377558   0.  -0.585882234512562827
 H       0.756950272703377558   0.  -0.585882234512562827
    #+end_src
 
-   We can now create an EZFIO database containing the geometry and the
-   basis set parameters for the cc-pVDZ basis set:
+  Next, we can create an EZFIO database containing the geometry and the basis set
+  parameters for the cc-pVDZ basis set by running the following command:
 
    #+begin_src bash
 qp create_ezfio --basis=cc-pvdz h2o.xyz
    #+end_src
 
-   A directory named =h2o.ezfio= has been created, and is selected
-   as the currently used EZFIO directory in the current shell.
-   To switch to another EZFIO database, use
+   This command will create a directory named =h2o.ezfio=, and this directory is
+   selected as the currently used EZFIO directory in the current shell. To switch
+   to another EZFIO database, use the command:
+   #
    #+begin_src bash
 qp set_file other.ezfio
    #+end_src
 
    #+begin_note
-   When running interactively with =qpsh=, the current EZFIO database
-   is displayed in the terminal. You should see =|h2o.ezfio>= in green
-   before the command line. If you change directory, =|h2o.ezfio>=
-   will become red, meaning that the EZFIO database in inaccessible.
+  Note that when running interactively with =qpsh=, the current EZFIO database is
+  displayed in the terminal. You should see =|h2o.ezfio>= in green before the
+  command line. If you change directory, =|h2o.ezfio>= will become red, meaning
+  that the EZFIO database is inaccessible.
    #+end_note
 
+* Using QP commands
 
-* qp commands
-
-   To get the documentation of the =qp= command, you can use
+   To get documentation on the =qp= command, you can use the command
    #+begin_src bash
 qp --help
    #+end_src
 
    #+begin_tip
-   Note: all QP commands come with a =--help= option for documentation.
+   Note that all QP commands come with a =--help= option for documentation.
    #+end_tip
 
-   To run a Hartree-Fock calculation, we will run the =scf= program of
-   QP. To run a QP program, normally we use =qp run=. On LUMI, after
-   allocating an interactive session you can use =qp_srun=.
+  To run a Hartree-Fock calculation, we will use the =scf= program of QP. To run a
+  QP program, normally we use =qp run=. On LUMI, after allocating an interactive
+  session, you can use =qp_srun=. For example:
 
    #+begin_src bash
 qp_srun scf h2o.ezfio | tee h2o.scf.out
    #+end_src
 
-   #+begin_tip
-   Here, we have copied the standard output into the file
-   =h2o.scf.out= using the =tee= Linux command.
-   #+end_tip
+  This command will run the SCF calculation and save the output in the file
+  =h2o.scf.out= using the Linux command =tee=.
 
-   The Hartree-Fock orbitals are now stored inside the EZFIO
-   database. If you run again the =scf= code, you will notice that the
-   SCF will converge in a single iteration because it takes the MOs
-   stored inside the database as an initial guess.
+  The Hartree-Fock orbitals are now stored inside the EZFIO database. If you run
+  the =scf= code again, it will converge in a single iteration because it takes the
+  MOs stored inside the database as an initial guess.
 
-   Now that we have a set of Hartree-Fock orbitals, we can run a
-   singles doubles configuration interaction (CISD) calculation. But
-   we don't want to include the single- and double-excitations from
-   the $1s$ orbitals. For that, we need to run
+Now that we have a set of Hartree-Fock orbitals, we can run a singles doubles
+configuration interaction (CISD) calculation. But we don't want to include the
+single- and double-excitations from the 1/s/ orbitals. For that, we need to run
+the command
 
    #+begin_src bash
 qp set_frozen_core
@@ -140,16 +135,16 @@ qp set_frozen_core
 
    The output of this command shows that orbital 1 is labelled as
    =Core= and orbitals 2-24 are labelled as =Active=.
-   We can now run the CISD calculation using
+   To run the CISD calculation, use the command:
 
    #+begin_src bash
 qp_srun cisd h2o.ezfio | tee h2o.cisd.out
    #+end_src
 
-   To modify the input parameters of the programs, you can use the
-   interactive command =qp edit=. This will open a temporary file
-   filled-in with data coming from the EZFIO database. When the file
-   is saved and the editor is exited, the data is saved back into the EZFIO.
+To modify the input parameters of the programs, you can use the interactive
+command =qp edit=. This will open a temporary file filled-in with data coming
+from the EZFIO database. When the file is saved and the editor is exited, the
+data is saved back into the EZFIO.
 
    #+begin_tip
    You can change the text editor used by =qp_edit= by setting the
@@ -159,21 +154,14 @@ export EDITOR=emacs
    #+end_src
    #+end_tip
 
-   Alternatively, all the input parameters can be inspected in the
-   shell using =qp get=, for example:
+Alternatively, all the input parameters can be inspected in the shell using =qp get= and set using =qp set=. For example:
 
    #+begin_src bash
 qp get determinants n_det_max
-   #+end_src
-
-   The parameters can be set in the shell using =qp set=:
-
-   #+begin_src bash
 qp set determinants n_det_max 2000
    #+end_src
 
    #+begin_tip
-   You can use Tab-completion with the =qp= command, which makes
-   the shell interaction more user-friendly.
+   Note that you can use Tab-completion with the =qp= command, which makes the shell interaction more user-friendly.
    #+end_tip
 
