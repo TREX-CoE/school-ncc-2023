@@ -25,6 +25,7 @@ source $QP_ROOT/quantum_package.rc
   #+end_src
 
   where =$QP_ROOT= is the path to the =qp2= directory.
+
   #+end_important
 
   #+begin_tip
@@ -36,6 +37,28 @@ $QP_ROOT/bin/qpsh
 
   #+end_tip
 
+  
+** Special indications for running on LUMI
+
+  You will need to run the code compiled in my home directory:
+  
+  #+begin_src bash
+source /users/scemamaa/qp2/quantum_package.rc
+  #+end_src
+
+  On the login nodes of LUMI, it is impossible to run the code
+  interactively, as you would do on your laptop. To run interactively,
+  you need to request an interactive job. Here is a command to request
+  a compute node for one hour:
+
+  #+begin_src bash
+salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
+  #+end_src
+  
+  Then, instead of using the ~qp_run~ command as you would do on your
+  laptop, you will need to run ~qp_srun~ instead.
+
+  
 * The EZFIO database
 
   QP stores input and output data in a database, called the /EZFIO directory/.
@@ -89,10 +112,11 @@ qp --help
    #+end_tip
 
    To run a Hartree-Fock calculation, we will run the =scf= program of
-   QP. To run a QP program, use =qp run=:
+   QP. To run a QP program, normally we use =qp run=. On LUMI, after
+   allocating an interactive session you can use =qp_srun=.
 
    #+begin_src bash
-qp run scf | tee h2o.scf.out
+qp_srun scf h2o.ezfio | tee h2o.scf.out
    #+end_src
 
    #+begin_tip
@@ -119,7 +143,7 @@ qp set_frozen_core
    We can now run the CISD calculation using
 
    #+begin_src bash
-qp run cisd | tee h2o.cisd.out
+qp_srun cisd h2o.ezfio | tee h2o.cisd.out
    #+end_src
 
    To modify the input parameters of the programs, you can use the
