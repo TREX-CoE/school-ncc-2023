@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-17 Tue 15:06 -->
+<!-- 2023-01-17 Tue 15:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -257,76 +257,84 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb7ff28e">1. Environment</a></li>
-<li><a href="#orgcfac32b">2. Example of a QP job script</a></li>
-<li><a href="#org0805fc0">3. Example of a CHAMP job script</a>
-<ul>
-<li><a href="#orge4a1d2d">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#org3c19c47">3.2. Diffusion Monte Carlo run</a></li>
-</ul>
-</li>
+<li><a href="#org0dec3b7">1. Example of a QP job script</a></li>
+<li><a href="#orgf9aad1f">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgb7ff28e" class="outline-2">
-<h2 id="orgb7ff28e"><span class="section-number-2">1</span> Environment</h2>
-<div class="outline-text-2" id="text-1">
 <div class="important">
 <p>
-Some environment variables should be set for the codes to run
-properly. To set up the environment, you should source the
-<code>~scemama/environment.sh</code> file in your shell when you log in:
+To run Quantum Package (QP) and CHAMP codes properly, some environment
+variables should be set. To set up the environment, you should source the
+<code>/users/scemamaa/environment.sh</code> file in your shell when you log in:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">source ~scemama/environment.sh
+<pre class="src src-bash">source /users/scemamaa/environment.sh
 </pre>
 </div>
 
 </div>
+
 
 <p>
 This file contains the following commands:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">module load openblas                        # <span style="color: #b22222;">QP was compiled with OpenBlas</span>
-source ~scemama/qp2/quantum_package.rc      # <span style="color: #b22222;">QP environment</span>
-source ~filippi/intel/oneapi/setvars.sh     # <span style="color: #b22222;">Intel libraries for CHAMP</span>
+<pre class="src src-bash"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">SPACK_USER_PREFIX</span>=$<span style="color: #a0522d;">HOME</span>/spack
+module load spack/22.08                         # <span style="color: #b22222;">Some modules below were installed with Spack</span>
+module swap PrgEnv-cray/8.3.3 PrgEnv-gnu/8.3.3  # <span style="color: #b22222;">QP was compiled with the GNU compiler</span>
+module load openblas/0.3.17-gcc-omp-xi          # <span style="color: #b22222;">OpenBLAS is used for linear algebra</span>
+module load hdf5/1.12.2-gcc-4k                  # <span style="color: #b22222;">HDF5 (serial) is required for TREXIO</span>
+module load python/3.9.12-gcc-6c                # <span style="color: #b22222;">Use Python3</span>
+source /users/scemamaa/qp2/quantum_package.rc   # <span style="color: #b22222;">source QP environment</span>
 </pre>
 </div>
 
 <div class="important">
 <p>
-It is important also that you install the following Python packages
+It is also important to install the following Python packages:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">pip install trexio
-pip install resultsFile
+<pre class="src src-bash">pip3 install trexio
+pip3 install resultsFile
 </pre>
 </div>
 
 </div>
-</div>
+
+<p>
+When working with SLURM, you should use <code>sbatch</code> to submit your QP and CHAMP job
+scripts. For example, to submit a QP job script named <code>job_qp.sh</code>, you would use
+the command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sbatch job_qp.sh
+</pre>
 </div>
 
-<div id="outline-container-orgcfac32b" class="outline-2">
-<h2 id="orgcfac32b"><span class="section-number-2">2</span> Example of a QP job script</h2>
-<div class="outline-text-2" id="text-2">
+
+<div id="outline-container-org0dec3b7" class="outline-2">
+<h2 id="org0dec3b7"><span class="section-number-2">1</span> Example of a QP job script</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-QP uses one process, and all possible threads on the node. You
-should request an exclusive node with one process:
+An example of a QP job script would be:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 1  --exclusive</span>
-#<span style="color: #b22222;">SBATCH --account=reserved</span>
-#<span style="color: #b22222;">SBATCH --partition=reserved</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
+#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
+#<span style="color: #b22222;">SBATCH --nodes=1</span>
+#<span style="color: #b22222;">SBATCH --ntasks=1</span>
+#<span style="color: #b22222;">SBATCH --cpus-per-task=64</span>
+#<span style="color: #b22222;">SBATCH --mem=200G</span>
+#<span style="color: #b22222;">SBATCH --partition=small</span>
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 qp set_file COH2
 qp run fci &gt; COH2.fci.out
@@ -334,70 +342,73 @@ qp run fci &gt; COH2.fci.out
 </pre>
 </div>
 
-<div class="important">
 <p>
-  When you work with SLURM, you should use <code>sbatch</code> to submit your scripts:
-#+begin<sub>src</sub> bash
-  sbatch job.sh
-#+end<sub>src</sub> bash
-</p>
-
-</div>
-</div>
-</div>
-
-<div id="outline-container-org0805fc0" class="outline-2">
-<h2 id="org0805fc0"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-CHAMP is parallelized with MPI, and doesn't use multi-threading. You
-should request a single node, with 16 processes (as there are 16
-cores per node).
+Note that QP uses one process, and all possible threads on the node.
 </p>
 </div>
+</div>
 
-<div id="outline-container-orge4a1d2d" class="outline-3">
-<h3 id="orge4a1d2d"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgf9aad1f" class="outline-2">
+<h2 id="orgf9aad1f"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+For CHAMP, you should request a single node with a certain number of
+processes (as there are a certain number of cores per node) and set the number
+of tasks and cpus-per-task accordingly.
+</p>
+
+
+<p>
+An example of a CHAMP Variational Monte Carlo job script would be:
+</p>
+
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 16</span>
-#<span style="color: #b22222;">SBATCH --account=reserved</span>
-#<span style="color: #b22222;">SBATCH --partition=reserved</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
+#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
+#<span style="color: #b22222;">SBATCH --nodes=1</span>
+#<span style="color: #b22222;">SBATCH --ntasks=64</span>
+#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
+#<span style="color: #b22222;">SBATCH --mem=200G</span>
+#<span style="color: #b22222;">SBATCH --partition=small</span>
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 <span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
 
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+srun ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
-</div>
-</div>
 
-<div id="outline-container-org3c19c47" class="outline-3">
-<h3 id="org3c19c47"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
-<div class="outline-text-3" id="text-3-2">
+<p>
+An example of a CHAMP Diffusion Monte Carlo job script would be:
+</p>
+
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH -N 1 -n 16</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
+#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
+#<span style="color: #b22222;">SBATCH --nodes=1</span>
+#<span style="color: #b22222;">SBATCH --ntasks=64</span>
+#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
+#<span style="color: #b22222;">SBATCH --mem=200G</span>
+#<span style="color: #b22222;">SBATCH --partition=small</span>
 
-source ~scemama/environment.sh
+source /users/scemamaa/environment.sh
 
 <span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
 
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-17 Tue 15:06</p>
+<p class="date">Created: 2023-01-17 Tue 15:30</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
