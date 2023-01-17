@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-17 Tue 14:47 -->
+<!-- 2023-01-17 Tue 15:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Quantum Package and Champ</title>
@@ -279,30 +279,30 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0549320">1. Introduction</a></li>
-<li><a href="#orgf3cbfb1">2. Basis set, Pseudo-potential</a>
+<li><a href="#org249f21a">1. Introduction</a></li>
+<li><a href="#org644278e">2. Basis set, Pseudo-potential</a>
 <ul>
-<li><a href="#org07965ed">2.1. Geometry</a></li>
-<li><a href="#org2fc4fd3">2.2. BFD Pseudopotential</a></li>
-<li><a href="#orgdcbcb67">2.3. Double-Zeta basis set</a></li>
+<li><a href="#orga39064e">2.1. Geometry</a></li>
+<li><a href="#org25a0515">2.2. BFD Pseudopotential</a></li>
+<li><a href="#org1608477">2.3. Double-Zeta basis set</a></li>
 </ul>
 </li>
-<li><a href="#orga16b982">3. Hartree-Fock calculation</a></li>
-<li><a href="#org6d3f003">4. DFT calculation</a></li>
-<li><a href="#orgf49f4c9">5. QMC runs</a>
+<li><a href="#org42696f1">3. Hartree-Fock calculation</a></li>
+<li><a href="#orgc7ad36d">4. DFT calculation</a></li>
+<li><a href="#org0d94c34">5. QMC runs</a>
 <ul>
-<li><a href="#org53fed65">5.1. Check that the QMC setup is OK</a></li>
-<li><a href="#org9d2ef07">5.2. Introduce and optimize a Jastrow factor</a>
+<li><a href="#org835ceae">5.1. Check that the QMC setup is OK</a></li>
+<li><a href="#org5afd155">5.2. Introduce and optimize a Jastrow factor</a>
 <ul>
-<li><a href="#org88b8fd7">5.2.1. Add a simple e-e and e-n Jastrow factor</a></li>
-<li><a href="#org28d03ea">5.2.2. Optimize the Jastrow factor</a></li>
+<li><a href="#org238750f">5.2.1. Add a simple e-e and e-n Jastrow factor</a></li>
+<li><a href="#org6d29245">5.2.2. Optimize the Jastrow factor</a></li>
 </ul>
 </li>
-<li><a href="#org3ef6517">5.3. Diffusion Monte Carlo</a></li>
-<li><a href="#org243cb60">5.4. Optimal one-determinant Jastrow-Slater wave function</a></li>
+<li><a href="#orgbc38a1f">5.3. Diffusion Monte Carlo</a></li>
+<li><a href="#orgd631b38">5.4. Optimal one-determinant Jastrow-Slater wave function</a></li>
 </ul>
 </li>
-<li><a href="#orgbda3615">6. More examples to play with</a></li>
+<li><a href="#orgd744de3">6. More examples to play with</a></li>
 </ul>
 </div>
 </div>
@@ -312,8 +312,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-org0549320" class="outline-2">
-<h2 id="org0549320"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org249f21a" class="outline-2">
+<h2 id="org249f21a"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will first use Quantum Package (QP) to generate two single-determinant
@@ -331,8 +331,8 @@ DMC calculations.
 </div>
 </div>
 
-<div id="outline-container-orgf3cbfb1" class="outline-2">
-<h2 id="orgf3cbfb1"><span class="section-number-2">2</span> Basis set, Pseudo-potential</h2>
+<div id="outline-container-org644278e" class="outline-2">
+<h2 id="org644278e"><span class="section-number-2">2</span> Basis set, Pseudo-potential</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For QMC calculations, we need to use pseudopotentials optimized specifically for
@@ -349,8 +349,8 @@ pseudopotentials.
 </p>
 </div>
 
-<div id="outline-container-org07965ed" class="outline-3">
-<h3 id="org07965ed"><span class="section-number-3">2.1</span> Geometry</h3>
+<div id="outline-container-orga39064e" class="outline-3">
+<h3 id="orga39064e"><span class="section-number-3">2.1</span> Geometry</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Create a file called <code>h2o.xyz</code>: with the geometry of the water molecule:
@@ -367,8 +367,8 @@ H       0.756950272703377558   0.  -0.585882234512562827
 </div>
 </div>
 
-<div id="outline-container-org2fc4fd3" class="outline-3">
-<h3 id="org2fc4fd3"><span class="section-number-3">2.2</span> BFD Pseudopotential</h3>
+<div id="outline-container-org25a0515" class="outline-3">
+<h3 id="org25a0515"><span class="section-number-3">2.2</span> BFD Pseudopotential</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Store the pseudopotential parameters in a file named <code>PSEUDO</code>:
@@ -393,8 +393,8 @@ O GEN 2 1
 </div>
 </div>
 
-<div id="outline-container-orgdcbcb67" class="outline-3">
-<h3 id="orgdcbcb67"><span class="section-number-3">2.3</span> Double-Zeta basis set</h3>
+<div id="outline-container-org1608477" class="outline-3">
+<h3 id="org1608477"><span class="section-number-3">2.3</span> Double-Zeta basis set</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Store the basis set parameters in a file named <code>BASIS</code>:
@@ -444,8 +444,8 @@ d 1
 </div>
 </div>
 
-<div id="outline-container-orga16b982" class="outline-2">
-<h2 id="orga16b982"><span class="section-number-2">3</span> Hartree-Fock calculation</h2>
+<div id="outline-container-org42696f1" class="outline-2">
+<h2 id="org42696f1"><span class="section-number-2">3</span> Hartree-Fock calculation</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Create the EZFIO directory with the geometry, basis and
@@ -478,8 +478,8 @@ qp run export_trexio
 </div>
 </div>
 
-<div id="outline-container-org6d3f003" class="outline-2">
-<h2 id="org6d3f003"><span class="section-number-2">4</span> DFT calculation</h2>
+<div id="outline-container-orgc7ad36d" class="outline-2">
+<h2 id="orgc7ad36d"><span class="section-number-2">4</span> DFT calculation</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Create the EZFIO directory with the geometry, basis and
@@ -532,12 +532,12 @@ qp run export_trexio
 </div>
 </div>
 
-<div id="outline-container-orgf49f4c9" class="outline-2">
-<h2 id="orgf49f4c9"><span class="section-number-2">5</span> QMC runs</h2>
+<div id="outline-container-org0d94c34" class="outline-2">
+<h2 id="org0d94c34"><span class="section-number-2">5</span> QMC runs</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org53fed65" class="outline-3">
-<h3 id="org53fed65"><span class="section-number-3">5.1</span> Check that the QMC setup is OK</h3>
+<div id="outline-container-org835ceae" class="outline-3">
+<h3 id="org835ceae"><span class="section-number-3">5.1</span> Check that the QMC setup is OK</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 First, we can compute with QP the energies of the single-determinant
@@ -694,8 +694,8 @@ the same as those computed by QP at the beginning of this section.
 </div>
 </div>
 
-<div id="outline-container-org9d2ef07" class="outline-3">
-<h3 id="org9d2ef07"><span class="section-number-3">5.2</span> Introduce and optimize a Jastrow factor</h3>
+<div id="outline-container-org5afd155" class="outline-3">
+<h3 id="org5afd155"><span class="section-number-3">5.2</span> Introduce and optimize a Jastrow factor</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 The Jastrow factor depends on the electronic (\(\mathbf{r}\)) and
@@ -747,8 +747,8 @@ where \(m={p-k-l \over 2}\)
 </ul>
 </div>
 
-<div id="outline-container-org88b8fd7" class="outline-4">
-<h4 id="org88b8fd7"><span class="section-number-4">5.2.1</span> Add a simple e-e and e-n Jastrow factor</h4>
+<div id="outline-container-org238750f" class="outline-4">
+<h4 id="org238750f"><span class="section-number-4">5.2.1</span> Add a simple e-e and e-n Jastrow factor</h4>
 <div class="outline-text-4" id="text-5-2-1">
 <ul class="org-ul">
 <li><p>
@@ -792,8 +792,8 @@ end
 </div>
 </div>
 
-<div id="outline-container-org28d03ea" class="outline-4">
-<h4 id="org28d03ea"><span class="section-number-4">5.2.2</span> Optimize the Jastrow factor</h4>
+<div id="outline-container-org6d29245" class="outline-4">
+<h4 id="org6d29245"><span class="section-number-4">5.2.2</span> Optimize the Jastrow factor</h4>
 <div class="outline-text-4" id="text-5-2-2">
 <p>
 Create the file <code>jastrow.der</code>:
@@ -874,8 +874,8 @@ maximum number of blocks.
 </div>
 </div>
 
-<div id="outline-container-org3ef6517" class="outline-3">
-<h3 id="org3ef6517"><span class="section-number-3">5.3</span> Diffusion Monte Carlo</h3>
+<div id="outline-container-orgbc38a1f" class="outline-3">
+<h3 id="orgbc38a1f"><span class="section-number-3">5.3</span> Diffusion Monte Carlo</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Let us start to run a DMC simulation with the HF orbitals and the optimal
@@ -1016,8 +1016,8 @@ VMC and DMC energies.
 </div>
 </div>
 
-<div id="outline-container-org243cb60" class="outline-3">
-<h3 id="org243cb60"><span class="section-number-3">5.4</span> Optimal one-determinant Jastrow-Slater wave function</h3>
+<div id="outline-container-orgd631b38" class="outline-3">
+<h3 id="orgd631b38"><span class="section-number-3">5.4</span> Optimal one-determinant Jastrow-Slater wave function</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Finally, starting from the DFT orbitals and the optimal two-body Jastrow optimize the
@@ -1035,8 +1035,8 @@ ioptorb     1
 </div>
 </div>
 
-<div id="outline-container-orgbda3615" class="outline-2">
-<h2 id="orgbda3615"><span class="section-number-2">6</span> More examples to play with</h2>
+<div id="outline-container-orgd744de3" class="outline-2">
+<h2 id="orgd744de3"><span class="section-number-2">6</span> More examples to play with</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
@@ -1047,7 +1047,7 @@ Multiple files with geometries, basis sets and pseudopotentials can be downloade
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2023-01-17 Tue 14:47</p>
+<p class="date">Created: 2023-01-17 Tue 15:06</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
