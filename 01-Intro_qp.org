@@ -22,19 +22,14 @@
   done by running the following command:
 
   #+begin_src bash
-source $QP_ROOT/quantum_package.rc
+source /project/project_465000321/qp2/quantum_package.rc
   #+end_src
-
-  where =$QP_ROOT= is the path to the =qp2= directory.
-
-  #+end_important
 
   #+begin_tip
   If you are using QP interactively, an alternative is to run the QP shell:
 
-
   #+begin_src bash
-$QP_ROOT/bin/qpsh
+/project/project_465000321/qp2/bin/qpsh
   #+end_src
 
   #+end_tip
@@ -42,31 +37,34 @@ $QP_ROOT/bin/qpsh
 
 * Running on LUMI
 
-  To run Quantum Package on LUMI, you will need to use the version of the code that is compiled in my home directory:
-
-  #+begin_src bash
-source /users/scemamaa/qp2/quantum_package.rc
-  #+end_src
-
-  Note that it is not possible to run the code interactively on the login nodes of LUMI. To run interactively, you will need to request an interactive job. Here is an example command to request a compute node for one hour:
+  Note that it is not possible to run the code interactively on the
+  login nodes of LUMI. To run interactively, you will need to request
+  an interactive job. Here is an example command to request a compute
+  node for one hour:
 
   #+begin_src bash
 salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
   #+end_src
 
-  Once you have an interactive job, instead of using the command ~qp_run~
-  you will need to run ~qp_srun~ to run the QP programs.
+  #+begin_note
+  The =salloc= command creates a new shell, so if you want to use
+  =qpsh= you need to run =qpsh= after =salloc=.
+  #+end_note
+
+  Once you have an interactive job, instead of using the command
+  ~qp_run~ you will need to run ~qp_srun~ to run the QP programs.
 
 
 * The EZFIO database
 
-  Quantum Package (QP) stores input and output data in a database called the /EZFIO directory/.
-  To interact with the database, QP provides multiple shell functions,
-  scripts and programs.
+  Quantum Package (QP) stores input and output data in a database
+  called the /EZFIO directory/.  To interact with the database, QP
+  provides multiple shell functions, scripts and programs.
 
-  As an example, let's consider a water molecule. First, we need to create a
-  file with the geometry in either XYZ or Z-matrix format. For this example, we
-  will use the coordinates in the file =h2o.xyz=:
+  As an example, let's consider a water molecule. First, we need to
+  create a file with the geometry in either XYZ or Z-matrix
+  format. For this example, we will use the coordinates in the file
+  =h2o.xyz=:
 
    #+begin_src text :tangle h2o.xyz
 3
@@ -76,26 +74,29 @@ H      -0.756950272703377558   0.  -0.585882234512562827
 H       0.756950272703377558   0.  -0.585882234512562827
    #+end_src
 
-  Next, we can create an EZFIO database containing the geometry and the basis set
-  parameters for the cc-pVDZ basis set by running the following command:
+  Next, we can create an EZFIO database containing the geometry and
+  the basis set parameters for the cc-pVDZ basis set by running the
+  following command:
 
    #+begin_src bash
 qp create_ezfio --basis=cc-pvdz h2o.xyz
    #+end_src
 
-   This command will create a directory named =h2o.ezfio=, and this directory is
-   selected as the currently used EZFIO directory in the current shell. To switch
-   to another EZFIO database, use the command:
-   #
+   This command will create a directory named =h2o.ezfio=, and this
+   directory is selected as the currently used EZFIO directory in the
+   current shell. To switch to another EZFIO database, use the
+   command:
+
    #+begin_src bash
 qp set_file other.ezfio
    #+end_src
 
    #+begin_note
-  Note that when running interactively with =qpsh=, the current EZFIO database is
-  displayed in the terminal. You should see =|h2o.ezfio>= in green before the
-  command line. If you change directory, =|h2o.ezfio>= will become red, meaning
-  that the EZFIO database is inaccessible.
+  Note that when running interactively with =qpsh=, the current EZFIO
+  database is displayed in the terminal. You should see =|h2o.ezfio>=
+  in green before the command line. If you change directory,
+  =|h2o.ezfio>= will become red, meaning that the EZFIO database is
+  inaccessible.
    #+end_note
 
 * Using QP commands
@@ -109,9 +110,10 @@ qp --help
    Note that all QP commands come with a =--help= option for documentation.
    #+end_tip
 
-  To run a Hartree-Fock calculation, we will use the =scf= program of QP. To run a
-  QP program, normally we use =qp run=. On LUMI, after allocating an interactive
-  session, you can use =qp_srun=. For example:
+  To run a Hartree-Fock calculation, we will use the =scf= program of
+  QP. To run a QP program, normally we use =qp run=. On LUMI, after
+  allocating an interactive session, you can use =qp_srun=. For
+  example:
 
    #+begin_src bash
 qp_srun scf h2o.ezfio | tee h2o.scf.out
