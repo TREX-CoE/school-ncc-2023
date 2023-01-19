@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-17 Tue 15:30 -->
+<!-- 2023-01-19 Thu 18:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -257,11 +257,11 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2c48ef5">1. Overview</a></li>
-<li><a href="#org7111dff">2. Environment</a></li>
-<li><a href="#orged1c513">3. Running on LUMI</a></li>
-<li><a href="#orga06af4d">4. The EZFIO database</a></li>
-<li><a href="#org2e809c2">5. Using QP commands</a></li>
+<li><a href="#orgbe51c41">1. Overview</a></li>
+<li><a href="#orgcc7633b">2. Environment</a></li>
+<li><a href="#org6f280d4">3. Running on LUMI</a></li>
+<li><a href="#orgf525ad5">4. The EZFIO database</a></li>
+<li><a href="#org0cae604">5. Using QP commands</a></li>
 </ul>
 </div>
 </div>
@@ -271,8 +271,8 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org2c48ef5" class="outline-2">
-<h2 id="org2c48ef5"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-orgbe51c41" class="outline-2">
+<h2 id="orgbe51c41"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> Quantum
@@ -283,8 +283,8 @@ use.
 </div>
 </div>
 
-<div id="outline-container-org7111dff" class="outline-2">
-<h2 id="org7111dff"><span class="section-number-2">2</span> Environment</h2>
+<div id="outline-container-orgcc7633b" class="outline-2">
+<h2 id="orgcc7633b"><span class="section-number-2">2</span> Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Before using Quantum Package, the environment must be set up. This can be
@@ -292,26 +292,17 @@ done by running the following command:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">source $<span style="color: #a0522d;">QP_ROOT</span>/quantum_package.rc
+<pre class="src src-bash">source /project/project_465000321/qp2/quantum_package.rc
 </pre>
 </div>
-
-<p>
-where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
-</p>
-
-<p>
-#+end<sub>important</sub>
-</p>
 
 <div class="tip">
 <p>
 If you are using QP interactively, an alternative is to run the QP shell:
 </p>
 
-
 <div class="org-src-container">
-<pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
+<pre class="src src-bash">/project/project_465000321/qp2/bin/qpsh
 </pre>
 </div>
 
@@ -320,20 +311,14 @@ If you are using QP interactively, an alternative is to run the QP shell:
 </div>
 
 
-<div id="outline-container-orged1c513" class="outline-2">
-<h2 id="orged1c513"><span class="section-number-2">3</span> Running on LUMI</h2>
+<div id="outline-container-org6f280d4" class="outline-2">
+<h2 id="org6f280d4"><span class="section-number-2">3</span> Running on LUMI</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-To run Quantum Package on LUMI, you will need to use the version of the code that is compiled in my home directory:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">source /users/scemamaa/qp2/quantum_package.rc
-</pre>
-</div>
-
-<p>
-Note that it is not possible to run the code interactively on the login nodes of LUMI. To run interactively, you will need to request an interactive job. Here is an example command to request a compute node for one hour:
+Note that it is not possible to run the code interactively on the
+login nodes of LUMI. To run interactively, you will need to request
+an interactive job. Here is an example command to request a compute
+node for one hour:
 </p>
 
 <div class="org-src-container">
@@ -341,27 +326,36 @@ Note that it is not possible to run the code interactively on the login nodes of
 </pre>
 </div>
 
+<div class="note">
 <p>
-Once you have an interactive job, instead of using the command <code>qp_run</code>
-you will need to run <code>qp_srun</code> to run the QP programs.
+The <code>salloc</code> command creates a new shell, so if you want to use
+<code>qpsh</code> you need to run <code>qpsh</code> after <code>salloc</code>.
+</p>
+
+</div>
+
+<p>
+Once you have an interactive job, instead of using the command
+<code>qp_run</code> you will need to run <code>qp_srun</code> to run the QP programs.
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-orga06af4d" class="outline-2">
-<h2 id="orga06af4d"><span class="section-number-2">4</span> The EZFIO database</h2>
+<div id="outline-container-orgf525ad5" class="outline-2">
+<h2 id="orgf525ad5"><span class="section-number-2">4</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-Quantum Package (QP) stores input and output data in a database called the <i>EZFIO directory</i>.
-To interact with the database, QP provides multiple shell functions,
-scripts and programs.
+Quantum Package (QP) stores input and output data in a database
+called the <i>EZFIO directory</i>.  To interact with the database, QP
+provides multiple shell functions, scripts and programs.
 </p>
 
 <p>
-As an example, let's consider a water molecule. First, we need to create a
-file with the geometry in either XYZ or Z-matrix format. For this example, we
-will use the coordinates in the file <code>h2o.xyz</code>:
+As an example, let's consider a water molecule. First, we need to
+create a file with the geometry in either XYZ or Z-matrix
+format. For this example, we will use the coordinates in the file
+<code>h2o.xyz</code>:
 </p>
 
 <div class="org-src-container">
@@ -374,8 +368,9 @@ H       0.756950272703377558   0.  -0.585882234512562827
 </div>
 
 <p>
-Next, we can create an EZFIO database containing the geometry and the basis set
-parameters for the cc-pVDZ basis set by running the following command:
+Next, we can create an EZFIO database containing the geometry and
+the basis set parameters for the cc-pVDZ basis set by running the
+following command:
 </p>
 
 <div class="org-src-container">
@@ -384,9 +379,10 @@ parameters for the cc-pVDZ basis set by running the following command:
 </div>
 
 <p>
-This command will create a directory named <code>h2o.ezfio</code>, and this directory is
-selected as the currently used EZFIO directory in the current shell. To switch
-to another EZFIO database, use the command:
+This command will create a directory named <code>h2o.ezfio</code>, and this
+directory is selected as the currently used EZFIO directory in the
+current shell. To switch to another EZFIO database, use the
+command:
 </p>
 
 <div class="org-src-container">
@@ -396,18 +392,19 @@ to another EZFIO database, use the command:
 
 <div class="note">
 <p>
-Note that when running interactively with <code>qpsh</code>, the current EZFIO database is
-displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code> in green before the
-command line. If you change directory, <code>|h2o.ezfio&gt;</code> will become red, meaning
-that the EZFIO database is inaccessible.
+Note that when running interactively with <code>qpsh</code>, the current EZFIO
+database is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code>
+in green before the command line. If you change directory,
+<code>|h2o.ezfio&gt;</code> will become red, meaning that the EZFIO database is
+inaccessible.
 </p>
 
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2e809c2" class="outline-2">
-<h2 id="org2e809c2"><span class="section-number-2">5</span> Using QP commands</h2>
+<div id="outline-container-org0cae604" class="outline-2">
+<h2 id="org0cae604"><span class="section-number-2">5</span> Using QP commands</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 To get documentation on the <code>qp</code> command, you can use the command
@@ -425,9 +422,10 @@ Note that all QP commands come with a <code>--help</code> option for documentati
 </div>
 
 <p>
-To run a Hartree-Fock calculation, we will use the <code>scf</code> program of QP. To run a
-QP program, normally we use <code>qp run</code>. On LUMI, after allocating an interactive
-session, you can use <code>qp_srun</code>. For example:
+To run a Hartree-Fock calculation, we will use the <code>scf</code> program of
+QP. To run a QP program, normally we use <code>qp run</code>. On LUMI, after
+allocating an interactive session, you can use <code>qp_srun</code>. For
+example:
 </p>
 
 <div class="org-src-container">
@@ -509,7 +507,7 @@ Note that you can use Tab-completion with the <code>qp</code> command, which mak
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-17 Tue 15:30</p>
+<p class="date">Created: 2023-01-19 Thu 18:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
