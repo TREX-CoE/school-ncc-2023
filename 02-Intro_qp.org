@@ -2,7 +2,7 @@
 #+AUTHOR: Anthony Scemama
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: index.html
-#+HTML_LINK_UP: index.html
+#+HTML_LINK_UP: 01-JobScripts.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 #+ATTR_HTML: :width 100px

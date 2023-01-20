@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 23:33 -->
+<!-- 2023-01-19 Thu 19:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to CHAMP</title>
@@ -233,31 +233,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfcb1d5f">1. CHAMP</a>
+<li><a href="#orgf67c1b5">1. CHAMP</a>
 <ul>
-<li><a href="#org0d8f721">1.1. Requirements</a></li>
-<li><a href="#org11800d4">1.2. Installation of required libraries/packages</a>
+<li><a href="#orgd1e0a04">1.1. Requirements</a></li>
+<li><a href="#org8e1582c">1.2. Installation of required libraries/packages</a>
 <ul>
-<li><a href="#orga98ad99">1.2.1. Install or load cmake</a></li>
-<li><a href="#org2b41da2">1.2.2. Installation using Intel oneAPI compilers</a></li>
-<li><a href="#org98b5d32">1.2.3. Installation using GNU Compiler</a></li>
+<li><a href="#orgcfd2f33">1.2.1. Install or load cmake</a></li>
+<li><a href="#orgd1ba811">1.2.2. Installation using Intel oneAPI compilers</a></li>
+<li><a href="#orgec638c1">1.2.3. Installation using GNU Compiler</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orga2401c3">2. Setup of input files</a></li>
+<li><a href="#org92c09d9">2. Setup of input files</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgc0be960" class="figure">
+<div id="org707fbf6" class="figure">
 <p><img src="./images/Champ.png" alt="Champ.png" height="100px" />
 </p>
 </div>
 
 
-<div id="outline-container-orgfcb1d5f" class="outline-2">
-<h2 id="orgfcb1d5f"><span class="section-number-2">1</span> CHAMP</h2>
+<div id="outline-container-orgf67c1b5" class="outline-2">
+<h2 id="orgf67c1b5"><span class="section-number-2">1</span> CHAMP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
@@ -265,16 +265,16 @@ Monte Carlo suite of programs for electronic structure calculations of
 atomic and molecular systems.
 </p>
 
-<div class="tip" id="orgd59b10f">
+<div class="tip" id="org084f686">
 <p>
-For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section <a href="#org66a958a">2</a> for using CHAMP.
+For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section <a href="#org25e0d35">2</a> for using CHAMP.
 </p>
 
 </div>
 </div>
 
-<div id="outline-container-org0d8f721" class="outline-3">
-<h3 id="org0d8f721"><span class="section-number-3">1.1</span> Requirements</h3>
+<div id="outline-container-orgd1e0a04" class="outline-3">
+<h3 id="orgd1e0a04"><span class="section-number-3">1.1</span> Requirements</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li>Cmake &gt;= 3.20</li>
@@ -286,12 +286,12 @@ For the purpose of this workshop, we have installed CHAMP for you. You may skip 
 </div>
 </div>
 
-<div id="outline-container-org11800d4" class="outline-3">
-<h3 id="org11800d4"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
+<div id="outline-container-org8e1582c" class="outline-3">
+<h3 id="org8e1582c"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orga98ad99" class="outline-4">
-<h4 id="orga98ad99"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
+<div id="outline-container-orgcfd2f33" class="outline-4">
+<h4 id="orgcfd2f33"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <div class="org-src-container">
 <pre class="src src-bash">sudo apt-get install -y cmake
@@ -313,12 +313,12 @@ tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
 </div>
 </div>
 
-<div id="outline-container-org2b41da2" class="outline-4">
-<h4 id="org2b41da2"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
+<div id="outline-container-orgd1ba811" class="outline-4">
+<h4 id="orgd1ba811"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
 <div class="outline-text-4" id="text-1-2-2">
 </div>
 <ol class="org-ol">
-<li><a id="org6ef3d46"></a>Installation without sudo access<br />
+<li><a id="org0277b10"></a>Installation without sudo access<br />
 <div class="outline-text-5" id="text-1-2-2-1">
 <p>
 Download Intel oneAPI basekit and HPCkit for free from
@@ -340,7 +340,7 @@ After installation export the path to your <code>~/.bashrc</code>.
 </div>
 </li>
 
-<li><a id="org95b936f"></a>Prerequisites for Intel oneAPI with sudo access<br />
+<li><a id="org10ccf41"></a>Prerequisites for Intel oneAPI with sudo access<br />
 <div class="outline-text-5" id="text-1-2-2-2">
 <div class="org-src-container">
 <pre class="src src-bash">wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
@@ -353,7 +353,7 @@ sudo apt-get update
 </div>
 </li>
 
-<li><a id="org5328761"></a>Install the components<br />
+<li><a id="org14f75b5"></a>Install the components<br />
 <div class="outline-text-5" id="text-1-2-2-3">
 <div class="org-src-container">
 <pre class="src src-bash">sudo apt-get install -y intel-oneapi-common-vars
@@ -367,7 +367,7 @@ sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
 </div>
 </li>
 
-<li><a id="org4b45425"></a>Compile script for CHAMP using Intel libraries<br />
+<li><a id="orgdea443b"></a>Compile script for CHAMP using Intel libraries<br />
 <div class="outline-text-5" id="text-1-2-2-4">
 <div class="org-src-container">
 <pre class="src src-bash">cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES=<span style="color: #8b2252;">"-qmkl=parallel"</span>
@@ -380,10 +380,10 @@ cmake --build build -j 8
 </div>
 
 
-<div id="outline-container-org98b5d32" class="outline-4">
-<h4 id="org98b5d32"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
+<div id="outline-container-orgec638c1" class="outline-4">
+<h4 id="orgec638c1"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
 <div class="outline-text-4" id="text-1-2-3">
-<div class="warning" id="orgb73845f">
+<div class="warning" id="org2ae191f">
 <ul class="org-ul">
 <li>Make sure that the installed version of Cmake is higher than 3.20</li>
 <li>Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0</li>
@@ -393,7 +393,7 @@ cmake --build build -j 8
 </div>
 
 <ol class="org-ol">
-<li><a id="org096d8ee"></a>Install or load compilers<br />
+<li><a id="org67b01fb"></a>Install or load compilers<br />
 <div class="outline-text-5" id="text-1-2-3-1">
 <div class="org-src-container">
 <pre class="src src-bash">sudo apt install -y gfortran
@@ -405,7 +405,7 @@ sudo apt install -y libopenmpi-dev
 </div>
 </li>
 
-<li><a id="org68e053f"></a>Install or load BLAS/LAPACK<br />
+<li><a id="orga5bd974"></a>Install or load BLAS/LAPACK<br />
 <div class="outline-text-5" id="text-1-2-3-2">
 <div class="org-src-container">
 <pre class="src src-bash">sudo apt install -y libblacs-mpi-dev
@@ -415,13 +415,13 @@ sudo apt install -y liblapack-dev
 </div>
 </li>
 
-<li><a id="org4f8d270"></a>Compile script for CHAMP<br />
+<li><a id="org647ffeb"></a>Compile script for CHAMP<br />
 <div class="outline-text-5" id="text-1-2-3-3">
 <p>
 Get the <a href="https://github.com/filippi-claudia/champ/releases/tag/v2.1.1">stable version of CHAMP v.2.1.1</a>
 </p>
 
-<div class="warning" id="org95cecdd">
+<div class="warning" id="org648b20c">
 <p>
 Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
 </p>
@@ -440,8 +440,8 @@ cmake --build build
 </div>
 </div>
 
-<div id="outline-container-orga2401c3" class="outline-2">
-<h2 id="orga2401c3"><span class="section-number-2">2</span> <a id="org66a958a"></a> Setup of input files</h2>
+<div id="outline-container-org92c09d9" class="outline-2">
+<h2 id="org92c09d9"><span class="section-number-2">2</span> <a id="org25e0d35"></a> Setup of input files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The tutorial folder is located at: <code>/lustre/home/filippi/Tutorial-QMC-School</code>
@@ -523,7 +523,7 @@ Move or copy the following files into the pool folder
 </pre>
 </div>
 
-<pre class="example" id="org2f5ecdc">
+<pre class="example" id="orgeb3e921">
 champ_v2_trexio_H2O_HF_geom.xyz
 champ_v2_trexio_H2O_HF_with_g.bfinfo
 ECP.gauss_ecp.dat.H
@@ -541,7 +541,7 @@ The remaining files should be kept in the <code>01_champ_tools/example01_H2O_HF<
 </pre>
 </div>
 
-<pre class="example" id="org93065c0">
+<pre class="example" id="org52d0025">
 champ_v2_trexio_H2O_HF_orbitals.lcao
 champ_v2_trexio_H2O_HF_determinants.det
 jastrow.start
@@ -556,7 +556,7 @@ setup/
 <p>
 The input file <code>vmc_h2o_hf.inp</code> looks like:
 </p>
-<pre class="example" id="orgd45a125">
+<pre class="example" id="orgaa8381e">
 %module general
     title           'H2O HF calculation'
     pool            './pool/'
@@ -591,7 +591,7 @@ load jastrow         jastrow.start
 The included jastrow file is
 </p>
 
-<pre class="example" id="orga9d6f72">
+<pre class="example" id="org71b4aaf">
 jastrow_parameter   1
   0  1  0           norda,nordb,nordc
    0.60000000   0.00000000     scalek,a21
@@ -607,7 +607,7 @@ end
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ravindra Shinde, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 23:33</p>
+<p class="date">Created: 2023-01-19 Thu 19:34</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

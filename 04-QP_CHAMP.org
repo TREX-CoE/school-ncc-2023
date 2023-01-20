@@ -2,7 +2,7 @@
 #+AUTHOR: Anthony Scemama, Claudia Filippi
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: index.html
-#+HTML_LINK_UP: 03-JobScripts.org
+#+HTML_LINK_UP: 03-Champ.org
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 @@html: <img src="./images/QP.png" width="100px" /> @@ $\longrightarrow$

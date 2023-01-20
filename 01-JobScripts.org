@@ -1,17 +1,18 @@
-#+TITLE: Submitting job scripts
+#+TITLE: Submitting job scripts on LUMI
 #+AUTHOR: Anthony Scemama
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: index.html
-#+HTML_LINK_UP: 02-Champ.html
+#+HTML_LINK_UP: index.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
   #+begin_important
 To run Quantum Package (QP) and CHAMP codes properly, some environment
-variables should be set. To set up the environment, you should source the
-=/users/scemamaa/environment.sh= file in your shell when you log in:
+variables should be set. To set up the environment, you should source
+the =/project/project_465000321/environment.sh= file in your shell
+when you log in:
 
   #+begin_src bash
-source /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
   #+end_src
   #+end_important
 
@@ -19,24 +20,9 @@ source /users/scemamaa/environment.sh
   This file contains the following commands:
 
 #+begin_src bash
-export SPACK_USER_PREFIX=$HOME/spack
-module load spack/22.08                         # Some modules below were installed with Spack
-module swap PrgEnv-cray/8.3.3 PrgEnv-gnu/8.3.3  # QP was compiled with the GNU compiler
-module load openblas/0.3.17-gcc-omp-xi          # OpenBLAS is used for linear algebra
-module load hdf5/1.12.2-gcc-4k                  # HDF5 (serial) is required for TREXIO
-module load python/3.9.12-gcc-6c                # Use Python3
-source /users/scemamaa/qp2/quantum_package.rc   # source QP environment
+module load cray-python
+source /project/project_465000321/qp2/quantum_package.rc   # source QP environment
 #+end_src
-
-  #+begin_important
-It is also important to install the following Python packages:
-
- #+begin_src bash
-pip3 install trexio
-pip3 install resultsFile
- #+end_src
-
-  #+end_important
 
 When working with SLURM, you should use =sbatch= to submit your QP and CHAMP job
 scripts. For example, to submit a QP job script named =job_qp.sh=, you would use
@@ -47,7 +33,7 @@ sbatch job_qp.sh
 #+end_src
 
 
-* Example of a QP job script
+* Example of a QP job script on LUMI
 
 An example of a QP job script would be:
 
@@ -61,21 +47,20 @@ An example of a QP job script would be:
 #SBATCH --mem=200G
 #SBATCH --partition=small
 
-source /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
-qp set_file COH2
-qp run fci > COH2.fci.out
+qp_srun fci COH2.ezfio > COH2.fci.out
 
 #+end_src
 
-  Note that QP uses one process, and all possible threads on the node.
+  Note that QP uses shared memory parallelism with OpenMP. It will be
+  efficient using all possible threads on the node.
 
 * Example of a CHAMP job script
 
-  For CHAMP, you should request a single node with a certain number of
-  processes (as there are a certain number of cores per node) and set the number
-  of tasks and cpus-per-task accordingly.
-
+  For CHAMP, you should request one or many nodes with a certain number of
+  processes (as there are a certain number of cores per node). There
+  each MPI process uses a single thread.
 
 An example of a CHAMP Variational Monte Carlo job script would be:
 
@@ -89,7 +74,7 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 #SBATCH --mem=200G
 #SBATCH --partition=small
 
-source /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
 INPUT=vmc_h2o_hf.inp
 
@@ -109,7 +94,7 @@ An example of a CHAMP Diffusion Monte Carlo job script would be:
 #SBATCH --mem=200G
 #SBATCH --partition=small
 
-source /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
 INPUT=dmc_h2o_hf.inp
 
