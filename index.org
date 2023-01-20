@@ -11,9 +11,9 @@
 
 * Hands-on
 
-    1. [[./01-Intro_qp.org][Introduction to Quantum Package]]
-    2. [[./02-Champ.org][Introduction to CHAMP]]
-    3. [[./03-JobScripts.org][Job script examples]]
+    1. [[./01-JobScripts.org][Job script examples]]
+    2. [[./02-Intro_qp.org][Introduction to Quantum Package]]
+    3. [[./03-Champ.org][Introduction to CHAMP]]
     4. [[./04-QP_CHAMP.org][Ground state QMC calculations]]
     5. [[./05-ExcitedStates.org][Excited state calculations]]
 
