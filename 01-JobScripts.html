@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-19 Thu 19:34 -->
+<!-- 2023-01-20 Fri 10:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Submitting job scripts</title>
+<title>Submitting job scripts on LUMI</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Anthony Scemama" />
 <style type="text/css">
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -200,53 +200,78 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="02-Champ.html"> UP </a>
+ <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Submitting job scripts</h1>
+<h1 class="title">Submitting job scripts on LUMI</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org64d1b85">1. Example of a QP job script</a></li>
-<li><a href="#orga8516e1">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgba10783">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org7e65d47">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
-<div class="important" id="org42f91c4">
+<div class="important">
 <p>
 To run Quantum Package (QP) and CHAMP codes properly, some environment
-variables should be set. To set up the environment, you should source the
-<code>/users/scemamaa/environment.sh</code> file in your shell when you log in:
+variables should be set. To set up the environment, you should source
+the <code>/project/project_465000321/environment.sh</code> file in your shell
+when you log in:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">source</span> /users/scemamaa/environment.sh
+<pre class="src src-bash">source /project/project_465000321/environment.sh
 </pre>
 </div>
 
@@ -258,27 +283,9 @@ This file contains the following commands:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">SPACK_USER_PREFIX</span>=$<span style="color: #a0522d;">HOME</span>/spack
-module load spack/22.08                         # <span style="color: #b22222;">Some modules below were installed with Spack</span>
-module swap PrgEnv-cray/8.3.3 PrgEnv-gnu/8.3.3  # <span style="color: #b22222;">QP was compiled with the GNU compiler</span>
-module load openblas/0.3.17-gcc-omp-xi          # <span style="color: #b22222;">OpenBLAS is used for linear algebra</span>
-module load hdf5/1.12.2-gcc-4k                  # <span style="color: #b22222;">HDF5 (serial) is required for TREXIO</span>
-module load python/3.9.12-gcc-6c                # <span style="color: #b22222;">Use Python3</span>
-<span style="color: #483d8b;">source</span> /users/scemamaa/qp2/quantum_package.rc   # <span style="color: #b22222;">source QP environment</span>
+<pre class="src src-bash">module load cray-python
+source /project/project_465000321/qp2/quantum_package.rc   # <span style="color: #b22222;">source QP environment</span>
 </pre>
-</div>
-
-<div class="important" id="org42cd5f8">
-<p>
-It is also important to install the following Python packages:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">pip3 install trexio
-pip3 install resultsFile
-</pre>
-</div>
-
 </div>
 
 <p>
@@ -293,8 +300,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org64d1b85" class="outline-2">
-<h2 id="org64d1b85"><span class="section-number-2">1</span> Example of a QP job script</h2>
+<div id="outline-container-orgba10783" class="outline-2">
+<h2 id="orgba10783"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -310,29 +317,28 @@ An example of a QP job script would be:
 #<span style="color: #b22222;">SBATCH --mem=200G</span>
 #<span style="color: #b22222;">SBATCH --partition=small</span>
 
-<span style="color: #483d8b;">source</span> /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
-qp set_file COH2
-qp run fci &gt; COH2.fci.out
+qp_srun fci COH2.ezfio &gt; COH2.fci.out
 
 </pre>
 </div>
 
 <p>
-Note that QP uses one process, and all possible threads on the node.
+Note that QP uses shared memory parallelism with OpenMP. It will be
+efficient using all possible threads on the node.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga8516e1" class="outline-2">
-<h2 id="orga8516e1"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org7e65d47" class="outline-2">
+<h2 id="org7e65d47"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-For CHAMP, you should request a single node with a certain number of
-processes (as there are a certain number of cores per node) and set the number
-of tasks and cpus-per-task accordingly.
+For CHAMP, you should request one or many nodes with a certain number of
+processes (as there are a certain number of cores per node). There
+each MPI process uses a single thread.
 </p>
-
 
 <p>
 An example of a CHAMP Variational Monte Carlo job script would be:
@@ -348,7 +354,7 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 #<span style="color: #b22222;">SBATCH --mem=200G</span>
 #<span style="color: #b22222;">SBATCH --partition=small</span>
 
-<span style="color: #483d8b;">source</span> /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
 <span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
 
@@ -371,7 +377,7 @@ An example of a CHAMP Diffusion Monte Carlo job script would be:
 #<span style="color: #b22222;">SBATCH --mem=200G</span>
 #<span style="color: #b22222;">SBATCH --partition=small</span>
 
-<span style="color: #483d8b;">source</span> /users/scemamaa/environment.sh
+source /project/project_465000321/environment.sh
 
 <span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
 
@@ -384,8 +390,8 @@ srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT<
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-19 Thu 19:34</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-01-20 Fri 10:14</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
