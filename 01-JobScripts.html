@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 10:35 -->
+<!-- 2023-01-20 Fri 11:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -257,8 +257,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org596dbd3">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org03f6822">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgaf8ce3b">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org40aac5d">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -300,8 +300,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org596dbd3" class="outline-2">
-<h2 id="org596dbd3"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-orgaf8ce3b" class="outline-2">
+<h2 id="orgaf8ce3b"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -331,8 +331,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org03f6822" class="outline-2">
-<h2 id="org03f6822"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org40aac5d" class="outline-2">
+<h2 id="org40aac5d"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -359,7 +359,7 @@ source /project/project_465000321/environment.sh
 <span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
 
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-srun ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+srun /project/project_465000321/champ/bin/vmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
 
@@ -382,7 +382,7 @@ source /project/project_465000321/environment.sh
 <span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
 
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
 </div>
@@ -390,7 +390,7 @@ srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT<
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-20 Fri 10:35</p>
+<p class="date">Created: 2023-01-20 Fri 11:14</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
