@@ -43,4 +43,9 @@ else
 fi
 
 mv *.html docs/
+cd docs
+for i in *.html ; do
+   sed -i "s/ HOME / NEXT /" $i
+   sed -i "s/ UP / PREV /" $i
+done
 
