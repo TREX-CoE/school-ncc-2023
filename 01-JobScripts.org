@@ -79,7 +79,7 @@ source /project/project_465000321/environment.sh
 INPUT=vmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-srun ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
+srun /project/project_465000321/champ/bin/vmc.mov1 -i $INPUT -o $OUTPUT -e error
  #+end_src
 
 An example of a CHAMP Diffusion Monte Carlo job script would be:
@@ -99,6 +99,6 @@ source /project/project_465000321/environment.sh
 INPUT=dmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
+srun /project/project_465000321/champ/bin/dmc.mov1 -i $INPUT -o $OUTPUT -e error
  #+end_src
 

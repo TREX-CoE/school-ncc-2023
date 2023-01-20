@@ -121,14 +121,14 @@ qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
   Run the Hartree-Fock calculation
 
 #+begin_src bash
-qp run scf | tee h2o_hf.out
+qp_srun scf h2o_hf | tee h2o_hf.out
 #+end_src
 
   Export the wave function into TREXIO format
 
 #+begin_src bash
 qp set trexio trexio_file h2o_hf.trexio
-qp run export_trexio
+qp_srun export_trexio h2o_hf
 #+end_src
 
 * DFT calculation
@@ -157,14 +157,14 @@ qp set becke_numerical_grid grid_type_sgn 1
   Run the Kohn-Sham calculation
 
 #+begin_src bash
-qp run ks_scf | tee h2o_dft.out
+qp srun ks_scf h2o_dft | tee h2o_dft.out
 #+end_src
 
   Export the wave function into TREXIO format
 
 #+begin_src bash
 qp set trexio trexio_file h2o_dft.trexio
-qp run export_trexio
+qp_srun export_trexio h2o_dft
 #+end_src
 
 * QMC runs
@@ -175,41 +175,35 @@ qp run export_trexio
  wave functions with the 2 different sets of MOs.
 
  #+begin_src bash
-qp set_file h2o_hf
-qp run print_energy
-
-qp set_file h2o_dft
-qp run print_energy
+qp_srun print_energy h2o_hf
+qp_srun print_energy h2o_dft
  #+end_src
 
  These commands return the energy of the wavefunction contained in the
  EZFIO database. These values will be useful for checking that the QMC
  setup is OK. You should obtain the energies:
 
- | HF MOs  | -16.9503842 |
- | DFT MOs | -16.9465884 |
+ | HF MOs  | -16.950384 |
+ | DFT MOs | -16.946588 |
 
  We will now convert the TREXIO files into input files suitable for
- CHAMP:
-
- #+begin_important
- You need the ~resultsFile~ and ~trexio~ Python packages. They can be
- installed with pip as described in [[./03-JobScripts.org][section 3]].
- #+end_important
+ CHAMP.
 
  Create a new directory named =H2O_HF= and copy the TREXIO file
  =h2o_hf.trexio= into it. Go inside this directory and run
 
  #+begin_src bash
-python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
-                       --motype  "Canonical" \
-                       --backend "HDF5" \
-                       --basis_prefix "BFD-cc-pVDZ" \
-                       --lcao \
-                       --geom \
-                       --basis \
-                       --ecp \
-                       --det
+cd H2O_HF
+python3 /project/project_465000321/champ/tools/trex_tools/trex2champ.py \
+    --trex "h2o_hf.trexio" \
+    --motype  "Canonical" \
+    --backend "HDF5" \
+    --basis_prefix "BFD-cc-pVDZ" \
+    --lcao \
+    --geom \
+    --basis \
+    --ecp \
+    --det
  #+end_src
 
  Many files were created. Now, create a directory named =pool=, and
@@ -233,9 +227,9 @@ mv *.xyz *bfinfo BFD-* ECP* pool
 
 
 load molecule        $pool/champ_v2_h2o_hf_geom.xyz
-load basis_num_info  $pool/champ_v2_h2o_hf_with_g.bfinfo
+load basis_num_info  $pool/champ_v3_h2o_hf_basis_pointers.bfinfo
 
-load orbitals        champ_v2_h2o_hf_orbitals.lcao
+load orbitals        champ_v3_h2o_hf_trexio_orbitals.lcao
 load determinants    champ_v2_h2o_hf_determinants.det
 load jastrow         jastrow.start
 
@@ -269,7 +263,7 @@ end
 
  This files implies that there is no Jastrow factor ($\exp(J)=1$).
 
- Create the submission script as presented in [[./03-JobScripts.org][section 3]], and submit
+ Create the submission script as presented in [[./01-JobScripts.org][section 1]], and submit
  the job. You should obtain the Hartree-Fock energy.
 
  Now reproduce the same steps for the TREXIO file containing the DFT
