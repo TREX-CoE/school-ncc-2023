@@ -25,6 +25,13 @@
 source /project/project_465000321/qp2/quantum_package.rc
   #+end_src
 
+  This is automatically done when you load the complete environment
+  for this training:
+  
+  #+begin_src bash
+source /project/project_465000321/environment.sh
+  #+end_src
+
   #+begin_tip
   If you are using QP interactively, an alternative is to run the QP shell:
 
