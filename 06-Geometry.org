@@ -1,8 +1,8 @@
 #+TITLE: Geometry optimization
 #+AUTHOR: Claudia Filippi
 #+LANGUAGE:  en
+#+HTML_LINK_UP: 04-QP_CHAMP.html
 #+HTML_LINK_HOME: index.html
-#+HTML_LINK_UP: 04-QP_CHAMP.org
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$

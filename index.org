@@ -1,7 +1,7 @@
 #+TITLE: QMC Hands-on Summer Workshop
 #+AUTHOR: Claudia Filippi, Anthony Scemama
 #+LANGUAGE:  en
-#+HTML_LINK_HOME: index.html
+#+HTML_LINK_UP: 01-JobScripts.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 * Presentations

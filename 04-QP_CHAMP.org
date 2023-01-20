@@ -1,8 +1,8 @@
 #+TITLE: Quantum Package and Champ
 #+AUTHOR: Anthony Scemama, Claudia Filippi
 #+LANGUAGE:  en
-#+HTML_LINK_HOME: index.html
-#+HTML_LINK_UP: 03-Champ.org
+#+HTML_LINK_UP: 03-Champ.html
+#+HTML_LINK_HOME: 05-ExcitedStates.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 @@html: <img src="./images/QP.png" width="100px" /> @@ $\longrightarrow$
