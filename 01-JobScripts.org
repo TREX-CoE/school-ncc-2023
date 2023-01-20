@@ -43,7 +43,7 @@ An example of a QP job script would be:
 #SBATCH --time=01:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=128
 #SBATCH --mem=200G
 #SBATCH --partition=small
 
@@ -69,7 +69,7 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 #SBATCH --account=project_465000321
 #SBATCH --time=01:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=64
+#SBATCH --ntasks=128
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=200G
 #SBATCH --partition=small
@@ -89,7 +89,7 @@ An example of a CHAMP Diffusion Monte Carlo job script would be:
 #SBATCH --account=project_465000321
 #SBATCH --time=01:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=64
+#SBATCH --ntasks=128
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=200G
 #SBATCH --partition=small
