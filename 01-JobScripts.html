@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 11:16 -->
+<!-- 2023-01-21 Sat 13:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -257,8 +257,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org840c182">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org75bc34c">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgcd3bfdc">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org68345d7">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -300,8 +300,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org840c182" class="outline-2">
-<h2 id="org840c182"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-orgcd3bfdc" class="outline-2">
+<h2 id="orgcd3bfdc"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -331,8 +331,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org75bc34c" class="outline-2">
-<h2 id="org75bc34c"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org68345d7" class="outline-2">
+<h2 id="org68345d7"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -345,16 +345,20 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
-#<span style="color: #b22222;">SBATCH --nodes=1</span>
-#<span style="color: #b22222;">SBATCH --ntasks=128</span>
-#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+<pre class="src src-bash">#<span style="color: #b22222;">SBATCH --job-name=champ        # Job name</span>
+#<span style="color: #b22222;">SBATCH --output=champ.o%j      # Name of stdout output file</span>
+#<span style="color: #b22222;">SBATCH --error=champ.e%j       # Name of stderr error file</span>
+#<span style="color: #b22222;">SBATCH --partition=standard    # Partition (queue) name</span>
+#<span style="color: #b22222;">SBATCH --nodes=1               # Total number of nodes</span>
+#<span style="color: #b22222;">SBATCH --ntasks=128            # Total number of mpi tasks</span>
+#<span style="color: #b22222;">SBATCH --mem=0                 # Allocate all the memory on the node</span>
+#<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
+#<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
 
 source /project/project_465000321/environment.sh
+
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
 <span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
 
@@ -364,25 +368,44 @@ srun /project/project_465000321/champ/bin/vmc.mov1 -i $<span style="color: #a052
 </div>
 
 <p>
-An example of a CHAMP Diffusion Monte Carlo job script would be:
+An example of a CHAMP Diffusion Monte Carlo job script would be (along with the VMC calculation):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
-#<span style="color: #b22222;">SBATCH --nodes=1</span>
-#<span style="color: #b22222;">SBATCH --ntasks=128</span>
-#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+<pre class="src src-bash">#<span style="color: #b22222;">SBATCH --job-name=champ        # Job name</span>
+#<span style="color: #b22222;">SBATCH --output=champ.o%j      # Name of stdout output file</span>
+#<span style="color: #b22222;">SBATCH --error=champ.e%j       # Name of stderr error file</span>
+#<span style="color: #b22222;">SBATCH --partition=standard    # Partition (queue) name</span>
+#<span style="color: #b22222;">SBATCH --nodes=1               # Total number of nodes</span>
+#<span style="color: #b22222;">SBATCH --ntasks=128            # Total number of mpi tasks</span>
+#<span style="color: #b22222;">SBATCH --mem=0                 # Allocate all the memory on the node</span>
+#<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
+#<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
+
 
 source /project/project_465000321/environment.sh
 
-<span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
-<span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+<span style="color: #a0522d;">VMCINPUT</span>=vmc_h2o.inp
+<span style="color: #a0522d;">VMCOUTPUT</span>=${<span style="color: #a0522d;">VMCINPUT</span>%.inp}.out
+
+<span style="color: #a0522d;">DMCINPUT</span>=dmc_h2o.inp
+<span style="color: #a0522d;">DMCOUTPUT</span>=${<span style="color: #a0522d;">DMCINPUT</span>%.inp}.out
+
+# <span style="color: #b22222;">Launch MPI code</span>
+
+srun /project/project_465000321/champ/bin/vmc.mov1  -i $<span style="color: #a0522d;">VMCINPUT</span> -o $<span style="color: #a0522d;">VMCOUTPUT</span> -e error
+
+cat mc_configs_new* &gt;&gt; mc_configs
+rm mc_configs_new*
+
+srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a0522d;">DMCINPUT</span> -o $<span style="color: #a0522d;">DMCOUTPUT</span> -e error
+
+rm problem*
+rm mc_configs_new*
+
 </pre>
 </div>
 </div>
@@ -390,7 +413,7 @@ srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a052
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-20 Fri 11:16</p>
+<p class="date">Created: 2023-01-21 Sat 13:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

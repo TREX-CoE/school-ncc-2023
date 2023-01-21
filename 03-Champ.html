@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 11:16 -->
+<!-- 2023-01-21 Sat 13:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to CHAMP</title>
@@ -257,19 +257,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd1849ac">1. CHAMP</a>
-<ul>
-<li><a href="#org6b228b1">1.1. Requirements</a></li>
-<li><a href="#orgfef0193">1.2. Installation of required libraries/packages</a>
-<ul>
-<li><a href="#org4d44640">1.2.1. Install or load cmake</a></li>
-<li><a href="#orgee2190a">1.2.2. Installation using Intel oneAPI compilers</a></li>
-<li><a href="#org4c889db">1.2.3. Installation using GNU Compiler</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org9e94e13">2. Setup of input files</a></li>
+<li><a href="#orgaa0c260">1. CHAMP</a></li>
+<li><a href="#orgc8e1401">2. Setup of input files</a></li>
 </ul>
 </div>
 </div>
@@ -280,8 +269,8 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-orgd1849ac" class="outline-2">
-<h2 id="orgd1849ac"><span class="section-number-2">1</span> CHAMP</h2>
+<div id="outline-container-orgaa0c260" class="outline-2">
+<h2 id="orgaa0c260"><span class="section-number-2">1</span> CHAMP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
@@ -291,189 +280,25 @@ atomic and molecular systems.
 
 <div class="tip">
 <p>
-For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section <a href="#org9eb11a4">2</a> for using CHAMP.
+For the purpose of this workshop, we have installed CHAMP for you.
 </p>
 
 </div>
 </div>
-
-<div id="outline-container-org6b228b1" class="outline-3">
-<h3 id="org6b228b1"><span class="section-number-3">1.1</span> Requirements</h3>
-<div class="outline-text-3" id="text-1-1">
-<ol class="org-ol">
-<li>Cmake &gt;= 3.20</li>
-<li>gfortran/gcc &gt;= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI</li>
-<li>BLAS/LAPACK (OpenBLAS) or Intel MKL</li>
-<li>OpenMPI &gt;= 3.0 or Intel MPI</li>
-<li>[Optional] TREXIO library &gt;= 2.0.0</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgfef0193" class="outline-3">
-<h3 id="orgfef0193"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
-<div class="outline-text-3" id="text-1-2">
-</div>
-<div id="outline-container-org4d44640" class="outline-4">
-<h4 id="org4d44640"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
-<div class="outline-text-4" id="text-1-2-1">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt-get install -y cmake
-</pre>
-</div>
-<p>
-or
-</p>
-
-<p>
-Download and extract the latest cmake for the pre-compiled binary
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
-tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
-<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PATH</span>=cmake-3.24.0-rc1-linux-x86_64/bin:$<span style="color: #a0522d;">PATH</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgee2190a" class="outline-4">
-<h4 id="orgee2190a"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
-<div class="outline-text-4" id="text-1-2-2">
-</div>
-<ol class="org-ol">
-<li><a id="orga90c045"></a>Installation without sudo access<br />
-<div class="outline-text-5" id="text-1-2-2-1">
-<p>
-Download Intel oneAPI basekit and HPCkit for free from
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
-chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
-sh ./l_BaseKit_p_2022.2.0.262.sh
-
-wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191.sh
-chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
-sh ./l_HPCKit_p_2022.2.0.191.sh
-</pre>
-</div>
-
-<p>
-After installation export the path to your <code>~/.bashrc</code>.
-</p>
-</div>
-</li>
-
-<li><a id="orgaec4a28"></a>Prerequisites for Intel oneAPI with sudo access<br />
-<div class="outline-text-5" id="text-1-2-2-2">
-<div class="org-src-container">
-<pre class="src src-bash">wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo add-apt-repository <span style="color: #8b2252;">"deb https://apt.repos.intel.com/oneapi all main"</span>
-sudo apt-get update
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org641d3fa"></a>Install the components<br />
-<div class="outline-text-5" id="text-1-2-2-3">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt-get install -y intel-oneapi-common-vars
-sudo apt-get install -y intel-oneapi-compiler-fortran-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-devel-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org49b6de1"></a>Compile script for CHAMP using Intel libraries<br />
-<div class="outline-text-5" id="text-1-2-2-4">
-<div class="org-src-container">
-<pre class="src src-bash">cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES=<span style="color: #8b2252;">"-qmkl=parallel"</span>
-cmake --build build -j 8
-</pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 
 
-<div id="outline-container-org4c889db" class="outline-4">
-<h4 id="org4c889db"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
-<div class="outline-text-4" id="text-1-2-3">
-<div class="warning">
-<ul class="org-ul">
-<li>Make sure that the installed version of Cmake is higher than 3.20</li>
-<li>Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0</li>
-</ul>
-
-</div>
-</div>
-
-<ol class="org-ol">
-<li><a id="orgcdc096b"></a>Install or load compilers<br />
-<div class="outline-text-5" id="text-1-2-3-1">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt install -y gfortran
-sudo apt-get install -y gcc
-sudo apt install -y openmpi-bin
-sudo apt install -y libopenmpi-dev
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="orgd75eeb0"></a>Install or load BLAS/LAPACK<br />
-<div class="outline-text-5" id="text-1-2-3-2">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt install -y libblacs-mpi-dev
-sudo apt install -y liblapack-dev
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org8faf4a4"></a>Compile script for CHAMP<br />
-<div class="outline-text-5" id="text-1-2-3-3">
-<p>
-Get the <a href="https://github.com/filippi-claudia/champ/releases/tag/v2.1.1">stable version of CHAMP v.2.1.1</a>
-</p>
-
-<div class="warning">
-<p>
-Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
-</p>
-
-</div>
-
-<div class="org-src-container">
-<pre class="src src-bash">cmake -H. -B build -DCMAKE_Fortran_COMPILER=/usr/bin/mpif90 -DBLA_VENDOR=OpenBLAS
-cmake --build build
-</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org9e94e13" class="outline-2">
-<h2 id="org9e94e13"><span class="section-number-2">2</span> <a id="org9eb11a4"></a> Setup of input files</h2>
+<div id="outline-container-orgc8e1401" class="outline-2">
+<h2 id="orgc8e1401"><span class="section-number-2">2</span> <a id="org928713c"></a> Setup of input files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-The tutorial folder is located at: <code>/lustre/home/filippi/Tutorial-QMC-School</code>
+The tutorial folder is located at: <code>/project/project_465000321/champ-tutorial</code>
 </p>
 
 <p>
 There are several example folders inside
 </p>
+
 <ol class="org-ol">
 <li><code>example01_H2O_HF</code></li>
 <li><code>example02_H2O_DFT</code></li>
@@ -483,155 +308,30 @@ There are several example folders inside
 <li><code>example06_H2O_DFT_optjas2body</code></li>
 <li><code>example07_H2O_DFT_dmc2body_tau0.05</code></li>
 <li><code>example08_H2O_DFT_dmc2body_tau0.02</code></li>
-<li><code>example09_H2O_DFT_dmc2body_optall_tau0.02</code></li>
-<li><code>example09_H2O_DFT_dmc2body_optall_tau0.05</code></li>
 <li><code>example09_H2O_DFT_optall</code></li>
-<li><code>example10_COH2_ground_state</code></li>
-<li><code>example11_COH2_excited_state</code></li>
+<li><code>example10_H2O_DFT_dmc2body_optall_tau0.05</code></li>
+<li><code>example11_H2O_DFT_dmc2body_optall_tau0.02</code></li>
+<li><code>example12_COH2_ground_state_optJas</code></li>
+<li><code>example13_COH2_ground_state_optall</code></li>
+<li><code>example14_COH2_excited_state_optJas</code></li>
+<li><code>example15_COH2_excited_state_optall</code></li>
+<li><code>example16_COH2_ground_state_dmc2body_tau0.05</code></li>
+<li><code>example17_COH2_excited_state_dmc2body_tau0.05</code></li>
 </ol>
+
+
 
 <p>
 Each example directory will contain a setup folder, where you can
 generate the necessary input files for CHAMP from a single TREXIO
-file (in HDF5 format)
+file (in HDF5 format).
 </p>
-
-<p>
-The scripts for conversion are also included in the folder.
-</p>
-
-<ul class="org-ul">
-<li>Example 01: H<sub>2</sub>0 with HF molecular orbitals</li>
-</ul>
-
-
-<div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">cd</span> 01_champ_tools/example01_H2O_HF/setup
-</pre>
-</div>
-
-<p>
-Check the contents of the conversion script
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py <span style="color: #8b2252;">\</span>
-                       --trex   <span style="color: #8b2252;">"trexio_H2O_HF.hdf5"</span> <span style="color: #8b2252;">\</span>
-                       --motype         <span style="color: #8b2252;">"RHF"</span> <span style="color: #8b2252;">\</span>
-                       --backend        <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
-                       --basis_prefix  <span style="color: #8b2252;">"BFD-aug-cc-pVDZ"</span> <span style="color: #8b2252;">\</span>
-                       --lcao <span style="color: #8b2252;">\</span>
-                       --geom <span style="color: #8b2252;">\</span>
-                       --basis <span style="color: #8b2252;">\</span>
-                       --ecp <span style="color: #8b2252;">\</span>
-                       --det
-</pre>
-</div>
-
-<p>
-Execute this script to generate the files:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">./script_water.sh
-</pre>
-</div>
-
-<p>
-Move or copy the following files into the pool folder
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/pool
-</pre>
-</div>
-
-<pre class="example">
-champ_v2_trexio_H2O_HF_geom.xyz
-champ_v2_trexio_H2O_HF_with_g.bfinfo
-ECP.gauss_ecp.dat.H
-ECP.gauss_ecp.dat.O
-BFD-aug-cc-pVDZ.basis.H
-BFD-aug-cc-pVDZ.basis.O
-</pre>
-
-<p>
-The remaining files should be kept in the <code>01_champ_tools/example01_H2O_HF</code> directory.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/
-</pre>
-</div>
-
-<pre class="example">
-champ_v2_trexio_H2O_HF_orbitals.lcao
-champ_v2_trexio_H2O_HF_determinants.det
-jastrow.start
-run_champ.sh
-vmc_h2o_hf.inp
-pool/
-setup/
-</pre>
-
-
-
-<p>
-The input file <code>vmc_h2o_hf.inp</code> looks like:
-</p>
-<pre class="example">
-%module general
-    title           'H2O HF calculation'
-    pool            './pool/'
-    pseudopot       ECP
-    basis           BFD-aug-cc-pVDZ
-    mode            vmc
-%endmodule
-
-
-load molecule        $pool/champ_v2_trexio_H2O_HF_geom.xyz
-
-load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
-load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
-load determinants    champ_v2_trexio_H2O_HF_determinants.det
-load jastrow         jastrow.start
-
-%module electrons
-    nup           4
-    nelec         8
-%endmodule
-
-
-%module blocking_vmc
-    vmc_nstep     20
-    vmc_nblk      100000
-    vmc_nblkeq    1
-    vmc_nconf_new 0
-%endmodule
-</pre>
-
-<p>
-The included jastrow file is
-</p>
-
-<pre class="example">
-jastrow_parameter   1
-  0  1  0           norda,nordb,nordc
-   0.60000000   0.00000000     scalek,a21
-   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
- (c(iparmj),iparmj=1,nparmc)
- (c(iparmj),iparmj=1,nparmc)
-end
-</pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ravindra Shinde, Claudia Filippi</p>
-<p class="date">Created: 2023-01-20 Fri 11:16</p>
+<p class="date">Created: 2023-01-21 Sat 13:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
