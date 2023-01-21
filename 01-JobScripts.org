@@ -28,7 +28,7 @@ When working with SLURM, you should use =sbatch= to submit your QP and CHAMP job
 scripts. For example, to submit a QP job script named =job_qp.sh=, you would use
 the command:
 
-#+begin_src bash 
+#+begin_src bash
 sbatch job_qp.sh
 #+end_src
 
@@ -65,16 +65,20 @@ qp_srun fci COH2.ezfio > COH2.fci.out
 An example of a CHAMP Variational Monte Carlo job script would be:
 
  #+begin_src bash
-#!/bin/bash
-#SBATCH --account=project_465000321
-#SBATCH --time=01:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks=128
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=200G
-#SBATCH --partition=small
+#SBATCH --job-name=champ        # Job name
+#SBATCH --output=champ.o%j      # Name of stdout output file
+#SBATCH --error=champ.e%j       # Name of stderr error file
+#SBATCH --partition=standard    # Partition (queue) name
+#SBATCH --nodes=1               # Total number of nodes
+#SBATCH --ntasks=128            # Total number of mpi tasks
+#SBATCH --mem=0                 # Allocate all the memory on the node
+#SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)
+#SBATCH --mail-type=all         # Send email at begin and end of job
+#SBATCH --account=project_465000321  # Project for billing
 
 source /project/project_465000321/environment.sh
+
+export PMI_NO_PREINITIALIZE=y
 
 INPUT=vmc_h2o_hf.inp
 
@@ -82,23 +86,42 @@ OUTPUT=${INPUT%.inp}.out
 srun /project/project_465000321/champ/bin/vmc.mov1 -i $INPUT -o $OUTPUT -e error
  #+end_src
 
-An example of a CHAMP Diffusion Monte Carlo job script would be:
+An example of a CHAMP Diffusion Monte Carlo job script would be (along with the VMC calculation):
 
  #+begin_src bash
-#!/bin/bash
-#SBATCH --account=project_465000321
-#SBATCH --time=01:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks=128
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=200G
-#SBATCH --partition=small
+#SBATCH --job-name=champ        # Job name
+#SBATCH --output=champ.o%j      # Name of stdout output file
+#SBATCH --error=champ.e%j       # Name of stderr error file
+#SBATCH --partition=standard    # Partition (queue) name
+#SBATCH --nodes=1               # Total number of nodes
+#SBATCH --ntasks=128            # Total number of mpi tasks
+#SBATCH --mem=0                 # Allocate all the memory on the node
+#SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)
+#SBATCH --mail-type=all         # Send email at begin and end of job
+#SBATCH --account=project_465000321  # Project for billing
+
 
 source /project/project_465000321/environment.sh
 
-INPUT=dmc_h2o_hf.inp
+export PMI_NO_PREINITIALIZE=y
 
-OUTPUT=${INPUT%.inp}.out
-srun /project/project_465000321/champ/bin/dmc.mov1 -i $INPUT -o $OUTPUT -e error
+VMCINPUT=vmc_h2o.inp
+VMCOUTPUT=${VMCINPUT%.inp}.out
+
+DMCINPUT=dmc_h2o.inp
+DMCOUTPUT=${DMCINPUT%.inp}.out
+
+# Launch MPI code
+
+srun /project/project_465000321/champ/bin/vmc.mov1  -i $VMCINPUT -o $VMCOUTPUT -e error
+
+cat mc_configs_new* >> mc_configs
+rm mc_configs_new*
+
+srun /project/project_465000321/champ/bin/dmc.mov1 -i $DMCINPUT -o $DMCOUTPUT -e error
+
+rm problem*
+rm mc_configs_new*
+
  #+end_src
 

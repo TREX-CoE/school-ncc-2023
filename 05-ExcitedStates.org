@@ -269,7 +269,7 @@ end
    ~optorb=1~, load also the symmetry file.
 
 #+begin_example
-load champ_v2_COH2_GS_symmetry.sym
+load symmetry champ_v2_COH2_GS_symmetry.sym
 #+end_example
 
   #+end_tip

@@ -20,9 +20,9 @@
 #+begin_note
     This web site is available here:
 
-    https://trex-coe.github.io/school-slovakia-2022/
+    https://trex-coe.github.io/school-ncc-2023
 
 #+end_note
 
-    To go back to the main page, you ca click on the [[./inder.org][HOME]] button at
+    To go back to the main page, you ca click on the [[./index.org][HOME]] button at
     the top right of the web pages.
