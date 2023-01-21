@@ -7,3 +7,4 @@
 #+HTML_HEAD: <script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+#+HTML_HEAD: <style> #content{max-width:1200px;}</style>
