@@ -186,6 +186,18 @@ qp_srun print_energy h2o_dft
  | HF MOs  | -16.950384 |
  | DFT MOs | -16.946588 |
 
+#+begin_note
+ Under the following directory, you will find the templates for this particular example:
+ #+begin_src bash
+ /project/project_465000321/tutorial-champ/example0*_H2O*
+ #+end_src
+ Make sure that you are able to run the QP-QMC sequence, so use your own trexio file!
+
+ We advise to setup different directories for the different examples.
+
+#+end_note
+
+
  We will now convert the TREXIO files into input files suitable for
  CHAMP.
 
@@ -241,7 +253,7 @@ load jastrow         jastrow.start
 
 %module blocking_vmc
     vmc_nstep     20
-    vmc_nblk      100000
+    vmc_nblk      10000
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
@@ -263,14 +275,24 @@ end
 
  This files implies that there is no Jastrow factor ($\exp(J)=1$).
 
- Create the submission script as presented in [[./01-JobScripts.org][section 1]], and submit
- the job. You should obtain the Hartree-Fock energy.
+ The folder also contains the submission script which is also presented in [[./01-JobScripts.org][section 1]]. submit
+ the job using sbatch =lumi_example01.sh=. The output will be stored in =vmc_h2o_hf.out= and you can grep the total energy as
+ 
+  #+begin_src bash
+grep 'total E' vmc_h2o_hf.out
+  #+end_src
+
+ You should obtain the Hartree-Fock energy.
 
  Now reproduce the same steps for the TREXIO file containing the DFT
  orbitals in directory =H2O_DFT=.
 
  The energies obtained with VMC without the Jastrow factor should be
  the same as those computed by QP at the beginning of this section.
+
+#+begin_note
+ Note that you could have used the trexio file directly in the input as shown for H2O_HF in =vmc_h2o_hf_trexio.inp=.
+#+end_note
 
 ** Introduce and optimize a Jastrow factor
 
@@ -369,7 +391,7 @@ load jastrow_der     jastrow.der
 
     method        'sr_n'
     nopt_iter     20
-    nblk_max      4000
+    nblk_max      1000
 
     ncore         0
     nextorb       100
@@ -381,14 +403,14 @@ load jastrow_der     jastrow.der
   #+end_example
 
 
-  Optimization doesn't require a long QMC simulation in the first SR steps.
-  You can reduce the number of blocks in =blocking_vmc= to 100, and the code
+  Optimization of the Jastrow doesn't require a long QMC simulation in the first SR steps.
+  You can reduce the number of blocks in =blocking_vmc= to 10, and the code
   will slowly increase the number of blocks to ~nblk_max~ in the ~optwf~ module.
 
   #+begin_example
 %module blocking_vmc
     vmc_nstep     20
-    vmc_nblk      100
+    vmc_nblk      10
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
