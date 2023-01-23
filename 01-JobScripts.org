@@ -45,7 +45,7 @@ An example of a QP job script would be:
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
 #SBATCH --mem=200G
-#SBATCH --partition=small
+#SBATCH --partition=standard
 
 source /project/project_465000321/environment.sh
 
