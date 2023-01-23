@@ -423,9 +423,6 @@ cp jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
 #+end_important
 
 
-jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
-
-
    First, generate an input file as before where you read the wave function
    files (careful to load the new Jastrow factor) and perform a short VMC
    calculation to generate the walkers for DMC.
