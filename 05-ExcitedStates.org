@@ -220,9 +220,9 @@ end
 
     ncore         0
     nextorb       600
-    nblk_max      5000
+    nblk_max      1000
 
-    nopt_iter     10
+    nopt_iter     20
     sr_tau        0.05
     sr_eps        0.01
     sr_adiag      0.01
@@ -237,7 +237,7 @@ end
 %endmodule
   #+end_example
 
-  Move the =jastrow_optimal.1.iter10= file to =jastrow_optimal.rough_GS= and
+  Move the =jastrow_optimal.1.iter20= file to =jastrow_optimal.rough_GS= and
   load this optimized Jastrow factor. You can now optimize also the CI
   coefficients together with the Jastrow factor by setting:
 
@@ -245,12 +245,12 @@ end
     ioptci        1
 #+end_example
 
-  Use some more Monte Carlo steps to perform a more strict optimization.
+  Use some more Monte Carlo steps to perform a more strict optimization. Use =nopt_iter 10=.
 
 #+begin_example
 %module blocking_vmc
     vmc_nstep     20
-    vmc_nblk      500
+    vmc_nblk      100
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule

@@ -286,14 +286,16 @@ grep 'total E' vmc_h2o_hf.out
 
  You should obtain the Hartree-Fock energy.
 
+#+begin_important
  Now reproduce the same steps for the TREXIO file containing the DFT
  orbitals in directory =H2O_DFT=.
+#+end_important
 
  The energies obtained with VMC without the Jastrow factor should be
  the same as those computed by QP at the beginning of this section.
 
 #+begin_note
- Note that you could have used the trexio file directly in the input as shown for H2O_HF in =vmc_h2o_hf_trexio.inp=.
+ Note that you could have used the trexio file directly in the input as shown for =H2O_HF= in =vmc_h2o_hf_trexio.inp=.
 #+end_note
 
 ** Introduce and optimize a Jastrow factor
@@ -360,7 +362,7 @@ end
 
 *** Optimize the Jastrow factor
 
-  Create the file =jastrow.der=:
+  Copy your HF directory to a new directory =H2O_HF_optjas2body= where you optimize the Jastrow factor. Create the file =jastrow.der=:
 
   #+begin_example
 jasderiv
@@ -424,6 +426,11 @@ load jastrow_der     jastrow.der
    If you ~grep nblk output~ you will see that the code automatically increases the
    maximum number of blocks.
 
+#+begin_important
+ Now optimize the Jastrow factor for a wave function with DFT
+ orbitals in directory =H2O_DFT_optjas2body=.
+#+end_important
+
 ** Diffusion Monte Carlo
 
    In this section, you can use the SLURM script provided in [[./01-JobScripts.org][section 1]]
@@ -432,11 +439,10 @@ load jastrow_der     jastrow.der
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
 
-   Create a new directory and copy the wave function TREXIO info and the
-   optimal Jastrow factor (for simplicity, pick the last one, and remove the first line from the file.).
+   Create a new directory =H2O_HF_dmc2body_tau0.05= with the content of the previous HF directory with optimized Jastrow. You should now use the optimal Jastrow factor.
 
 #+begin_important
-For simplicity, pick the last one (from the earlier calculation), and remove the first line from the file.
+For simplicity, pick the last Jastrow (from the earlier calculation).
 
 #+begin_src bash
 cp jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
@@ -518,10 +524,10 @@ grep '( 100) =' dmc*out
 
   In the last column, you have the correlation time.
 #+begin_warning
-  Make sure that you have chosen ~dmc_nstep~ about two times larger.
+  Make sure that you have chosen ~dmc_nstep~ about 20 times larger than the correlation time.
 #+end_warning
 
-  Also perform another calculation with a smaller time step.
+  Also perform another calculation with a smaller time step (e.g. 0.02).
 
 #+begin_warning
    Make sure that you increase ~dmc_nstep~  by as much as you have decreased $\tau$.
@@ -532,7 +538,7 @@ grep '( 100) =' dmc*out
   from the previous calculation.
 #+end_note
 
-  Repeat the optimization and DMC calculation with the DFT orbitals. Compare the
+  Repeat the DMC calculation with the DFT orbitals. Compare the
   VMC and DMC energies.
 
 ** Optimal one-determinant Jastrow-Slater wave function
@@ -545,6 +551,10 @@ grep '( 100) =' dmc*out
  #+begin_example
     ioptorb     1
  #+end_example
+
+ #+begin_note
+  Now, you are starting with an optimal Jastrow and you will gain less in the optimization of the orbitals than in the previous optimization starting with no Jastrow. Therefore, the values of =vmc_nblk= and =nblk_max= are chosen to be larger (you are aiming for a smaller statistical error).
+ #+end_note
 
 * More examples to play with
 
