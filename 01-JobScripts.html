@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-23 Mon 13:09 -->
+<!-- 2023-01-23 Mon 13:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -258,8 +258,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org33c53a0">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org26f000d">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgd89778d">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org81ce084">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -301,8 +301,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org33c53a0" class="outline-2">
-<h2 id="org33c53a0"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-orgd89778d" class="outline-2">
+<h2 id="orgd89778d"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -332,8 +332,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org26f000d" class="outline-2">
-<h2 id="org26f000d"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org81ce084" class="outline-2">
+<h2 id="org81ce084"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -362,7 +362,8 @@ source /project/project_465000321/environment.sh
 
 <span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
-<span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">INPUT</span>=vmc_input.inp
 
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
 srun /project/project_465000321/champ/bin/vmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
@@ -391,10 +392,12 @@ source /project/project_465000321/environment.sh
 
 <span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
-<span style="color: #a0522d;">VMCINPUT</span>=vmc_h2o.inp
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">VMCINPUT</span>=vmc_input.inp
 <span style="color: #a0522d;">VMCOUTPUT</span>=${<span style="color: #a0522d;">VMCINPUT</span>%.inp}.out
 
-<span style="color: #a0522d;">DMCINPUT</span>=dmc_h2o.inp
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">DMCINPUT</span>=dmc_input.inp
 <span style="color: #a0522d;">DMCOUTPUT</span>=${<span style="color: #a0522d;">DMCINPUT</span>%.inp}.out
 
 # <span style="color: #b22222;">Launch MPI code</span>
@@ -416,7 +419,7 @@ rm mc_configs_new*
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-23 Mon 13:09</p>
+<p class="date">Created: 2023-01-23 Mon 13:16</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
