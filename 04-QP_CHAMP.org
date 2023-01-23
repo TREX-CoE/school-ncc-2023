@@ -201,10 +201,12 @@ qp_srun print_energy h2o_dft
  We will now convert the TREXIO files into input files suitable for
  CHAMP.
 
- Create a new directory named =H2O_HF= and copy the TREXIO file
+ Create a new directory named =H2O_HF= and move the TREXIO file
  =h2o_hf.trexio= into it. Go inside this directory and run
 
  #+begin_src bash
+mkdir H2O_HF
+mv h2o_hf.trexio H2O_HF
 cd H2O_HF
 python3 /project/project_465000321/champ/tools/trex_tools/trex2champ.py \
     --trex "h2o_hf.trexio" \
@@ -424,11 +426,24 @@ load jastrow_der     jastrow.der
 
 ** Diffusion Monte Carlo
 
+   In this section, you can use the SLURM script provided in [[./01-JobScripts.org][section 1]]
+   adapted to DMC simulations.
+   
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
 
    Create a new directory and copy the wave function TREXIO info and the
    optimal Jastrow factor (for simplicity, pick the last one, and remove the first line from the file.).
+
+#+begin_important
+For simplicity, pick the last one (from the earlier calculation), and remove the first line from the file.
+
+#+begin_src bash
+cp jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
+#+end_src
+
+#+end_important
+
 
    First, generate an input file as before where you read the wave function
    files (careful to load the new Jastrow factor) and perform a short VMC
@@ -513,7 +528,8 @@ grep '( 100) =' dmc*out
 #+end_warning
 
 #+begin_note
-  You do not need to regenerate the file =mc_configs= containing the walkers.
+  You do not need to regenerate the file =mc_configs= containing the walkers. Just copy them
+  from the previous calculation.
 #+end_note
 
   Repeat the optimization and DMC calculation with the DFT orbitals. Compare the

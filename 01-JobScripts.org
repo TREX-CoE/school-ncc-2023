@@ -40,12 +40,12 @@ An example of a QP job script would be:
 #+begin_src bash :tangle job_qp.sh
 #!/bin/bash
 #SBATCH --account=project_465000321
-#SBATCH --time=01:00:00
+#SBATCH --time=00:20:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
-#SBATCH --mem=200G
-#SBATCH --partition=small
+#SBATCH --mem=0
+#SBATCH --partition=standard
 
 source /project/project_465000321/environment.sh
 
@@ -65,6 +65,7 @@ qp_srun fci COH2.ezfio > COH2.fci.out
 An example of a CHAMP Variational Monte Carlo job script would be:
 
  #+begin_src bash
+#!/bin/bash
 #SBATCH --job-name=champ        # Job name
 #SBATCH --output=champ.o%j      # Name of stdout output file
 #SBATCH --error=champ.e%j       # Name of stderr error file
@@ -89,6 +90,7 @@ srun /project/project_465000321/champ/bin/vmc.mov1 -i $INPUT -o $OUTPUT -e error
 An example of a CHAMP Diffusion Monte Carlo job script would be (along with the VMC calculation):
 
  #+begin_src bash
+#!/bin/bash
 #SBATCH --job-name=champ        # Job name
 #SBATCH --output=champ.o%j      # Name of stdout output file
 #SBATCH --error=champ.e%j       # Name of stderr error file
