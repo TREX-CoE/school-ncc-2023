@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-23 Mon 12:35 -->
+<!-- 2023-01-23 Mon 12:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -280,13 +280,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgca604cc">1. Introduction</a></li>
-<li><a href="#orgbe4bb47">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org189690e">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgad03080">4. QMC wave function optimizations</a>
+<li><a href="#org199a001">1. Introduction</a></li>
+<li><a href="#org231edb0">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org8e1da95">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org96e5d53">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org38df59a">4.1. Optimization of the ground state</a></li>
-<li><a href="#org306e2e9">4.2. Optimization of the excited state</a></li>
+<li><a href="#org510159e">4.1. Optimization of the ground state</a></li>
+<li><a href="#org7c76cf3">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -299,8 +299,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgca604cc" class="outline-2">
-<h2 id="orgca604cc"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org199a001" class="outline-2">
+<h2 id="org199a001"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -321,8 +321,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-orgbe4bb47" class="outline-2">
-<h2 id="orgbe4bb47"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org231edb0" class="outline-2">
+<h2 id="org231edb0"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -417,8 +417,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org189690e" class="outline-2">
-<h2 id="org189690e"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org8e1da95" class="outline-2">
+<h2 id="org8e1da95"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -509,8 +509,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgad03080" class="outline-2">
-<h2 id="orgad03080"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org96e5d53" class="outline-2">
+<h2 id="org96e5d53"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -527,8 +527,8 @@ Here, we have 12 electrons, 6 up and 6 down.
 </div>
 </div>
 
-<div id="outline-container-org38df59a" class="outline-3">
-<h3 id="org38df59a"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-org510159e" class="outline-3">
+<h3 id="org510159e"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -653,8 +653,8 @@ load symmetry champ_v2_COH2_GS_symmetry.sym
 </div>
 </div>
 
-<div id="outline-container-org306e2e9" class="outline-3">
-<h3 id="org306e2e9"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-org7c76cf3" class="outline-3">
+<h3 id="org7c76cf3"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -691,7 +691,7 @@ is given by
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2023-01-23 Mon 12:35</p>
+<p class="date">Created: 2023-01-23 Mon 12:42</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
