@@ -40,11 +40,11 @@ An example of a QP job script would be:
 #+begin_src bash :tangle job_qp.sh
 #!/bin/bash
 #SBATCH --account=project_465000321
-#SBATCH --time=01:00:00
+#SBATCH --time=00:20:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
-#SBATCH --mem=200G
+#SBATCH --mem=0
 #SBATCH --partition=standard
 
 source /project/project_465000321/environment.sh
