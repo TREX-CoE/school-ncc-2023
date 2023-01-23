@@ -81,7 +81,8 @@ source /project/project_465000321/environment.sh
 
 export PMI_NO_PREINITIALIZE=y
 
-INPUT=vmc_h2o_hf.inp
+# CHANGE THE FILE NAME
+INPUT=vmc_input.inp
 
 OUTPUT=${INPUT%.inp}.out
 srun /project/project_465000321/champ/bin/vmc.mov1 -i $INPUT -o $OUTPUT -e error
@@ -107,10 +108,12 @@ source /project/project_465000321/environment.sh
 
 export PMI_NO_PREINITIALIZE=y
 
-VMCINPUT=vmc_h2o.inp
+# CHANGE THE FILE NAME
+VMCINPUT=vmc_input.inp
 VMCOUTPUT=${VMCINPUT%.inp}.out
 
-DMCINPUT=dmc_h2o.inp
+# CHANGE THE FILE NAME
+DMCINPUT=dmc_input.inp
 DMCOUTPUT=${DMCINPUT%.inp}.out
 
 # Launch MPI code
