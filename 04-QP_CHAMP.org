@@ -241,7 +241,7 @@ load jastrow         jastrow.start
 
 %module blocking_vmc
     vmc_nstep     20
-    vmc_nblk      20000
+    vmc_nblk      100000
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
@@ -251,7 +251,7 @@ load jastrow         jastrow.start
 
  #+begin_example
 jastrow_parameter   1
-  0  0  0           norda,nordb,nordc
+  0  1  0           norda,nordb,nordc
    0.60000000   0.00000000     scalek,a21
    0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
    0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
@@ -406,7 +406,7 @@ load jastrow_der     jastrow.der
    Jastrow factor you have just generated.
 
    Create a new directory and copy the wave function TREXIO info and the
-   optimal Jastrow factor (for simplicity, pick the last one).
+   optimal Jastrow factor (for simplicity, pick the last one, and remove the first line from the file.).
 
    First, generate an input file as before where you read the wave function
    files (careful to load the new Jastrow factor) and perform a short VMC
@@ -452,8 +452,8 @@ rm mc_configs_new*
 %endmodule
 
 %module dmc
-    tau           0.05
-    etrial      -17.240
+    tau           0.05d0
+    etrial      -17.24d0
     icasula      -1
 %endmodule
   #+end_example

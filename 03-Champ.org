@@ -17,243 +17,37 @@ Monte Carlo suite of programs for electronic structure calculations of
 atomic and molecular systems.
 
 #+begin_tip
-For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section [[champ_examples]] for using CHAMP.
+For the purpose of this workshop, we have installed CHAMP for you.
 #+end_tip
 
-** Requirements
-   
-     1. Cmake >= 3.20
-     2. gfortran/gcc >= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI
-     3. BLAS/LAPACK (OpenBLAS) or Intel MKL
-     4. OpenMPI >= 3.0 or Intel MPI
-     5. [Optional] TREXIO library >= 2.0.0
-
-** Installation of required libraries/packages
-
-*** Install or load cmake
-    #+begin_src bash
-sudo apt-get install -y cmake
-    #+end_src
-     or
-
-     Download and extract the latest cmake for the pre-compiled binary
- #+begin_src bash
-wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
-tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
-export PATH=cmake-3.24.0-rc1-linux-x86_64/bin:$PATH
- #+end_src
-
-*** Installation using Intel oneAPI compilers
-
-**** Installation without sudo access
-
-     Download Intel oneAPI basekit and HPCkit for free from
-     #+begin_src bash
-wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
-chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
-sh ./l_BaseKit_p_2022.2.0.262.sh
-
-wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191.sh
-chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
-sh ./l_HPCKit_p_2022.2.0.191.sh
-     #+end_src
-
-     After installation export the path to your =~/.bashrc=.
-
-**** Prerequisites for Intel oneAPI with sudo access
-
-     #+begin_src bash
-wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"
-sudo apt-get update
-     #+end_src
-
-**** Install the components
-
-     #+begin_src bash
-sudo apt-get install -y intel-oneapi-common-vars
-sudo apt-get install -y intel-oneapi-compiler-fortran-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-devel-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
-     #+end_src
-
-**** Compile script for CHAMP using Intel libraries
-
-      #+begin_src bash
-cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES="-qmkl=parallel"
-cmake --build build -j 8
-      #+end_src
-
-
-*** Installation using GNU Compiler
-
-    #+begin_warning
-  - Make sure that the installed version of Cmake is higher than 3.20
-  - Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0
-    #+end_warning
-
-**** Install or load compilers
-
-     #+begin_src bash
- sudo apt install -y gfortran
- sudo apt-get install -y gcc
- sudo apt install -y openmpi-bin
- sudo apt install -y libopenmpi-dev
-     #+end_src
-
-**** Install or load BLAS/LAPACK
-
-     #+begin_src bash
- sudo apt install -y libblacs-mpi-dev
- sudo apt install -y liblapack-dev
-     #+end_src
-
-**** Compile script for CHAMP
-
-  Get the [[https://github.com/filippi-claudia/champ/releases/tag/v2.1.1][stable version of CHAMP v.2.1.1]]
-
-  #+begin_warning
-  Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
-  #+end_warning
-
-  #+begin_src bash
- cmake -H. -B build -DCMAKE_Fortran_COMPILER=/usr/bin/mpif90 -DBLA_VENDOR=OpenBLAS
- cmake --build build
-  #+end_src
 
 * <<champ_examples>> Setup of input files
 
- The tutorial folder is located at: =/lustre/home/filippi/Tutorial-QMC-School=
+ The tutorial folder is located at: =/project/project_465000321/champ-tutorial=
 
  There are several example folders inside
- 1. =example01_H2O_HF=
- 2. =example02_H2O_DFT=
- 3. =example03_H2O_HF_optjas2body=
- 4. =example04_H2O_HF_dmc2body_tau0.05=
- 5. =example05_H2O_HF_dmc2body_tau0.02=
- 6. =example06_H2O_DFT_optjas2body=
- 7. =example07_H2O_DFT_dmc2body_tau0.05=
- 8. =example08_H2O_DFT_dmc2body_tau0.02=
- 9. =example09_H2O_DFT_dmc2body_optall_tau0.02=
- 10. =example09_H2O_DFT_dmc2body_optall_tau0.05=
- 11. =example09_H2O_DFT_optall=
- 12. =example10_COH2_ground_state=
- 13. =example11_COH2_excited_state=
+
+1. =example01_H2O_HF=
+2. =example02_H2O_DFT=
+3. =example03_H2O_HF_optjas2body=
+4. =example04_H2O_HF_dmc2body_tau0.05=
+5. =example05_H2O_HF_dmc2body_tau0.02=
+6. =example06_H2O_DFT_optjas2body=
+7. =example07_H2O_DFT_dmc2body_tau0.05=
+8. =example08_H2O_DFT_dmc2body_tau0.02=
+9. =example09_H2O_DFT_optall=
+10. =example10_H2O_DFT_dmc2body_optall_tau0.05=
+11. =example11_H2O_DFT_dmc2body_optall_tau0.02=
+12. =example12_COH2_ground_state_optJas=
+13. =example13_COH2_ground_state_optall=
+14. =example14_COH2_excited_state_optJas=
+15. =example15_COH2_excited_state_optall=
+16. =example16_COH2_ground_state_dmc2body_tau0.05=
+17. =example17_COH2_excited_state_dmc2body_tau0.05=
+
+
 
  Each example directory will contain a setup folder, where you can
  generate the necessary input files for CHAMP from a single TREXIO
- file (in HDF5 format)
+ file (in HDF5 format).
 
- The scripts for conversion are also included in the folder.
-
- * Example 01: H_{2}0 with HF molecular orbitals
-
-
- #+begin_src bash
- cd 01_champ_tools/example01_H2O_HF/setup
- #+end_src
-
- Check the contents of the conversion script
-
- #+begin_src bash
- #!/bin/bash
- python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
-			--trex 	"trexio_H2O_HF.hdf5" \
-			--motype 	"RHF" \
-			--backend	"HDF5" \
-			--basis_prefix  "BFD-aug-cc-pVDZ" \
-			--lcao \
-			--geom \
-			--basis \
-			--ecp \
-			--det
- #+end_src
-
- Execute this script to generate the files:
-
- #+begin_src bash
- ./script_water.sh
- #+end_src
-
- Move or copy the following files into the pool folder
-
- #+begin_src bash
- ls 01_champ_tools/example01_H2O_HF/pool
- #+end_src
-
- #+begin_example
- champ_v2_trexio_H2O_HF_geom.xyz
- champ_v2_trexio_H2O_HF_with_g.bfinfo
- ECP.gauss_ecp.dat.H
- ECP.gauss_ecp.dat.O
- BFD-aug-cc-pVDZ.basis.H
- BFD-aug-cc-pVDZ.basis.O
- #+end_example
-
- The remaining files should be kept in the =01_champ_tools/example01_H2O_HF= directory.
-
- #+begin_src bash
- ls 01_champ_tools/example01_H2O_HF/
- #+end_src
-
- #+begin_example
- champ_v2_trexio_H2O_HF_orbitals.lcao
- champ_v2_trexio_H2O_HF_determinants.det
- jastrow.start
- run_champ.sh
- vmc_h2o_hf.inp
- pool/
- setup/
- #+end_example
-
-
-
- The input file =vmc_h2o_hf.inp= looks like:
- #+begin_example
- %module general
-     title           'H2O HF calculation'
-     pool            './pool/'
-     pseudopot       ECP
-     basis           BFD-aug-cc-pVDZ
-     mode            vmc
- %endmodule
-
-
- load molecule        $pool/champ_v2_trexio_H2O_HF_geom.xyz
-
- load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
- load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
- load determinants    champ_v2_trexio_H2O_HF_determinants.det
- load jastrow         jastrow.start
-
- %module electrons
-     nup           4
-     nelec         8
- %endmodule
-
-
- %module blocking_vmc
-     vmc_nstep     20
-     vmc_nblk      100000
-     vmc_nblkeq    1
-     vmc_nconf_new 0
- %endmodule
- #+end_example
-
- The included jastrow file is
-
- #+begin_example
- jastrow_parameter   1
-   0  1  0           norda,nordb,nordc
-    0.60000000   0.00000000     scalek,a21
-    0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-    0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-    0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
-  (c(iparmj),iparmj=1,nparmc)
-  (c(iparmj),iparmj=1,nparmc)
- end
- #+end_example
