@@ -1,5 +1,5 @@
 #+TITLE: QMC Hands-on Summer Workshop
-#+AUTHOR: Claudia Filippi, Anthony Scemama
+#+AUTHOR: Claudia Filippi, Anthony Scemama, Ravindra Shinde
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: 01-JobScripts.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
@@ -24,5 +24,5 @@
 
 #+end_note
 
-    To go back to the main page, you ca click on the [[./index.org][HOME]] button at
+    To go back to the main page, you can click on the [[./index.org][HOME]] button at
     the top right of the web pages.

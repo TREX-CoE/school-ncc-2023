@@ -23,7 +23,8 @@ For the purpose of this workshop, we have installed CHAMP for you.
 
 * <<champ_examples>> Setup of input files
 
- The tutorial folder is located at: =/project/project_465000321/champ-tutorial=
+ A zipped tutorial folder is located at: =/project/project_465000321/champ-tutorial.tar.gz=
+ Copy that file to your home directory and unzip it using =tar -xvzf champ-tutorial.tar.gz= command.
 
  There are several example folders inside
 
