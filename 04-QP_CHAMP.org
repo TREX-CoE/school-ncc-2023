@@ -193,6 +193,8 @@ qp_srun print_energy h2o_dft
  =h2o_hf.trexio= into it. Go inside this directory and run
 
  #+begin_src bash
+mkdir H2O_HF
+cp h2o_hf.trexio H2O_HF
 cd H2O_HF
 python3 /project/project_465000321/champ/tools/trex_tools/trex2champ.py \
     --trex "h2o_hf.trexio" \
