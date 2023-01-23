@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-21 Sat 16:56 -->
+<!-- 2023-01-23 Mon 12:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -258,8 +258,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4d3f609">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org6a9120c">2. Example of a CHAMP job script</a></li>
+<li><a href="#org8b0b339">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org94d5590">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -301,8 +301,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org4d3f609" class="outline-2">
-<h2 id="org4d3f609"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-org8b0b339" class="outline-2">
+<h2 id="org8b0b339"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -311,12 +311,12 @@ An example of a QP job script would be:
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
+#<span style="color: #b22222;">SBATCH --time=00:20:00</span>
 #<span style="color: #b22222;">SBATCH --nodes=1</span>
 #<span style="color: #b22222;">SBATCH --ntasks=1</span>
 #<span style="color: #b22222;">SBATCH --cpus-per-task=128</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+#<span style="color: #b22222;">SBATCH --mem=0</span>
+#<span style="color: #b22222;">SBATCH --partition=standard</span>
 
 source /project/project_465000321/environment.sh
 
@@ -332,8 +332,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org6a9120c" class="outline-2">
-<h2 id="org6a9120c"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org94d5590" class="outline-2">
+<h2 id="org94d5590"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -414,7 +414,7 @@ rm mc_configs_new*
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-21 Sat 16:56</p>
+<p class="date">Created: 2023-01-23 Mon 12:21</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
