@@ -413,6 +413,19 @@ load jastrow_der     jastrow.der
    Create a new directory and copy the wave function TREXIO info and the
    optimal Jastrow factor (for simplicity, pick the last one, and remove the first line from the file.).
 
+#+begin_important
+For simplicity, pick the last one (from the earlier calculation), and remove the first line from the file.
+
+#+begin_src bash
+cp jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
+#+end_src
+
+#+end_important
+
+
+jastrow_optimal.1.iter20 jastrow.hf_optimal_2body
+
+
    First, generate an input file as before where you read the wave function
    files (careful to load the new Jastrow factor) and perform a short VMC
    calculation to generate the walkers for DMC.
@@ -496,7 +509,8 @@ grep '( 100) =' dmc*out
 #+end_warning
 
 #+begin_note
-  You do not need to regenerate the file =mc_configs= containing the walkers.
+  You do not need to regenerate the file =mc_configs= containing the walkers. Just copy them
+  from the previous calculation.
 #+end_note
 
   Repeat the optimization and DMC calculation with the DFT orbitals. Compare the
