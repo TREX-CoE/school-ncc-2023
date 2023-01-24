@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-24 Tue 12:39 -->
+<!-- 2023-01-24 Tue 15:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -258,8 +258,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc59cc58">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#orge61bfce">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgdba4419">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org2b1b899">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -301,8 +301,8 @@ the command:
 </div>
 
 
-<div id="outline-container-orgc59cc58" class="outline-2">
-<h2 id="orgc59cc58"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-orgdba4419" class="outline-2">
+<h2 id="orgdba4419"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -311,6 +311,7 @@ An example of a QP job script would be:
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH --account=project_465000321</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training</span>
 #<span style="color: #b22222;">SBATCH --time=00:20:00</span>
 #<span style="color: #b22222;">SBATCH --nodes=1</span>
 #<span style="color: #b22222;">SBATCH --ntasks=1</span>
@@ -332,8 +333,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-orge61bfce" class="outline-2">
-<h2 id="orge61bfce"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org2b1b899" class="outline-2">
+<h2 id="org2b1b899"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -357,6 +358,7 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 #<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
 #<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
 #<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training  # Reservation for training</span>
 
 source /project/project_465000321/environment.sh
 
@@ -386,6 +388,7 @@ An example of a CHAMP Diffusion Monte Carlo job script would be (along with the 
 #<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
 #<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
 #<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training # Reservation for training</span>
 
 
 source /project/project_465000321/environment.sh
@@ -419,7 +422,7 @@ rm mc_configs_new*
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-24 Tue 12:39</p>
+<p class="date">Created: 2023-01-24 Tue 15:21</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
