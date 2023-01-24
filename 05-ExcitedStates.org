@@ -27,7 +27,7 @@
 * CIPSI 2-state calculations
 
   You can import the single-determinant wave function from the
-  provided [[https://github.com/TREX-CoE/school-ncc-2023/raw/master/docs/TrexioFiles/COH2.trexio][TREXIO file COH2.trexio] as:
+  provided [[https://github.com/TREX-CoE/school-ncc-2023/raw/master/docs/TrexioFiles/COH2.trexio][TREXIO file COH2.trexio]] as:
 
   #+begin_src bash
 wget https://github.com/TREX-CoE/school-ncc-2023/raw/master/docs/TrexioFiles/COH2.trexio
