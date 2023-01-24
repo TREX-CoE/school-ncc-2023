@@ -40,6 +40,7 @@ An example of a QP job script would be:
 #+begin_src bash :tangle job_qp.sh
 #!/bin/bash
 #SBATCH --account=project_465000321
+#SBATCH --reservation=enccs_training
 #SBATCH --time=00:20:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -76,6 +77,7 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 #SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)
 #SBATCH --mail-type=all         # Send email at begin and end of job
 #SBATCH --account=project_465000321  # Project for billing
+#SBATCH --reservation=enccs_training  # Reservation for training
 
 source /project/project_465000321/environment.sh
 
@@ -102,6 +104,7 @@ An example of a CHAMP Diffusion Monte Carlo job script would be (along with the 
 #SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)
 #SBATCH --mail-type=all         # Send email at begin and end of job
 #SBATCH --account=project_465000321  # Project for billing
+#SBATCH --reservation=enccs_training # Reservation for training
 
 
 source /project/project_465000321/environment.sh
