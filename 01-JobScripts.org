@@ -147,7 +147,7 @@ rm mc_configs_new*
 
 srun /project/project_465000321/champ/bin/dmc.mov1 -i $DMCINPUT -o $DMCOUTPUT -e error
 
-rm problem* 
+rm problem* walkalize*
 rm mc_configs_new*
 
  #+end_src
