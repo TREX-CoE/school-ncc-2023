@@ -50,7 +50,7 @@ source /project/project_465000321/environment.sh
   node for one hour:
 
   #+begin_src bash
-salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
+salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=small
 source /project/project_465000321/environment.sh
   #+end_src
 
