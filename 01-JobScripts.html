@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-25 Wed 12:33 -->
+<!-- 2023-01-25 Wed 13:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -258,8 +258,8 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org50eaff3">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org6b1f8b2">2. Example of a CHAMP job script</a></li>
+<li><a href="#org567056a">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org4928a20">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
@@ -301,8 +301,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org50eaff3" class="outline-2">
-<h2 id="org50eaff3"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-org567056a" class="outline-2">
+<h2 id="org567056a"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -333,8 +333,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org6b1f8b2" class="outline-2">
-<h2 id="org6b1f8b2"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org4928a20" class="outline-2">
+<h2 id="org4928a20"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -366,8 +366,14 @@ source /project/project_465000321/environment.sh
 
 # <span style="color: #b22222;">CHANGE THE FILE NAME</span>
 <span style="color: #a0522d;">INPUT</span>=vmc_input.inp
-
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
+
+# <span style="color: #b22222;">Check that the file exists</span>
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">INPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">INPUT</span> does not exist. &gt; $<span style="color: #a0522d;">OUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
 srun /project/project_465000321/champ/bin/vmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
@@ -393,6 +399,8 @@ An example of a CHAMP Diffusion Monte Carlo job script would be (along with the 
 
 source /project/project_465000321/environment.sh
 
+<span style="color: #483d8b;">set</span> -e    # <span style="color: #b22222;">the script will exit if a command below fails</span>
+
 <span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
 # <span style="color: #b22222;">CHANGE THE FILE NAME</span>
@@ -403,6 +411,17 @@ source /project/project_465000321/environment.sh
 <span style="color: #a0522d;">DMCINPUT</span>=dmc_input.inp
 <span style="color: #a0522d;">DMCOUTPUT</span>=${<span style="color: #a0522d;">DMCINPUT</span>%.inp}.out
 
+# <span style="color: #b22222;">Check that the files exist</span>
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">VMCINPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">VMCINPUT</span> does not exist. &gt; $<span style="color: #a0522d;">VMCOUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">DMCINPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">DMCINPUT</span> does not exist. &gt; $<span style="color: #a0522d;">DMCOUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
 # <span style="color: #b22222;">Launch MPI code</span>
 
 srun /project/project_465000321/champ/bin/vmc.mov1  -i $<span style="color: #a0522d;">VMCINPUT</span> -o $<span style="color: #a0522d;">VMCOUTPUT</span> -e error
@@ -412,7 +431,7 @@ rm mc_configs_new*
 
 srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a0522d;">DMCINPUT</span> -o $<span style="color: #a0522d;">DMCOUTPUT</span> -e error
 
-rm problem*
+rm problem* 
 rm mc_configs_new*
 
 </pre>
@@ -422,7 +441,7 @@ rm mc_configs_new*
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-25 Wed 12:33</p>
+<p class="date">Created: 2023-01-25 Wed 13:12</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
