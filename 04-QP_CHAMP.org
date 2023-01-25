@@ -197,12 +197,15 @@ qp_srun print_energy h2o_dft
 
 #+end_note
 
+# You can now release the interactive allocation by logging out of
+# your current shell.
 
  We will now convert the TREXIO files into input files suitable for
  CHAMP.
 
  Create a new directory named =H2O_HF= and move the TREXIO file
- =h2o_hf.trexio= into it. Go inside this directory and run
+ =h2o_hf.trexio= into it. Go inside this directory and extract the
+ wave function information from the TREXIO file:
 
  #+begin_src bash
 mkdir H2O_HF
@@ -275,10 +278,13 @@ jastrow_parameter   1
 end
  #+end_example
 
- This files implies that there is no Jastrow factor ($\exp(J)=1$).
+ This files implies that there is no Jastrow factor: $\exp(J)=1$.
 
- The folder also contains the submission script which is also presented in [[./01-JobScripts.org][section 1]]. submit
- the job using sbatch =lumi_example01.sh=. The output will be stored in =vmc_h2o_hf.out= and you can grep the total energy as
+ =/project/project_465000321/tutorial-champ/example01_H2O_HF/lumi_example01.sh=
+ is the submission script presented in [[./01-JobScripts.org][section 1]].  Copy it in the
+ current dircetory and submit the job using sbatch
+ =lumi_example01.sh=. The output will be stored in =vmc_h2o_hf.out=
+ and you can grep the total energy as
  
   #+begin_src bash
 grep 'total E' vmc_h2o_hf.out
@@ -420,10 +426,10 @@ load jastrow_der     jastrow.der
 %endmodule
   #+end_example
 
-   If you ~grep 'total E' output~, you will see the optimization progressing and
+   If you ~grep 'total E'~ in the output file, you will see the optimization progressing and
    generating new Jastrow factors in =jastrow_optimal.1.iterX=.
 
-   If you ~grep nblk output~ you will see that the code automatically increases the
+   If you ~grep nblk~, you will see that the code automatically increases the
    maximum number of blocks.
 
 #+begin_important
@@ -434,7 +440,8 @@ load jastrow_der     jastrow.der
 ** Diffusion Monte Carlo
 
    In this section, you can use the SLURM script provided in [[./01-JobScripts.org][section 1]]
-   adapted to DMC simulations.
+   adapted to DMC simulations. Don't forget to edit the submission
+   script to update the names of the input files.
    
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
@@ -509,10 +516,11 @@ rm mc_configs_new*
 
    within the  general module.
 
-   Some debug files are being created, that you can just erase.
+   In the installed version of CHAMP, some debug files are being
+   created. You can just erase them.
 
   #+begin_src bash
-rm problem*
+rm problem* walkalize*
 rm mc_configs_new*
   #+end_src
 

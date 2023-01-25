@@ -85,8 +85,14 @@ export PMI_NO_PREINITIALIZE=y
 
 # CHANGE THE FILE NAME
 INPUT=vmc_input.inp
-
 OUTPUT=${INPUT%.inp}.out
+
+# Check that the file exists
+if [[ ! -f $INPUT ]] ; then
+        echo Error: $INPUT does not exist. > $OUTPUT
+        exit -1
+fi
+
 srun /project/project_465000321/champ/bin/vmc.mov1 -i $INPUT -o $OUTPUT -e error
  #+end_src
 
@@ -109,6 +115,8 @@ An example of a CHAMP Diffusion Monte Carlo job script would be (along with the 
 
 source /project/project_465000321/environment.sh
 
+set -e    # the script will exit if a command below fails
+
 export PMI_NO_PREINITIALIZE=y
 
 # CHANGE THE FILE NAME
@@ -119,6 +127,17 @@ VMCOUTPUT=${VMCINPUT%.inp}.out
 DMCINPUT=dmc_input.inp
 DMCOUTPUT=${DMCINPUT%.inp}.out
 
+# Check that the files exist
+if [[ ! -f $VMCINPUT ]] ; then
+        echo Error: $VMCINPUT does not exist. > $VMCOUTPUT
+        exit -1
+fi
+
+if [[ ! -f $DMCINPUT ]] ; then
+        echo Error: $DMCINPUT does not exist. > $DMCOUTPUT
+        exit -1
+fi
+
 # Launch MPI code
 
 srun /project/project_465000321/champ/bin/vmc.mov1  -i $VMCINPUT -o $VMCOUTPUT -e error
@@ -128,7 +147,7 @@ rm mc_configs_new*
 
 srun /project/project_465000321/champ/bin/dmc.mov1 -i $DMCINPUT -o $DMCOUTPUT -e error
 
-rm problem*
+rm problem* 
 rm mc_configs_new*
 
  #+end_src
