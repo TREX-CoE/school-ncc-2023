@@ -54,20 +54,21 @@ qp_srun fci COH2 | tee COH2.fci.out
   #+end_src
 
   #+begin_note
-  The extrapolated excitation energy is around 8 eV and we expect 4 ev, so
-  we did not catch the correct state.  This is because the
-  orbitals in the TREXIO file are symmetry adapted, so it is
-  impossible to make a determinant from another symmetry enter in the
-  determinant space.
+  The expected energy should be around 4 eV but the result of the
+  calculation is around 8 eV.
 
-  To obtain a solution from another symmetry, we need to put at least
-  one determinant of each symmetry.
-
+  The reason for this discrepancy is that the orbitals in the TREXIO
+  file are symmetry adapted, so it is not possible to build
+  determinants from other symmetries in the determinant space. To
+  obtain a solution from another symmetry, the calculation should
+  include at least one determinant of each symmetry.
   #+end_note
 
   #+begin_tip
-  The simplest practical solution is to first perform a CIS, and then
-  continue with a CIPSI in the FCI space.
+  The suggested solution is to first perform a CIS (Configuration
+  Interaction Singles) calculation, which will ensure that at least
+  one determinant of each symmetry is included. Then, continue with a
+  CIPSI calculation in the FCI space.
   #+end_tip
 
   By default, at every iteration QP tries to double the size of the wave function.
