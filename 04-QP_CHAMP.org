@@ -120,6 +120,15 @@ qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
 
   Run the Hartree-Fock calculation
 
+#+begin_important
+Make sure that you still have the LUMI allocation available for running qp commands interactively. If not, use the following commands from the login node.
+
+#+begin_src bash
+salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=small
+source /project/project_465000321/environment.sh
+#+end_src
+#+end_important
+
 #+begin_src bash
 qp_srun scf h2o_hf | tee h2o_hf.out
 #+end_src
