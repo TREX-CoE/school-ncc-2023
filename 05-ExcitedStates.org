@@ -89,7 +89,7 @@ qp_srun fci COH2 | tee COH2.fci.out
   EZFIO database should be used as a starting point for the the CI calculation.
 
   Now, we have obtained a more reasonable excitation energy, around 4
-  eV. We are now ready to export the data for CHAMP.
+  eV, and we are ready to export the data for CHAMP.
 
 * Export wave functions to CHAMP
 
@@ -171,10 +171,13 @@ qp_srun export_trexio COH2_ES
 
 ** Optimization of the ground state
 
-  Create a new directory, and copy the =COH2_GS.trexio= TREXIO file inside it.
-  Convert the TREXIO file into CHAMP files:
+  Create a new directory, and move the =COH2_GS.trexio= TREXIO file inside it.
+  Go into this directory, and prepare the files for running CHAMP:
 
   #+begin_src bash
+mkdir ChampGS
+mv COH2_GS.trexio ChampGS
+cd ChampGS
 python3 /project/project_465000321/champ/tools/trex_tools/trex2champ.py \
                         --trex          "COH2_GS.trexio" \
                         --motype        "Canonical" \
@@ -188,7 +191,7 @@ python3 /project/project_465000321/champ/tools/trex_tools/trex2champ.py \
                         --det
   #+end_src
 
-  H_{2}CO has three different atom types, so the Jastrow factor file
+  COH_{2} has three different atom types, so the Jastrow factor file
   will be slightly different from the file for water with one extra
   line for $a$ parameters. You can start by creating a file
   called =jastrow.start=:
@@ -237,6 +240,11 @@ end
     vmc_nconf_new 0
 %endmodule
   #+end_example
+
+  #+begin_important
+  If you create your input file from the H_{2}O example, don't forget
+  to change the number of electrons!
+  #+end_important
 
   Move the =jastrow_optimal.1.iter20= file to =jastrow_optimal.rough_GS= and
   load this optimized Jastrow factor. You can now optimize also the CI
