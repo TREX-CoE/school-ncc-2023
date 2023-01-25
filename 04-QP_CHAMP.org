@@ -157,7 +157,7 @@ qp set becke_numerical_grid grid_type_sgn 1
   Run the Kohn-Sham calculation
 
 #+begin_src bash
-qp srun ks_scf h2o_dft | tee h2o_dft.out
+qp_srun ks_scf h2o_dft | tee h2o_dft.out
 #+end_src
 
   Export the wave function into TREXIO format
