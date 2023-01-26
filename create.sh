@@ -1,4 +1,4 @@
-#!/bin/bash                                                                                                                   
+#!/bin/bash
 readonly HTMLIZE=./docs/htmlize.el
 
 if [[ -z $1 ]] ; then
@@ -47,5 +47,6 @@ cd docs
 for i in *.html ; do
    sed -i "s/ HOME / NEXT /" $i
    sed -i "s/ UP / PREV /" $i
+   sed -i '/^<h2>Table of Contents<\/h2>/i<a href="index.html"><h2>HOME<\/h2></a>' $i
 done
 
