@@ -1,4 +1,4 @@
-#+TITLE: QMC Hands-on Summer Workshop
+#+TITLE: QMC Hands-on Workshop
 #+AUTHOR: Claudia Filippi, Anthony Scemama, Ravindra Shinde
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: 01-JobScripts.html

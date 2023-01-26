@@ -1,5 +1,5 @@
 #+TITLE: Excited states with Quantum Package and CHAMP
-#+AUTHOR: Anthony Scemama, Claudia Filippi
+#+AUTHOR: Anthony Scemama, Ravindra Shinde, Claudia Filippi
 #+LANGUAGE:  en
 #+HTML_LINK_UP: 04-QP_CHAMP.html
 #+HTML_LINK_HOME: 06-Geometry.html
