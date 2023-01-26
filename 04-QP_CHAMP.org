@@ -124,7 +124,7 @@ qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
 Make sure that you still have the LUMI allocation available for running qp commands interactively. If not, use the following commands from the login node.
 
 #+begin_src bash
-salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=small
+salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=standard
 source /project/project_465000321/environment.sh
 #+end_src
 #+end_important
@@ -278,7 +278,7 @@ The total number of Monte Carlo steps is =vmc_nstep * vmc_nblk=. Since the confi
 
 Always check that = vmc_nstep= > more than 10 times the autocorrelation time. Then, modify =vmc_nblk= to change the length of the run.
 #+end_note
- 
+
  Create the file for the Jastrow factor as follows, and save it as =jastrow.start=:
 
  #+begin_example
@@ -300,7 +300,7 @@ end
  current dircetory and submit the job using sbatch
  =lumi_example01.sh=. The output will be stored in =vmc_h2o_hf.out=
  and you can grep the total energy as
- 
+
   #+begin_src bash
 grep 'total E' vmc_h2o_hf.out
   #+end_src
@@ -457,7 +457,7 @@ load jastrow_der     jastrow.der
    In this section, you can use the SLURM script provided in [[./01-JobScripts.org][section 1]]
    adapted to DMC simulations. Don't forget to edit the submission
    script to update the names of the input files.
-   
+
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
 
