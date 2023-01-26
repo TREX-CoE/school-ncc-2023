@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-26 Thu 09:49 -->
+<!-- 2023-01-26 Thu 09:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -259,11 +259,11 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org85cb567">1. Overview</a></li>
-<li><a href="#org63041db">2. Environment</a></li>
-<li><a href="#orgbf3384b">3. Running on LUMI</a></li>
-<li><a href="#org13077dc">4. The EZFIO database</a></li>
-<li><a href="#orgdfb99ca">5. Using QP commands</a></li>
+<li><a href="#orgea281e2">1. Overview</a></li>
+<li><a href="#org9357642">2. Environment</a></li>
+<li><a href="#org6ffd834">3. Running on LUMI</a></li>
+<li><a href="#orga925693">4. The EZFIO database</a></li>
+<li><a href="#org734825f">5. Using QP commands</a></li>
 </ul>
 </div>
 </div>
@@ -273,8 +273,8 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org85cb567" class="outline-2">
-<h2 id="org85cb567"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-orgea281e2" class="outline-2">
+<h2 id="orgea281e2"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> Quantum
@@ -285,8 +285,8 @@ use.
 </div>
 </div>
 
-<div id="outline-container-org63041db" class="outline-2">
-<h2 id="org63041db"><span class="section-number-2">2</span> Environment</h2>
+<div id="outline-container-org9357642" class="outline-2">
+<h2 id="org9357642"><span class="section-number-2">2</span> Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Before using Quantum Package, the environment must be set up. This can be
@@ -323,8 +323,8 @@ If you are using QP interactively, an alternative is to run the QP shell:
 </div>
 
 
-<div id="outline-container-orgbf3384b" class="outline-2">
-<h2 id="orgbf3384b"><span class="section-number-2">3</span> Running on LUMI</h2>
+<div id="outline-container-org6ffd834" class="outline-2">
+<h2 id="org6ffd834"><span class="section-number-2">3</span> Running on LUMI</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Note that it is not possible to run the code interactively on the
@@ -334,7 +334,7 @@ node for one hour:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=small
+<pre class="src src-bash">salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=standard
 source /project/project_465000321/environment.sh
 </pre>
 </div>
@@ -355,8 +355,8 @@ Once you have an interactive job, instead of using the command
 </div>
 
 
-<div id="outline-container-org13077dc" class="outline-2">
-<h2 id="org13077dc"><span class="section-number-2">4</span> The EZFIO database</h2>
+<div id="outline-container-orga925693" class="outline-2">
+<h2 id="orga925693"><span class="section-number-2">4</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Quantum Package (QP) stores input and output data in a database
@@ -416,8 +416,8 @@ inaccessible.
 </div>
 </div>
 
-<div id="outline-container-orgdfb99ca" class="outline-2">
-<h2 id="orgdfb99ca"><span class="section-number-2">5</span> Using QP commands</h2>
+<div id="outline-container-org734825f" class="outline-2">
+<h2 id="org734825f"><span class="section-number-2">5</span> Using QP commands</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 To get documentation on the <code>qp</code> command, you can use the command
@@ -520,7 +520,7 @@ Note that you can use Tab-completion with the <code>qp</code> command, which mak
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-26 Thu 09:49</p>
+<p class="date">Created: 2023-01-26 Thu 09:50</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
