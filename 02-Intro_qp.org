@@ -27,7 +27,7 @@ source /project/project_465000321/qp2/quantum_package.rc
 
   This is automatically done when you load the complete environment
   for this training:
-  
+
   #+begin_src bash
 source /project/project_465000321/environment.sh
   #+end_src
@@ -50,7 +50,7 @@ source /project/project_465000321/environment.sh
   node for one hour:
 
   #+begin_src bash
-salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=small
+salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=standard
 source /project/project_465000321/environment.sh
   #+end_src
 
