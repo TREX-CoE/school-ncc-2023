@@ -24,5 +24,7 @@
 
 #+end_note
 
+#+begin_important
     To go back to the main page, you can click on the [[./index.org][HOME]] button at
     the top right of the web pages.
+#+end_important    
