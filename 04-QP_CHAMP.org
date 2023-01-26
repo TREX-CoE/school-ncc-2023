@@ -274,7 +274,9 @@ load jastrow         jastrow.start
  #+end_example
 
 #+begin_note
-The total number of Monte Carlo steps is =vmc_nstep * vmc_nblk=. Since the configurations are correlated, we perform a so-called blocking analysis of the data to compute the statistical error. We divide the data in =vmc_nblk= blocks of =vmc_nstep= and compute the average for each block (over the =vmc_nstep=). We then treat these averages as our data points and evaluate the error for this reduced number =vmc_nblk= of data points. Always double check that =vmc_nstep= > about 20 the autocorrelation time.
+The total number of Monte Carlo steps is =vmc_nstep * vmc_nblk=. Since the configurations are correlated, we perform a so-called blocking analysis of the data to compute the statistical error. We divide the data in =vmc_nblk= blocks of =vmc_nstep= and compute the average for each block (over the =vmc_nstep=). We then treat these averages as our data points and evaluate the error for this reduced number =vmc_nblk= of data points.
+
+Always check that = vmc_nstep= > more than 10 times the autocorrelation time. Then, modify =vmc_nblk= to change the length of the run.
 #+end_note
  
  Create the file for the Jastrow factor as follows, and save it as =jastrow.start=:
