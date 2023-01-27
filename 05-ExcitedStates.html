@@ -281,13 +281,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge2fa206">1. Introduction</a></li>
-<li><a href="#org9cd2e79">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org5411dd0">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org17f21b9">4. QMC wave function optimizations</a>
+<li><a href="#org5538308">1. Introduction</a></li>
+<li><a href="#orgcff320c">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org86c109e">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orga538f02">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#orgef87d84">4.1. Optimization of the ground state</a></li>
-<li><a href="#orgbb7fdc8">4.2. Optimization of the excited state</a></li>
+<li><a href="#org13997ec">4.1. Optimization of the ground state</a></li>
+<li><a href="#orgeab21f7">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -300,8 +300,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orge2fa206" class="outline-2">
-<h2 id="orge2fa206"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org5538308" class="outline-2">
+<h2 id="org5538308"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -322,8 +322,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-org9cd2e79" class="outline-2">
-<h2 id="org9cd2e79"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-orgcff320c" class="outline-2">
+<h2 id="orgcff320c"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -420,8 +420,8 @@ eV, and we are ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org5411dd0" class="outline-2">
-<h2 id="org5411dd0"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org86c109e" class="outline-2">
+<h2 id="org86c109e"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -512,8 +512,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org17f21b9" class="outline-2">
-<h2 id="org17f21b9"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orga538f02" class="outline-2">
+<h2 id="orga538f02"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -530,8 +530,8 @@ Here, we have 12 electrons, 6 up and 6 down.
 </div>
 </div>
 
-<div id="outline-container-orgef87d84" class="outline-3">
-<h3 id="orgef87d84"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-org13997ec" class="outline-3">
+<h3 id="org13997ec"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and move the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -684,8 +684,8 @@ load symmetry champ_v2_COH2_GS_symmetry.sym
 </div>
 </div>
 
-<div id="outline-container-orgbb7fdc8" class="outline-3">
-<h3 id="orgbb7fdc8"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-orgeab21f7" class="outline-3">
+<h3 id="orgeab21f7"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
