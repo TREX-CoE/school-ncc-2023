@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 11:27 -->
+<!-- 2023-01-31 Tue 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -199,27 +199,52 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
 </head>
 <body>
@@ -230,25 +255,26 @@
 </div><div id="content">
 <h1 class="title">Introduction to Quantum Package</h1>
 <div id="table-of-contents">
+<a href="index.html"><h2>HOME</h2></a>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd6227df">1. Overview</a></li>
-<li><a href="#org69d24fd">2. Environment</a></li>
-<li><a href="#orgcd2d68c">3. Running on LUMI</a></li>
-<li><a href="#org19600cb">4. The EZFIO database</a></li>
-<li><a href="#orgb55f6b6">5. Using QP commands</a></li>
+<li><a href="#orgf10f8a2">1. Overview</a></li>
+<li><a href="#org4f3250f">2. Environment</a></li>
+<li><a href="#org5fec656">3. Running on LUMI</a></li>
+<li><a href="#org6d531cf">4. The EZFIO database</a></li>
+<li><a href="#org5636a7c">5. Using QP commands</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgfa009bf" class="figure">
+<div class="figure">
 <p><img src="./images/QP.png" alt="QP.png" width="100px" />
 </p>
 </div>
 
-<div id="outline-container-orgd6227df" class="outline-2">
-<h2 id="orgd6227df"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-orgf10f8a2" class="outline-2">
+<h2 id="orgf10f8a2"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> Quantum
@@ -259,8 +285,8 @@ use.
 </div>
 </div>
 
-<div id="outline-container-org69d24fd" class="outline-2">
-<h2 id="org69d24fd"><span class="section-number-2">2</span> Environment</h2>
+<div id="outline-container-org4f3250f" class="outline-2">
+<h2 id="org4f3250f"><span class="section-number-2">2</span> Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Before using Quantum Package, the environment must be set up. This can be
@@ -282,7 +308,7 @@ for this training:
 </pre>
 </div>
 
-<div class="tip" id="orgb302b7f">
+<div class="tip">
 <p>
 If you are using QP interactively, an alternative is to run the QP shell:
 </p>
@@ -297,8 +323,8 @@ If you are using QP interactively, an alternative is to run the QP shell:
 </div>
 
 
-<div id="outline-container-orgcd2d68c" class="outline-2">
-<h2 id="orgcd2d68c"><span class="section-number-2">3</span> Running on LUMI</h2>
+<div id="outline-container-org5fec656" class="outline-2">
+<h2 id="org5fec656"><span class="section-number-2">3</span> Running on LUMI</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Note that it is not possible to run the code interactively on the
@@ -308,11 +334,12 @@ node for one hour:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">salloc -N 1 --account=project_465000321 --time=01:00:00 --exclusive -n 1 -c 64 --partition=small
+<pre class="src src-bash">salloc -N 1 --reservation=enccs_training --account=project_465000321 --time=01:00:00 -n 1 -c 32 --partition=standard
+<span style="color: #483d8b;">source</span> /project/project_465000321/environment.sh
 </pre>
 </div>
 
-<div class="note" id="orgd96d026">
+<div class="note">
 <p>
 The <code>salloc</code> command creates a new shell, so if you want to use
 <code>qpsh</code> you need to run <code>qpsh</code> after <code>salloc</code>.
@@ -328,8 +355,8 @@ Once you have an interactive job, instead of using the command
 </div>
 
 
-<div id="outline-container-org19600cb" class="outline-2">
-<h2 id="org19600cb"><span class="section-number-2">4</span> The EZFIO database</h2>
+<div id="outline-container-org6d531cf" class="outline-2">
+<h2 id="org6d531cf"><span class="section-number-2">4</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Quantum Package (QP) stores input and output data in a database
@@ -376,7 +403,7 @@ command:
 </pre>
 </div>
 
-<div class="note" id="org82e1dcd">
+<div class="note">
 <p>
 Note that when running interactively with <code>qpsh</code>, the current EZFIO
 database is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code>
@@ -389,8 +416,8 @@ inaccessible.
 </div>
 </div>
 
-<div id="outline-container-orgb55f6b6" class="outline-2">
-<h2 id="orgb55f6b6"><span class="section-number-2">5</span> Using QP commands</h2>
+<div id="outline-container-org5636a7c" class="outline-2">
+<h2 id="org5636a7c"><span class="section-number-2">5</span> Using QP commands</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 To get documentation on the <code>qp</code> command, you can use the command
@@ -400,7 +427,7 @@ To get documentation on the <code>qp</code> command, you can use the command
 </pre>
 </div>
 
-<div class="tip" id="org7709842">
+<div class="tip">
 <p>
 Note that all QP commands come with a <code>--help</code> option for documentation.
 </p>
@@ -460,7 +487,7 @@ from the EZFIO database. When the file is saved and the editor is exited, the
 data is saved back into the EZFIO.
 </p>
 
-<div class="tip" id="org70c4200">
+<div class="tip">
 <p>
 You can change the text editor used by <code>qp_edit</code> by setting the
 <code>$EDITOR</code> environment variable. For example:
@@ -482,7 +509,7 @@ qp set determinants n_det_max 2000
 </pre>
 </div>
 
-<div class="tip" id="orgadae5f7">
+<div class="tip">
 <p>
 Note that you can use Tab-completion with the <code>qp</code> command, which makes the shell interaction more user-friendly.
 </p>
@@ -493,8 +520,8 @@ Note that you can use Tab-completion with the <code>qp</code> command, which mak
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-20 Fri 11:27</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-01-31 Tue 14:32</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

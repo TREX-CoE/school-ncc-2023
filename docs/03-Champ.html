@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 11:27 -->
+<!-- 2023-01-31 Tue 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to CHAMP</title>
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -199,27 +199,52 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
 </head>
 <body>
@@ -230,34 +255,24 @@
 </div><div id="content">
 <h1 class="title">Introduction to CHAMP</h1>
 <div id="table-of-contents">
+<a href="index.html"><h2>HOME</h2></a>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb93ba71">1. CHAMP</a>
-<ul>
-<li><a href="#org5f17b26">1.1. Requirements</a></li>
-<li><a href="#orgac86774">1.2. Installation of required libraries/packages</a>
-<ul>
-<li><a href="#org476c643">1.2.1. Install or load cmake</a></li>
-<li><a href="#orgd45d584">1.2.2. Installation using Intel oneAPI compilers</a></li>
-<li><a href="#org5e1c5dc">1.2.3. Installation using GNU Compiler</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgf1ceabc">2. Setup of input files</a></li>
+<li><a href="#org6978f2e">1. CHAMP</a></li>
+<li><a href="#org4e50d95">2. Setup of input files</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orga4da57c" class="figure">
+<div class="figure">
 <p><img src="./images/Champ.png" alt="Champ.png" height="100px" />
 </p>
 </div>
 
 
-<div id="outline-container-orgb93ba71" class="outline-2">
-<h2 id="orgb93ba71"><span class="section-number-2">1</span> CHAMP</h2>
+<div id="outline-container-org6978f2e" class="outline-2">
+<h2 id="org6978f2e"><span class="section-number-2">1</span> CHAMP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
@@ -265,191 +280,28 @@ Monte Carlo suite of programs for electronic structure calculations of
 atomic and molecular systems.
 </p>
 
-<div class="tip" id="org8c11145">
+<div class="tip">
 <p>
-For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section <a href="#org406b53f">2</a> for using CHAMP.
+For the purpose of this workshop, we have installed CHAMP for you.
 </p>
 
 </div>
 </div>
-
-<div id="outline-container-org5f17b26" class="outline-3">
-<h3 id="org5f17b26"><span class="section-number-3">1.1</span> Requirements</h3>
-<div class="outline-text-3" id="text-1-1">
-<ol class="org-ol">
-<li>Cmake &gt;= 3.20</li>
-<li>gfortran/gcc &gt;= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI</li>
-<li>BLAS/LAPACK (OpenBLAS) or Intel MKL</li>
-<li>OpenMPI &gt;= 3.0 or Intel MPI</li>
-<li>[Optional] TREXIO library &gt;= 2.0.0</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgac86774" class="outline-3">
-<h3 id="orgac86774"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
-<div class="outline-text-3" id="text-1-2">
-</div>
-<div id="outline-container-org476c643" class="outline-4">
-<h4 id="org476c643"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
-<div class="outline-text-4" id="text-1-2-1">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt-get install -y cmake
-</pre>
-</div>
-<p>
-or
-</p>
-
-<p>
-Download and extract the latest cmake for the pre-compiled binary
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
-tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
-<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PATH</span>=cmake-3.24.0-rc1-linux-x86_64/bin:$<span style="color: #a0522d;">PATH</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgd45d584" class="outline-4">
-<h4 id="orgd45d584"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
-<div class="outline-text-4" id="text-1-2-2">
-</div>
-<ol class="org-ol">
-<li><a id="orgb712c5b"></a>Installation without sudo access<br />
-<div class="outline-text-5" id="text-1-2-2-1">
-<p>
-Download Intel oneAPI basekit and HPCkit for free from
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
-chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
-sh ./l_BaseKit_p_2022.2.0.262.sh
-
-wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191.sh
-chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
-sh ./l_HPCKit_p_2022.2.0.191.sh
-</pre>
-</div>
-
-<p>
-After installation export the path to your <code>~/.bashrc</code>.
-</p>
-</div>
-</li>
-
-<li><a id="orgc43878d"></a>Prerequisites for Intel oneAPI with sudo access<br />
-<div class="outline-text-5" id="text-1-2-2-2">
-<div class="org-src-container">
-<pre class="src src-bash">wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-sudo add-apt-repository <span style="color: #8b2252;">"deb https://apt.repos.intel.com/oneapi all main"</span>
-sudo apt-get update
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org4bd7ce5"></a>Install the components<br />
-<div class="outline-text-5" id="text-1-2-2-3">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt-get install -y intel-oneapi-common-vars
-sudo apt-get install -y intel-oneapi-compiler-fortran-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-2021.3.0
-sudo apt-get install -y intel-oneapi-mkl-devel-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-2021.3.0
-sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org59a1a21"></a>Compile script for CHAMP using Intel libraries<br />
-<div class="outline-text-5" id="text-1-2-2-4">
-<div class="org-src-container">
-<pre class="src src-bash">cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES=<span style="color: #8b2252;">"-qmkl=parallel"</span>
-cmake --build build -j 8
-</pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 
 
-<div id="outline-container-org5e1c5dc" class="outline-4">
-<h4 id="org5e1c5dc"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
-<div class="outline-text-4" id="text-1-2-3">
-<div class="warning" id="orgac4e659">
-<ul class="org-ul">
-<li>Make sure that the installed version of Cmake is higher than 3.20</li>
-<li>Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0</li>
-</ul>
-
-</div>
-</div>
-
-<ol class="org-ol">
-<li><a id="org598dedd"></a>Install or load compilers<br />
-<div class="outline-text-5" id="text-1-2-3-1">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt install -y gfortran
-sudo apt-get install -y gcc
-sudo apt install -y openmpi-bin
-sudo apt install -y libopenmpi-dev
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="org7b6fe96"></a>Install or load BLAS/LAPACK<br />
-<div class="outline-text-5" id="text-1-2-3-2">
-<div class="org-src-container">
-<pre class="src src-bash">sudo apt install -y libblacs-mpi-dev
-sudo apt install -y liblapack-dev
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="orgb8d94ac"></a>Compile script for CHAMP<br />
-<div class="outline-text-5" id="text-1-2-3-3">
-<p>
-Get the <a href="https://github.com/filippi-claudia/champ/releases/tag/v2.1.1">stable version of CHAMP v.2.1.1</a>
-</p>
-
-<div class="warning" id="org1a60b0f">
-<p>
-Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
-</p>
-
-</div>
-
-<div class="org-src-container">
-<pre class="src src-bash">cmake -H. -B build -DCMAKE_Fortran_COMPILER=/usr/bin/mpif90 -DBLA_VENDOR=OpenBLAS
-cmake --build build
-</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgf1ceabc" class="outline-2">
-<h2 id="orgf1ceabc"><span class="section-number-2">2</span> <a id="org406b53f"></a> Setup of input files</h2>
+<div id="outline-container-org4e50d95" class="outline-2">
+<h2 id="org4e50d95"><span class="section-number-2">2</span> <a id="org1c25f7b"></a> Setup of input files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-The tutorial folder is located at: <code>/lustre/home/filippi/Tutorial-QMC-School</code>
+A zipped tutorial folder is located at: <code>/project/project_465000321/tutorial-champ.tar.gz</code>
+Copy that file to your home directory and unzip it using <code>tar -xvzf tutorial-champ.tar.gz</code> command.
 </p>
 
 <p>
 There are several example folders inside
 </p>
+
 <ol class="org-ol">
 <li><code>example01_H2O_HF</code></li>
 <li><code>example02_H2O_DFT</code></li>
@@ -459,156 +311,31 @@ There are several example folders inside
 <li><code>example06_H2O_DFT_optjas2body</code></li>
 <li><code>example07_H2O_DFT_dmc2body_tau0.05</code></li>
 <li><code>example08_H2O_DFT_dmc2body_tau0.02</code></li>
-<li><code>example09_H2O_DFT_dmc2body_optall_tau0.02</code></li>
-<li><code>example09_H2O_DFT_dmc2body_optall_tau0.05</code></li>
 <li><code>example09_H2O_DFT_optall</code></li>
-<li><code>example10_COH2_ground_state</code></li>
-<li><code>example11_COH2_excited_state</code></li>
+<li><code>example10_H2O_DFT_dmc2body_optall_tau0.05</code></li>
+<li><code>example11_H2O_DFT_dmc2body_optall_tau0.02</code></li>
+<li><code>example12_COH2_ground_state_optJas</code></li>
+<li><code>example13_COH2_ground_state_optall</code></li>
+<li><code>example14_COH2_excited_state_optJas</code></li>
+<li><code>example15_COH2_excited_state_optall</code></li>
+<li><code>example16_COH2_ground_state_dmc2body_tau0.05</code></li>
+<li><code>example17_COH2_excited_state_dmc2body_tau0.05</code></li>
 </ol>
+
+
 
 <p>
 Each example directory will contain a setup folder, where you can
 generate the necessary input files for CHAMP from a single TREXIO
-file (in HDF5 format)
+file (in HDF5 format).
 </p>
-
-<p>
-The scripts for conversion are also included in the folder.
-</p>
-
-<ul class="org-ul">
-<li>Example 01: H<sub>2</sub>0 with HF molecular orbitals</li>
-</ul>
-
-
-<div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">cd</span> 01_champ_tools/example01_H2O_HF/setup
-</pre>
-</div>
-
-<p>
-Check the contents of the conversion script
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py <span style="color: #8b2252;">\</span>
-                       --trex   <span style="color: #8b2252;">"trexio_H2O_HF.hdf5"</span> <span style="color: #8b2252;">\</span>
-                       --motype         <span style="color: #8b2252;">"RHF"</span> <span style="color: #8b2252;">\</span>
-                       --backend        <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
-                       --basis_prefix  <span style="color: #8b2252;">"BFD-aug-cc-pVDZ"</span> <span style="color: #8b2252;">\</span>
-                       --lcao <span style="color: #8b2252;">\</span>
-                       --geom <span style="color: #8b2252;">\</span>
-                       --basis <span style="color: #8b2252;">\</span>
-                       --ecp <span style="color: #8b2252;">\</span>
-                       --det
-</pre>
-</div>
-
-<p>
-Execute this script to generate the files:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">./script_water.sh
-</pre>
-</div>
-
-<p>
-Move or copy the following files into the pool folder
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/pool
-</pre>
-</div>
-
-<pre class="example" id="org4450b3a">
-champ_v2_trexio_H2O_HF_geom.xyz
-champ_v2_trexio_H2O_HF_with_g.bfinfo
-ECP.gauss_ecp.dat.H
-ECP.gauss_ecp.dat.O
-BFD-aug-cc-pVDZ.basis.H
-BFD-aug-cc-pVDZ.basis.O
-</pre>
-
-<p>
-The remaining files should be kept in the <code>01_champ_tools/example01_H2O_HF</code> directory.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/
-</pre>
-</div>
-
-<pre class="example" id="org89bc861">
-champ_v2_trexio_H2O_HF_orbitals.lcao
-champ_v2_trexio_H2O_HF_determinants.det
-jastrow.start
-run_champ.sh
-vmc_h2o_hf.inp
-pool/
-setup/
-</pre>
-
-
-
-<p>
-The input file <code>vmc_h2o_hf.inp</code> looks like:
-</p>
-<pre class="example" id="orge27fde9">
-%module general
-    title           'H2O HF calculation'
-    pool            './pool/'
-    pseudopot       ECP
-    basis           BFD-aug-cc-pVDZ
-    mode            vmc
-%endmodule
-
-
-load molecule        $pool/champ_v2_trexio_H2O_HF_geom.xyz
-
-load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
-load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
-load determinants    champ_v2_trexio_H2O_HF_determinants.det
-load jastrow         jastrow.start
-
-%module electrons
-    nup           4
-    nelec         8
-%endmodule
-
-
-%module blocking_vmc
-    vmc_nstep     20
-    vmc_nblk      100000
-    vmc_nblkeq    1
-    vmc_nconf_new 0
-%endmodule
-</pre>
-
-<p>
-The included jastrow file is
-</p>
-
-<pre class="example" id="org1bfa4a6">
-jastrow_parameter   1
-  0  1  0           norda,nordb,nordc
-   0.60000000   0.00000000     scalek,a21
-   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
-   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
- (c(iparmj),iparmj=1,nparmc)
- (c(iparmj),iparmj=1,nparmc)
-end
-</pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ravindra Shinde, Claudia Filippi</p>
-<p class="date">Created: 2023-01-20 Fri 11:27</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-01-31 Tue 14:32</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

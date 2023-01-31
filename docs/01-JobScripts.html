@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-20 Fri 11:27 -->
+<!-- 2023-01-31 Tue 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Anthony Scemama" />
+<meta name="author" content="Anthony Scemama, Ravindra Shinde" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -199,27 +199,52 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
 </head>
 <body>
@@ -230,15 +255,16 @@
 </div><div id="content">
 <h1 class="title">Submitting job scripts on LUMI</h1>
 <div id="table-of-contents">
+<a href="index.html"><h2>HOME</h2></a>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1023825">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org084af05">2. Example of a CHAMP job script</a></li>
+<li><a href="#org489493f">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org4e124e6">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
-<div class="important" id="org4126cf5">
+<div class="important">
 <p>
 To run Quantum Package (QP) and CHAMP codes properly, some environment
 variables should be set. To set up the environment, you should source
@@ -276,8 +302,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org1023825" class="outline-2">
-<h2 id="org1023825"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-org489493f" class="outline-2">
+<h2 id="org489493f"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -286,12 +312,13 @@ An example of a QP job script would be:
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training</span>
+#<span style="color: #b22222;">SBATCH --time=00:20:00</span>
 #<span style="color: #b22222;">SBATCH --nodes=1</span>
 #<span style="color: #b22222;">SBATCH --ntasks=1</span>
-#<span style="color: #b22222;">SBATCH --cpus-per-task=64</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+#<span style="color: #b22222;">SBATCH --cpus-per-task=128</span>
+#<span style="color: #b22222;">SBATCH --mem=0</span>
+#<span style="color: #b22222;">SBATCH --partition=standard</span>
 
 <span style="color: #483d8b;">source</span> /project/project_465000321/environment.sh
 
@@ -307,8 +334,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org084af05" class="outline-2">
-<h2 id="org084af05"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org4e124e6" class="outline-2">
+<h2 id="org4e124e6"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -322,52 +349,101 @@ An example of a CHAMP Variational Monte Carlo job script would be:
 
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
-#<span style="color: #b22222;">SBATCH --nodes=1</span>
-#<span style="color: #b22222;">SBATCH --ntasks=64</span>
-#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+#<span style="color: #b22222;">SBATCH --job-name=champ        # Job name</span>
+#<span style="color: #b22222;">SBATCH --output=champ.o%j      # Name of stdout output file</span>
+#<span style="color: #b22222;">SBATCH --error=champ.e%j       # Name of stderr error file</span>
+#<span style="color: #b22222;">SBATCH --partition=standard    # Partition (queue) name</span>
+#<span style="color: #b22222;">SBATCH --nodes=1               # Total number of nodes</span>
+#<span style="color: #b22222;">SBATCH --ntasks=128            # Total number of mpi tasks</span>
+#<span style="color: #b22222;">SBATCH --mem=0                 # Allocate all the memory on the node</span>
+#<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
+#<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training  # Reservation for training</span>
 
 <span style="color: #483d8b;">source</span> /project/project_465000321/environment.sh
 
-<span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
 
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">INPUT</span>=vmc_input.inp
 <span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-srun ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+
+# <span style="color: #b22222;">Check that the file exists</span>
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">INPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">INPUT</span> does not exist. &gt; $<span style="color: #a0522d;">OUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
+srun /project/project_465000321/champ/bin/vmc.mov1 -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
 
 <p>
-An example of a CHAMP Diffusion Monte Carlo job script would be:
+An example of a CHAMP Diffusion Monte Carlo job script would be (along with the VMC calculation):
 </p>
 
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
-#<span style="color: #b22222;">SBATCH --account=project_465000321</span>
-#<span style="color: #b22222;">SBATCH --time=01:00:00</span>
-#<span style="color: #b22222;">SBATCH --nodes=1</span>
-#<span style="color: #b22222;">SBATCH --ntasks=64</span>
-#<span style="color: #b22222;">SBATCH --cpus-per-task=1</span>
-#<span style="color: #b22222;">SBATCH --mem=200G</span>
-#<span style="color: #b22222;">SBATCH --partition=small</span>
+#<span style="color: #b22222;">SBATCH --job-name=champ        # Job name</span>
+#<span style="color: #b22222;">SBATCH --output=champ.o%j      # Name of stdout output file</span>
+#<span style="color: #b22222;">SBATCH --error=champ.e%j       # Name of stderr error file</span>
+#<span style="color: #b22222;">SBATCH --partition=standard    # Partition (queue) name</span>
+#<span style="color: #b22222;">SBATCH --nodes=1               # Total number of nodes</span>
+#<span style="color: #b22222;">SBATCH --ntasks=128            # Total number of mpi tasks</span>
+#<span style="color: #b22222;">SBATCH --mem=0                 # Allocate all the memory on the node</span>
+#<span style="color: #b22222;">SBATCH --time=0:20:00          # Run time (d-hh:mm:ss)</span>
+#<span style="color: #b22222;">SBATCH --mail-type=all         # Send email at begin and end of job</span>
+#<span style="color: #b22222;">SBATCH --account=project_465000321  # Project for billing</span>
+#<span style="color: #b22222;">SBATCH --reservation=enccs_training # Reservation for training</span>
+
 
 <span style="color: #483d8b;">source</span> /project/project_465000321/environment.sh
 
-<span style="color: #a0522d;">INPUT</span>=dmc_h2o_hf.inp
+<span style="color: #483d8b;">set</span> -e    # <span style="color: #b22222;">the script will exit if a command below fails</span>
 
-<span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
-srun ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PMI_NO_PREINITIALIZE</span>=y
+
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">VMCINPUT</span>=vmc_input.inp
+<span style="color: #a0522d;">VMCOUTPUT</span>=${<span style="color: #a0522d;">VMCINPUT</span>%.inp}.out
+
+# <span style="color: #b22222;">CHANGE THE FILE NAME</span>
+<span style="color: #a0522d;">DMCINPUT</span>=dmc_input.inp
+<span style="color: #a0522d;">DMCOUTPUT</span>=${<span style="color: #a0522d;">DMCINPUT</span>%.inp}.out
+
+# <span style="color: #b22222;">Check that the files exist</span>
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">VMCINPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">VMCINPUT</span> does not exist. &gt; $<span style="color: #a0522d;">VMCOUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
+<span style="color: #a020f0;">if</span> [[ ! -f $<span style="color: #a0522d;">DMCINPUT</span> ]] ; <span style="color: #a020f0;">then</span>
+        <span style="color: #483d8b;">echo</span> Error: $<span style="color: #a0522d;">DMCINPUT</span> does not exist. &gt; $<span style="color: #a0522d;">DMCOUTPUT</span>
+        <span style="color: #a020f0;">exit</span> -1
+<span style="color: #a020f0;">fi</span>
+
+# <span style="color: #b22222;">Launch MPI code</span>
+
+srun /project/project_465000321/champ/bin/vmc.mov1  -i $<span style="color: #a0522d;">VMCINPUT</span> -o $<span style="color: #a0522d;">VMCOUTPUT</span> -e error
+
+cat mc_configs_new* &gt;&gt; mc_configs
+rm mc_configs_new*
+
+srun /project/project_465000321/champ/bin/dmc.mov1 -i $<span style="color: #a0522d;">DMCINPUT</span> -o $<span style="color: #a0522d;">DMCOUTPUT</span> -e error
+
+rm problem* walkalize*
+rm mc_configs_new*
+
 </pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2023-01-20 Fri 11:27</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="author">Author: Anthony Scemama, Ravindra Shinde</p>
+<p class="date">Created: 2023-01-31 Tue 14:32</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

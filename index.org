@@ -1,8 +1,38 @@
-#+TITLE: QMC Hands-on Workshop
+#+TITLE: Targeting chemical accuracy with quantum Monte Carlo on LUMI
 #+AUTHOR: Claudia Filippi, Anthony Scemama, Ravindra Shinde
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: 01-JobScripts.html
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
+
+  [[./images/TREX-banner.jpg]]
+
+#+OPTIONS: H:2 num:nil
+
+** QMC Hands-on Workshop: January 26 - 31, 2022
+
+
+** General information
+    -   TREX: https://www.trex-coe.eu/
+    -   ENCCS: https://enccs.se/
+    -   LUMI: https://www.lumi-supercomputer.eu/
+    -   This hackMD: https://hackmd.io/@enccs/trex-qmc-jan2023
+    -   Archive hackMD: https://hackmd.io/@enccs/Sk8ZZbW3i
+    -   Lesson material: https://trex-coe.github.io/school-ncc-2023/
+    -   Workshop feedback form: https://events.prace-ri.eu/event/1471/surveys/1054
+    -   Workshop will be recorded. Edited recordings will be linked from enccs.se/lessons
+
+
+** Instructors and helpers
+    - Claudia Filippi, University of Twente
+    - Anthony Scemama, Université Paul Sabatier Toulouse III
+    - Ravindra Shinde, University of Twente
+    - Stuart Shepard, University of Twente
+    - Edgar Landinez Borda, University of Twente
+    - Victor Azizi, Netherlands eScience Center
+    - Qiang Li, ENCCS
+    - Thor Wikfeldt, ENCCS
+
+
 
 * Presentations
 
@@ -27,4 +57,4 @@
 #+begin_important
     To navigate between the pages, you can you can click on the =PREV|NEXT= buttons at
     the top right of the web pages.
-#+end_important    
+#+end_important
