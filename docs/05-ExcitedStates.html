@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-31 Tue 14:33 -->
+<script defer data-domain="trex-coe.github.io/school-ncc-2023" src="https://plausible.io/js/script.js"></script>
+<!-- 2023-05-05 Fri 14:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -40,7 +41,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -201,50 +202,26 @@
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -281,13 +258,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf1ac206">1. Introduction</a></li>
-<li><a href="#org7cbee56">2. CIPSI 2-state calculations</a></li>
-<li><a href="#orgd0056ec">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgabe11b9">4. QMC wave function optimizations</a>
+<li><a href="#org6e420f3">1. Introduction</a></li>
+<li><a href="#orga727623">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org80c1d77">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orgf5ce139">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org2438771">4.1. Optimization of the ground state</a></li>
-<li><a href="#orgc923eed">4.2. Optimization of the excited state</a></li>
+<li><a href="#org2252e77">4.1. Optimization of the ground state</a></li>
+<li><a href="#orgd8d9843">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -300,8 +277,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgf1ac206" class="outline-2">
-<h2 id="orgf1ac206"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org6e420f3" class="outline-2">
+<h2 id="org6e420f3"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -312,7 +289,7 @@ and we will run wave function optimization in CHAMP, followed by a
 Diffusion Monte Carlo calculation.
 </p>
 
-<div class="tip">
+<div class="tip" id="orge568263">
 <p>
 The theoretical best estimate of the excitation energy (complete basis set
 extrapolation from coupled cluster calculations) is 3.97 eV.
@@ -322,8 +299,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-org7cbee56" class="outline-2">
-<h2 id="org7cbee56"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-orga727623" class="outline-2">
+<h2 id="orga727623"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -364,7 +341,7 @@ and run the CIPSI in the Full-CI space:
 </pre>
 </div>
 
-<div class="note">
+<div class="note" id="org4ca4c71">
 <p>
 The expected energy should be around 4 eV but the result of the
 calculation is around 8 eV.
@@ -380,7 +357,7 @@ include at least one determinant of each symmetry.
 
 </div>
 
-<div class="tip">
+<div class="tip" id="orgfc971a9">
 <p>
 The suggested solution is to first perform a CIS (Configuration
 Interaction Singles) calculation, which will ensure that at least
@@ -420,8 +397,8 @@ eV, and we are ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-orgd0056ec" class="outline-2">
-<h2 id="orgd0056ec"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org80c1d77" class="outline-2">
+<h2 id="org80c1d77"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -512,8 +489,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgabe11b9" class="outline-2">
-<h2 id="orgabe11b9"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orgf5ce139" class="outline-2">
+<h2 id="orgf5ce139"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -522,7 +499,7 @@ The setup of the CHAMP files is similar to what we have done in
 <a href="./04-QP_CHAMP.html">section 4</a>.
 </p>
 
-<div class="warning">
+<div class="warning" id="org8645ea4">
 <p>
 Here, we have 12 electrons, 6 up and 6 down.
 </p>
@@ -530,8 +507,8 @@ Here, we have 12 electrons, 6 up and 6 down.
 </div>
 </div>
 
-<div id="outline-container-org2438771" class="outline-3">
-<h3 id="org2438771"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-org2252e77" class="outline-3">
+<h3 id="org2252e77"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and move the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -563,7 +540,7 @@ line for \(a\) parameters. You can start by creating a file
 called <code>jastrow.start</code>:
 </p>
 
-<pre class="example">
+<pre class="example" id="org9a4d5a9">
 jastrow_parameter   1
   5  5  0           norda,nordb,nordc
    0.60000000   0.00000000     scalek,a21
@@ -581,7 +558,7 @@ end
 Similarly, the file <code>jastrow.der</code> is slightly different:
 </p>
 
-<pre class="example">
+<pre class="example" id="org20ce273">
 jasderiv
 4 4 4  5  0 0 0  0 0 0 nparma,nparmb,nparmc,nparmf
 3 4 5 6   (iwjasa(iparm),iparm=1,nparma)
@@ -600,7 +577,7 @@ optimization.  The following champ input file (<code>vmc_quick.inp</code>)
 contains the parameters for such a "quick" optimization.
 </p>
 
-<pre class="example">
+<pre class="example" id="orgd0a014c">
 %module optwf
     ioptwf        1
     ioptci        0
@@ -627,7 +604,7 @@ contains the parameters for such a "quick" optimization.
 %endmodule
 </pre>
 
-<div class="important">
+<div class="important" id="org8767a22">
 <p>
 If you create your input file from the H<sub>2</sub>O example, don't forget
 to change the number of electrons!
@@ -641,7 +618,7 @@ load this optimized Jastrow factor. You can now optimize also the CI
 coefficients together with the Jastrow factor by setting:
 </p>
 
-<pre class="example">
+<pre class="example" id="org07d2248">
 ioptci        1
 </pre>
 
@@ -649,7 +626,7 @@ ioptci        1
 Use some more Monte Carlo steps to perform a more strict optimization. Use <code>nopt_iter 10</code>.
 </p>
 
-<pre class="example">
+<pre class="example" id="org3db566c">
 %module blocking_vmc
     vmc_nstep     20
     vmc_nblk      100
@@ -669,14 +646,14 @@ CI coefficients. Adjust the <code>etrial</code> to be a bit below the VMC energy
 Recall that you will have to generate the <code>mc_configs</code> file.
 </p>
 
-<div class="tip">
+<div class="tip" id="org68570c0">
 <p>
 Note: You could have also optimized the orbitals but we did not
 do it here to keep the calculations short. If you are setting
 <code>optorb=1</code>, load also the symmetry file.
 </p>
 
-<pre class="example">
+<pre class="example" id="orga24db97">
 load symmetry champ_v2_COH2_GS_symmetry.sym
 </pre>
 
@@ -684,8 +661,8 @@ load symmetry champ_v2_COH2_GS_symmetry.sym
 </div>
 </div>
 
-<div id="outline-container-orgc923eed" class="outline-3">
-<h3 id="orgc923eed"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-orgd8d9843" class="outline-3">
+<h3 id="orgd8d9843"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -722,8 +699,8 @@ is given by
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Ravindra Shinde, Claudia Filippi</p>
-<p class="date">Created: 2023-01-31 Tue 14:33</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-05-05 Fri 14:54</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-31 Tue 14:32 -->
+<script defer data-domain="trex-coe.github.io/school-ncc-2023" src="https://plausible.io/js/script.js"></script>
+<!-- 2023-05-05 Fri 14:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts on LUMI</title>
@@ -40,7 +41,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -201,50 +202,26 @@
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 </head>
 <body>
@@ -259,12 +236,12 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org489493f">1. Example of a QP job script on LUMI</a></li>
-<li><a href="#org4e124e6">2. Example of a CHAMP job script</a></li>
+<li><a href="#orgf54f43e">1. Example of a QP job script on LUMI</a></li>
+<li><a href="#org195a4f5">2. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
-<div class="important">
+<div class="important" id="org56bd210">
 <p>
 To run Quantum Package (QP) and CHAMP codes properly, some environment
 variables should be set. To set up the environment, you should source
@@ -302,8 +279,8 @@ the command:
 </div>
 
 
-<div id="outline-container-org489493f" class="outline-2">
-<h2 id="org489493f"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
+<div id="outline-container-orgf54f43e" class="outline-2">
+<h2 id="orgf54f43e"><span class="section-number-2">1</span> Example of a QP job script on LUMI</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 An example of a QP job script would be:
@@ -334,8 +311,8 @@ efficient using all possible threads on the node.
 </div>
 </div>
 
-<div id="outline-container-org4e124e6" class="outline-2">
-<h2 id="org4e124e6"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org195a4f5" class="outline-2">
+<h2 id="org195a4f5"><span class="section-number-2">2</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 For CHAMP, you should request one or many nodes with a certain number of
@@ -442,8 +419,8 @@ rm mc_configs_new*
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Ravindra Shinde</p>
-<p class="date">Created: 2023-01-31 Tue 14:32</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-05-05 Fri 14:54</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

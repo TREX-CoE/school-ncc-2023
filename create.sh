@@ -32,14 +32,16 @@ then
     for org in ${ORG_FILES}
     do
 	echo "HTMLIZE: $org"
-    	emacs --batch --load ./docs/htmlize.el --load ./docs/config.el $org -f org-html-export-to-html
+    	emacs --batch --load ./docs/htmlize.el --load ./docs/config.el $org -f org-html-export-to-html &
     done
+    wait
 else
     for org in ${ORG_FILES}
     do
 	echo "CONVERT: $org"
-    	emacs --batch --load ./docs/config.el $org -f org-html-export-to-html
+    	emacs --batch --load ./docs/config.el $org -f org-html-export-to-html &
     done
+    wait
 fi
 
 mv *.html docs/
@@ -48,5 +50,6 @@ for i in *.html ; do
    sed -i "s/ HOME / NEXT /" $i
    sed -i "s/ UP / PREV /" $i
    sed -i '/^<h2>Table of Contents<\/h2>/i<a href="index.html"><h2>HOME<\/h2></a>' $i
+   sed -i '/^<head>/a<script defer data-domain="trex-coe.github.io\/school-ncc-2023" src="https:\/\/plausible.io\/js\/script.js"></script>' $i
 done
 

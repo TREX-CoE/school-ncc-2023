@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-01-31 Tue 14:33 -->
+<script defer data-domain="trex-coe.github.io/school-ncc-2023" src="https://plausible.io/js/script.js"></script>
+<!-- 2023-05-05 Fri 14:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Targeting chemical accuracy with quantum Monte Carlo on LUMI</title>
@@ -40,7 +41,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -201,50 +202,26 @@
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <style> #content{max-width:1200px;}</style>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 </head>
 <body>
@@ -259,28 +236,28 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgbc41e31">QMC Hands-on Workshop: January 26 - 31, 2022</a></li>
-<li><a href="#org1c4da55">General information</a></li>
-<li><a href="#org38c6978">Instructors and helpers</a></li>
+<li><a href="#org95f6ddf">QMC Hands-on Workshop: January 26 - 31, 2022</a></li>
+<li><a href="#org1cb2619">General information</a></li>
+<li><a href="#orgd7aba3f">Instructors and helpers</a></li>
 </ul>
 </li>
-<li><a href="#orgc593443">Presentations</a></li>
-<li><a href="#org328caa4">Hands-on</a></div>
+<li><a href="#org57a1d94">Presentations</a></li>
+<li><a href="#orgd3aec26">Hands-on</a></div>
 </div>
 
-<div class="figure">
+<div id="org5dcd740" class="figure">
 <p><img src="./images/TREX-banner.jpg" alt="TREX-banner.jpg" />
 </p>
 </div>
 
-<div id="outline-container-orgbc41e31" class="outline-3">
-<h3 id="orgbc41e31">QMC Hands-on Workshop: January 26 - 31, 2022</h3>
+<div id="outline-container-org95f6ddf" class="outline-3">
+<h3 id="org95f6ddf">QMC Hands-on Workshop: January 26 - 31, 2022</h3>
 </div>
 
 
-<div id="outline-container-org1c4da55" class="outline-3">
-<h3 id="org1c4da55">General information</h3>
-<div class="outline-text-3" id="text-org1c4da55">
+<div id="outline-container-org1cb2619" class="outline-3">
+<h3 id="org1cb2619">General information</h3>
+<div class="outline-text-3" id="text-org1cb2619">
 <ul class="org-ul">
 <li>TREX: <a href="https://www.trex-coe.eu/">https://www.trex-coe.eu/</a></li>
 <li>ENCCS: <a href="https://enccs.se/">https://enccs.se/</a></li>
@@ -295,9 +272,9 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org38c6978" class="outline-3">
-<h3 id="org38c6978">Instructors and helpers</h3>
-<div class="outline-text-3" id="text-org38c6978">
+<div id="outline-container-orgd7aba3f" class="outline-3">
+<h3 id="orgd7aba3f">Instructors and helpers</h3>
+<div class="outline-text-3" id="text-orgd7aba3f">
 <ul class="org-ul">
 <li>Claudia Filippi, University of Twente</li>
 <li>Anthony Scemama, Université Paul Sabatier Toulouse III</li>
@@ -313,9 +290,9 @@ for the JavaScript code in this tag.
 
 
 
-<div id="outline-container-orgc593443" class="outline-2">
-<h2 id="orgc593443">Presentations</h2>
-<div class="outline-text-2" id="text-orgc593443">
+<div id="outline-container-org57a1d94" class="outline-2">
+<h2 id="org57a1d94">Presentations</h2>
+<div class="outline-text-2" id="text-org57a1d94">
 <ul class="org-ul">
 <li><a href="./Presentations/lectures_filippi_1.pdf">Basic VMC and DMC</a></li>
 <li><a href="./Presentations/multidet.pdf">Multi-determinant wave functions</a></li>
@@ -323,9 +300,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org328caa4" class="outline-2">
-<h2 id="org328caa4">Hands-on</h2>
-<div class="outline-text-2" id="text-org328caa4">
+<div id="outline-container-orgd3aec26" class="outline-2">
+<h2 id="orgd3aec26">Hands-on</h2>
+<div class="outline-text-2" id="text-orgd3aec26">
 <ol class="org-ol">
 <li><a href="./01-JobScripts.html">Job script examples</a></li>
 <li><a href="./02-Intro_qp.html">Introduction to Quantum Package</a></li>
@@ -334,7 +311,7 @@ for the JavaScript code in this tag.
 <li><a href="./05-ExcitedStates.html">Excited state calculations</a></li>
 </ol>
 
-<div class="note">
+<div class="note" id="org9216613">
 <p>
 This web site is available here:
 </p>
@@ -345,7 +322,7 @@ This web site is available here:
 
 </div>
 
-<div class="important">
+<div class="important" id="org149dd05">
 <p>
 To navigate between the pages, you can you can click on the <code>PREV|NEXT</code> buttons at
 the top right of the web pages.
@@ -357,8 +334,8 @@ the top right of the web pages.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Claudia Filippi, Anthony Scemama, Ravindra Shinde</p>
-<p class="date">Created: 2023-01-31 Tue 14:33</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-05-05 Fri 14:54</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
